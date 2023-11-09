@@ -9,11 +9,11 @@ public:
     TeacherFile();
     TeacherFile(std::string);
 
-    TeacherFile read(int);
+    Teacher read(int);
     int searchRecord(int);
     int numberOfRecords();
-    bool save(Teacher);
-    bool save(Teacher, int);
-    bool update(Teacher, int);
-    bool clearLog(std::string, int);
+    bool save(const Teacher&);
+    bool save(const Teacher&, int);
+    bool update(const Teacher&, int);
+    bool deleteRecord(int);
 };

@@ -1,5 +1,6 @@
-#include"SuperAdministratorFile.h"
+#include <cstring>
 #include <cstdio>
+#include"SuperAdministratorFile.h"
 
 SuperAdministratorFile::SuperAdministratorFile(){
 
@@ -7,9 +8,9 @@ SuperAdministratorFile::SuperAdministratorFile(){
 SuperAdministratorFile::SuperAdministratorFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 }
-SuperAdministratorFile::SuperAdministratorFile read(int registryNumber){
+SuperAdministrator SuperAdministratorFile::read(int registryNumber){
 SuperAdministrator superAdministrator;
-FILE *p = fopen("superAdministrators.dat", "rb");//_fileName.c_str()(?)
+FILE *p = fopen("superAdministrators.dat", "rb");
 if(p == nullptr){
     return superAdministrator;
 }
@@ -18,7 +19,7 @@ fread(&superAdministrator, sizeof(SuperAdministrator), 1, p);
 fclose(p);
 return superAdministrator;
 }
-int SuperAdministratorFile::searchRecord(int registryNumber){ // o position(?)
+int SuperAdministratorFile::searchRecord(int registryNumber){
     int position = 0;
         SuperAdministrator superAdministrator;
         FILE *p = fopen("superAdministrators.dat", "rb");
@@ -26,7 +27,7 @@ int SuperAdministratorFile::searchRecord(int registryNumber){ // o position(?)
         return -1;
         }
         while(fread(&superAdministrator, sizeof(SuperAdministrator), 1, p)) {
-            if(superAdministrator.getDocument() == registryNumber){//id para buscar {
+            if(superAdministrator.getFile() == registryNumber){//id para buscar {
                 fclose(p);
                 return position;
             }
@@ -72,15 +73,15 @@ bool SuperAdministratorFile::update(const SuperAdministrator& superAdministrator
     if(p == nullptr){
         return couldUpdate;
     }
-    fseek(p, registryNumber * sizeof(SuperAdministrator), 1, p);
+    fseek(p, registryNumber * sizeof(SuperAdministrator), SEEK_SET);
     couldUpdate = fwrite(&superAdministrator, sizeof(SuperAdministrator), 1, p);
     fclose(p);
     return couldUpdate;
 }
-bool SuperAdministratorFile::clearLog(int registryNumber){ //borrar registro
+bool SuperAdministratorFile::deleteRecord(int registryNumber){ //borrar registro
     bool couldEliminate = false; //pudo eliminar
         int position = searchRecord(registryNumber);
         SuperAdministrator superAdministrator = read(position);
-        superAdministrator.setAsset(false); //set activo(?
+        superAdministrator.setState(false); //set activo(?
         return save(superAdministrator, position);
 }

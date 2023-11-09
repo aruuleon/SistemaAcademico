@@ -1,5 +1,6 @@
-#include"AdministratorFile.h"
+#include <cstring>
 #include <cstdio>
+#include"AdministratorFile.h"
 
 AdministratorFile::AdministratorFile(){
 
@@ -7,7 +8,7 @@ AdministratorFile::AdministratorFile(){
 AdministratorFile::AdministratorFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 }
-AdministratorFile::AdministratorFile read(int registryNumber){
+Administrator AdministratorFile::read(int registryNumber){
 Administrator administrator;
 FILE *p = fopen("administrators.dat ", "rb");
 if(p == nullptr){
@@ -26,7 +27,7 @@ int AdministratorFile::searchRecord(int registryNumber){
         return -1;
         }
         while(fread(&administrator, sizeof(Administrator), 1, p)) {
-            if(administrator.getDocument() == registryNumber){//id para buscar {
+            if(administrator.getFile() == registryNumber){//id para buscar {
                 fclose(p);
                 return position;
             }
@@ -72,15 +73,15 @@ bool AdministratorFile::update(const Administrator& administrator, int registryN
     if(p == nullptr){
         return couldUpdate;
     }
-    fseek(p, registryNumber * sizeof(Administrator), 1, p);
+    fseek(p, registryNumber * sizeof(Administrator), SEEK_SET);
     couldUpdate = fwrite(&administrator, sizeof(Administrator), 1, p);
     fclose(p);
     return couldUpdate;
 }
-bool AdministratorFile::clearLog(int registryNumber){
-    bool couldEliminate = false; //pudo eliminar
+bool AdministratorFile::deleteRecord(int registryNumber){
+    bool couldEliminate = false;
         int position = searchRecord(registryNumber);
         Administrator administrator = read(position);
-        administrator.setAsset(false); //activo(?
+        administrator.setState(false);
         return save(administrator, position);
 }

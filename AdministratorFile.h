@@ -8,12 +8,11 @@ private:
 public:
     AdministratorFile();
     AdministratorFile(std::string);
-
-    AdministratorFile read(int);
+    Administrator read(int);
     int searchRecord(int);
     int numberOfRecords();
-    bool save(Administrator);
-    bool save(Administrator, int);
-    bool update(Administrator, int);
-    bool clearLog(std::string, int);
+    bool save(const Administrator&);
+    bool save(const Administrator&, int);
+    bool update(const Administrator&, int);
+    bool deleteRecord(int);
 };

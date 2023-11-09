@@ -1,5 +1,6 @@
-#include"TeacherFile.h"
+#include <cstring>
 #include <cstdio>
+#include"TeacherFile.h"
 
 TeacherFile::TeacherFile(){
 
@@ -7,7 +8,7 @@ TeacherFile::TeacherFile(){
 TeacherFile::TeacherFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 }
-TeacherFile::TeacherFile read(int registryNumber){
+Teacher TeacherFile::read(int registryNumber){
 Teacher teacher;
 FILE *p = fopen("teacher.dat", "rb");
 if(p == nullptr){
@@ -26,7 +27,7 @@ int TeacherFile::searchRecord(int registryNumber){
         return -1;
         }
         while(fread(&teacher, sizeof(Teacher), 1, p)) {
-            if(teacher.getDocument() == registryNumber){//id para buscar {
+            if(teacher.getFile() == registryNumber){//id para buscar {
                 fclose(p);
                 return position;
             }
@@ -72,15 +73,15 @@ bool TeacherFile::update(const Teacher& teacher, int registryNumber){
     if(p == nullptr){
         return couldUpdate;
     }
-    fseek(p, registryNumber * sizeof(Teacher), 1, p);
+    fseek(p, registryNumber * sizeof(Teacher), SEEK_SET);
     couldUpdate = fwrite(&teacher, sizeof(Teacher), 1, p);
     fclose(p);
     return couldUpdate;
 }
-bool TeacherFile::clearLog(int registryNumber){
+bool TeacherFile::deleteRecord(int registryNumber){
     bool couldEliminate = false; //pudo eliminar
         int position = searchRecord(registryNumber);
         Teacher teacher = read(position);
-        teacher.setAsset(false); //activo(?
+        teacher.setState(false); //activo(?
         return save(teacher, position);
 }

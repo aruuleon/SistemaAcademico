@@ -9,11 +9,11 @@ public:
     SuperAdministratorFile();
     SuperAdministratorFile(std::string);
 
-    SuperAdministratorFile read(int);
+    SuperAdministrator read(int);
     int searchRecord(int);
     int numberOfRecords();
-    bool save(SuperAdministrator);
-    bool save(SuperAdministrator, int);
-    bool update(SuperAdministrator, int);
-    bool clearLog(std::string, int);
+    bool save(const SuperAdministrator&);
+    bool save(const SuperAdministrator&, int);
+    bool update(const SuperAdministrator&, int);
+    bool deleteRecord(int);
 };

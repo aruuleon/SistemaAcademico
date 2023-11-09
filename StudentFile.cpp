@@ -1,13 +1,14 @@
-#include"StudentFile.h"
+#include <cstring>
 #include <cstdio>
+#include"StudentFile.h"
 
-StudentFile::StudentFile(){
+StudentFile::StudentFile() {
 
 }
-StudentFile::StudentFile(std::string fileName){
+StudentFile::StudentFile(std::string fileName) {
     strcpy(_fileName, fileName.c_str());
 }
-StudentFile::StudentFile read(int registryNumber){
+Student StudentFile::read(int registryNumber) {
 Student student;
 FILE *p = fopen("student.dat", "rb");
 if(p == nullptr){
@@ -18,7 +19,7 @@ fread(&student, sizeof(Student), 1, p);
 fclose(p);
 return student;
 }
-int StudentFile::searchRecord(int registryNumber){
+int StudentFile::searchRecord(int registryNumber) {
     int position = 0;
         Student student;
         FILE *p = fopen("student.dat", "rb");
@@ -26,7 +27,7 @@ int StudentFile::searchRecord(int registryNumber){
         return -1;
         }
         while(fread(&student, sizeof(Student), 1, p)) {
-            if(student.getDocument() == registryNumber){//id para buscar {
+            if(student.getFile() == registryNumber) {
                 fclose(p);
                 return position;
             }
@@ -35,7 +36,7 @@ int StudentFile::searchRecord(int registryNumber){
     fclose(p);
     return -1;
 }
-int StudentFile::numberOfRecords(){
+int StudentFile::numberOfRecords() {
     FILE *p = fopen("student.dat", "rb");
     if(p == nullptr){
         return -1;
@@ -67,20 +68,20 @@ bool StudentFile::save(const Student& student, int position) {
     return successfulSave;
 }
 bool StudentFile::update(const Student& student, int registryNumber){
-    bool couldUpdate = false; //pudo actualizar
+    bool couldUpdate = false;
     FILE *p = fopen("student.dat", "rb+");
     if(p == nullptr){
         return couldUpdate;
     }
-    fseek(p, registryNumber * sizeof(Student), 1, p);
+    fseek(p, registryNumber * sizeof(Student), SEEK_SET);
     couldUpdate = fwrite(&student, sizeof(Student), 1, p);
     fclose(p);
     return couldUpdate;
 }
-bool StudentFile::clearLog(int registryNumber){
-    bool couldEliminate = false; //pudo eliminar
+bool StudentFile::deleteRecord(int registryNumber) {
+    bool couldEliminate = false;
         int position = searchRecord(registryNumber);
         Student student = read(position);
-        student.setAsset(false); //activo(?
+        student.setState(false);
         return save(student, position);
 }
