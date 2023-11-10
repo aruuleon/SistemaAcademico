@@ -1,19 +1,16 @@
+#pragma once
 #include "Career.h"
 
-class careerFile
-{
+class CareerFile{
     private:
         char _fileName[30];
     public:
-        careerFile();
-        careerFile(std::string name);
-
+        CareerFile();
+        CareerFile(std::string name);
         Career read(int);
-        int search(int );
+        int searchRecord(int);
         int getNumberOfRecords();
-        bool save(Career);
-        bool update(Career, int);
+        bool save(const Career&);
+        bool update(const Career&, int);
         bool deleteRecord(int);
-
-
 };

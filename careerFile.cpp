@@ -1,14 +1,15 @@
-#include "careerFile.h"
+#include <cstring>
+#include "CareerFile.h"
 
-careerFile::careerFile(){
+CareerFile::CareerFile(){
 
 }
 
-careerFile::careerFile(std::string name){
+CareerFile::CareerFile(std::string name){
     strcpy(_fileName, name.c_str());
 }
 
-Career read(int position){
+Career CareerFile::read(int position){
     Career career;
     FILE * reg = fopen("careers.txt", "rb");
     if(!reg) {
@@ -22,7 +23,7 @@ Career read(int position){
     return career;
 }
 
-int search(int file){
+int CareerFile::searchRecord(int file){
     int position = 0;
     Career career;
     FILE * reg = fopen("careers.txt", "rb");
@@ -43,7 +44,7 @@ int search(int file){
     return -1;
 }
 
-int getNumberOfRecords(){
+int CareerFile::getNumberOfRecords(){
     FILE * reg = fopen("careers.txt", "rb");
 
         if(!reg) {
@@ -58,7 +59,7 @@ int getNumberOfRecords(){
         return numberOfRecords;
 }
 
-bool save(Career obj){
+bool CareerFile::save(const Career& obj){
     bool successfulSave = false;
     FILE * reg = fopen("careers.txt", "ab");
 
@@ -72,7 +73,7 @@ bool save(Career obj){
     return successfulSave;
 }
 
-bool update(Career obj, int position){
+bool CareerFile::update(const Career& obj, int position){
     bool successfulSave = false;
     FILE * reg = fopen("careers.txt", "rb+");
 
@@ -87,8 +88,8 @@ bool update(Career obj, int position){
     return successfulSave;
 }
 
-bool deleteRecord(int file){
-    int position = search(file);
+bool CareerFile::deleteRecord(int file){
+    int position = searchRecord(file);
     Career career = read(position);
     career.setState(false);
     return save(career);
