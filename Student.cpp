@@ -9,7 +9,7 @@ Student::Student(std::string name, std::string surname, std::string document, st
 void Student::showMenu(Student student) {
     int selectedOption;
     do {
-        std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
+        std::cout << "MENU ALUMNO" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - INSCRIBIRSE A EXAMEN" << std::endl;
         std::cout << "2 - INSCRIBIRSE A MATERIA" << std::endl;
