@@ -3,10 +3,13 @@
 
 class SuperAdministrator : public FacultyStaff {
     private:
-
-    public:
-        SuperAdministrator();
-        SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int);
+        void sendRequest(int);
         void registerAdministrator();
         void withdrawAdministrator();
+        void searchAdministrator();
+        void listAdministrators();
+    public:
+        SuperAdministrator();
+        SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
+        void showMenu(SuperAdministrator);
 };

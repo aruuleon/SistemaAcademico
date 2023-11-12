@@ -1,6 +1,6 @@
 #pragma once
-#include "Teacher.h"
 #include <string>
+#include "Teacher.h"
 
 class TeacherFile{
 private:

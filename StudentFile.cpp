@@ -10,7 +10,7 @@ StudentFile::StudentFile(std::string fileName) {
 }
 Student StudentFile::read(int registryNumber) {
 Student student;
-FILE *p = fopen("student.dat", "rb");
+FILE *p = fopen(_fileName, "rb");
 if(p == nullptr){
     return student;
 }
@@ -22,7 +22,7 @@ return student;
 int StudentFile::searchRecord(int registryNumber) {
     int position = 0;
         Student student;
-        FILE *p = fopen("student.dat", "rb");
+        FILE *p = fopen(_fileName, "rb");
         if(p == nullptr){
         return -1;
         }
@@ -37,7 +37,7 @@ int StudentFile::searchRecord(int registryNumber) {
     return -1;
 }
 int StudentFile::numberOfRecords() {
-    FILE *p = fopen("student.dat", "rb");
+    FILE *p = fopen(_fileName, "rb");
     if(p == nullptr){
         return -1;
     }
@@ -48,7 +48,7 @@ int StudentFile::numberOfRecords() {
 }
 bool StudentFile::save(const Student& student){
     bool successfulSave = false; //guardado exitoso
-    FILE * p = fopen("student.dat", "ab");
+    FILE * p = fopen(_fileName, "ab");
     if(p == nullptr) {
         return successfulSave;
     }
@@ -58,7 +58,7 @@ bool StudentFile::save(const Student& student){
     }
 bool StudentFile::save(const Student& student, int position) {
     bool successfulSave = false;
-    FILE * p = fopen("student.dat", "rb+");
+    FILE * p = fopen(_fileName, "rb+");
         if(p == nullptr) {
             return successfulSave;
         }
@@ -69,7 +69,7 @@ bool StudentFile::save(const Student& student, int position) {
 }
 bool StudentFile::update(const Student& student, int registryNumber){
     bool couldUpdate = false;
-    FILE *p = fopen("student.dat", "rb+");
+    FILE *p = fopen(_fileName, "rb+");
     if(p == nullptr){
         return couldUpdate;
     }

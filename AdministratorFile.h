@@ -2,7 +2,7 @@
 #include "Administrator.h"
 #include <string>
 
-class AdministratorFile{
+class AdministratorFile {
 private:
     char _fileName[30];
 public:

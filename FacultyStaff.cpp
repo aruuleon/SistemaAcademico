@@ -1,15 +1,17 @@
-#include "FacultyStaff.h"
+#include <iostream>
 #include <cstring>
+#include "FacultyStaff.h"
 
 FacultyStaff::FacultyStaff() {
 
 };
-FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file) {
+FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) {
     Person:Person(name, surname, document);
     setEmail(email);
     setPassword(password);
     setPhone(phone);
     setFile(file);
+    setUserType(userType);
     setState(true);
 };
 std::string FacultyStaff::getEmail() const {
@@ -23,6 +25,9 @@ std::string FacultyStaff::getPhone() const {
 };
 int FacultyStaff::getFile() const {
     return _file;
+};
+int FacultyStaff::getUserType() const {
+    return _userType;
 };
 bool FacultyStaff::getState() const {
     return _state;
@@ -39,9 +44,12 @@ void FacultyStaff::setPhone(std::string phone) {
 void FacultyStaff::setFile(int file) {
     _file = file;
 };
+void FacultyStaff::setUserType(int userType) {
+    _userType = userType;
+};
 void FacultyStaff::setState(bool state) {
     _state = state;
 };
 void FacultyStaff::logout() {
-
+    std::cout << "FINALIZANDO SESION" << std::endl;
 };

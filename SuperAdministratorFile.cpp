@@ -8,13 +8,13 @@ SuperAdministratorFile::SuperAdministratorFile(){
 SuperAdministratorFile::SuperAdministratorFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 }
-SuperAdministrator SuperAdministratorFile::read(int registryNumber){
+SuperAdministrator SuperAdministratorFile::read(int position){
 SuperAdministrator superAdministrator;
 FILE *p = fopen("superAdministrators.dat", "rb");
 if(p == nullptr){
     return superAdministrator;
 }
-fseek(p, registryNumber * sizeof(SuperAdministrator), SEEK_SET);
+fseek(p, position * sizeof(SuperAdministrator), SEEK_SET);
 fread(&superAdministrator, sizeof(SuperAdministrator), 1, p);
 fclose(p);
 return superAdministrator;

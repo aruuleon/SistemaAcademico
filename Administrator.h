@@ -3,10 +3,7 @@
 
 class Administrator : public FacultyStaff {
     private:
-
-    public:
-        Administrator();
-        Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int);
+        void sendRequest(int);
         void registerStaff();
         void editStaff();
         void removeStaff();
@@ -14,4 +11,8 @@ class Administrator : public FacultyStaff {
         void assignNoteStudent();
         void editStudentNote();
         void postNotices();
+    public:
+        Administrator();
+        Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
+        void showMenu(Administrator);
 };
