@@ -46,3 +46,13 @@ void SuperAdministrator::searchAdministrator() {
 void SuperAdministrator::listAdministrators() {
     std::cout << "MOSTRANDO LISTA ADMINISTRADORES.." << std::endl;
 };
+void SuperAdministrator::show(){
+    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "APELLIDO       : " << getSurname() << std::endl;
+    std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 
+    std::cout << "CLAVE          : " << getPassword() << std::endl; 
+    std::cout << "MAIL           : " << getEmail() << std::endl; 
+    std::cout << "TELEFONO       : " << getPhone() << std::endl; 
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+};

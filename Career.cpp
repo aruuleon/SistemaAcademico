@@ -1,5 +1,6 @@
 #include "Career.h"
 #include <cstring>
+#include <iostream>
 
 Career::Career(){
 
@@ -40,4 +41,10 @@ void Career::setDuration(int duration) {
 };
 void Career::setState(bool state) {
     _state = state;
+};
+void Career::show(){
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "ID CARRERA     : " << getCareerId() << std::endl; 
+    std::cout << "TIPO DE ESTUDIO     : " << getStudioType() << std::endl;//??
+    std::cout << "DURACION       : " << getDuration() << std::endl; 
 };

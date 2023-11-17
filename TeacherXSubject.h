@@ -15,4 +15,5 @@ class TeacherXSubject {
         void setComissionCode(std::string);
         void setTeacherId(int);
         void setSubjectId(int);
+        void show();
 };

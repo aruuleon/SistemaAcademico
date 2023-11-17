@@ -24,4 +24,5 @@ class Subject {
         void setDuration(int);
         void setYearCareer(int);
         void setState(bool);
+        void show();
 };

@@ -12,4 +12,5 @@ class SuperAdministrator : public FacultyStaff {
         SuperAdministrator();
         SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
         void showMenu(SuperAdministrator);
+        void show();
 };

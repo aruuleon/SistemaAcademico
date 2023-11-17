@@ -64,3 +64,13 @@ void Administrator::editStudentNote() {
 void Administrator::postNotices() {
 
 };
+void Administrator::show(){
+    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "APELLIDO       : " << getSurname() << std::endl;
+    std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 
+    std::cout << "CLAVE          : " << getPassword() << std::endl; 
+    std::cout << "MAIL           : " << getEmail() << std::endl; 
+    std::cout << "TELEFONO       : " << getPhone() << std::endl; 
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+};

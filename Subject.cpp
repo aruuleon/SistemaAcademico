@@ -1,5 +1,6 @@
 #include "Subject.h"
 #include <cstring>
+#include <iostream>
 
 Subject::Subject() {
 
@@ -46,4 +47,10 @@ void Subject::setYearCareer(int yearCareer) {
 };
 void Subject::setState(bool state) {
     _state = state;
+};
+void Subject::show(){
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "ID MATERIA     : " << getSubjectId() << std::endl;
+    std::cout << "ID CARRERA     : " << getCareerId() << std::endl; 
+    std::cout << "DURACION       : " << getDuration() << std::endl; 
 };

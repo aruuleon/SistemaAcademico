@@ -1,5 +1,6 @@
 #include <cstring>
 #include "StudentXSubject.h"
+#include <iostream>
 
 StudentXSubject::StudentXSubject() {
 
@@ -26,4 +27,9 @@ void StudentXSubject::setStudentId(int studentId) {
 };
 void StudentXSubject::setSubjectId(int subjectId) {
     _subjectId = subjectId;
+};
+void StudentXSubject::show(){
+    std::cout << "CODIGO DE COMISION         : " << getComissionCode() << std::endl;
+    std::cout << "ID ALUMNO     : " << getStudentId() << std::endl;
+    std::cout << "ID MATERIA     : " << getSubjectId() << std::endl; 
 };

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstring>
 #include "UserLogin.h"
 
@@ -26,4 +27,9 @@ void UserLogin::setFile(int file) {
 };
 void UserLogin::setUserType(int userType) {
     _userType = userType;
+};
+void UserLogin::show(){
+    std::cout << "CLAVE          : " << getPassword() << std::endl;
+    std::cout << "LEGAJO         : " << getFile() << std::endl;
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; //perfil de usuario?
 };

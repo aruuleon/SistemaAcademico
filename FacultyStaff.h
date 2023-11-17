@@ -26,4 +26,5 @@ class FacultyStaff : public Person {
         void setUserType(int);
         void setState(bool);
         void logout();
+        void show();
 };

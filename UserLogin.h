@@ -15,4 +15,5 @@ class UserLogin {
         void setPassword(std::string);
         void setFile(int);
         void setUserType(int);
+        void show();
 };

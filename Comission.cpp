@@ -1,5 +1,6 @@
 #include "Comission.h"
 #include <cstring>
+#include <iostream>
 
 Comission::Comission() {
 
@@ -47,4 +48,11 @@ void Comission::setFourthQuarter(int fourthQuarter) {
 };
 void Comission::setState(bool state) {
     _state = state;
+};
+void Comission::show(){
+    std::cout << "CODIGO DE COMISION         : " << getComissionCode() << std::endl; 
+    std::cout << "MODALIDAD                  : " << getModality() << std::endl;
+    std::cout << "TURNO                      : " << getTurn() << std::endl;
+    std::cout << "ANIO                       : " << getYear() << std::endl; 
+    std::cout << "CUATRIMESTRE               : " << getFourthQuarter() << std::endl; 
 };

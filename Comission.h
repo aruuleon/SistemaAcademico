@@ -24,4 +24,5 @@ class Comission {
         void setYear(int);
         void setFourthQuarter(int);
         void setState(bool);
+        void show();
 };

@@ -15,4 +15,5 @@ class Administrator : public FacultyStaff {
         Administrator();
         Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
         void showMenu(Administrator);
+        void show();
 };

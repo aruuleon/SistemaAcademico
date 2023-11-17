@@ -15,4 +15,5 @@ class Person {
         void setName(std::string name);
         void setSurname(std::string surname);
         void setDocument(std::string document);
+        void show();
 };

@@ -10,4 +10,5 @@ class Teacher : public FacultyStaff {
         Teacher();
         Teacher(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
         void showMenu(Teacher);
+        void show();
 };

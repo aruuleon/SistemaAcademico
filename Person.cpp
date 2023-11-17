@@ -1,5 +1,6 @@
 #include <cstring>
 #include "Person.h"
+#include <iostream>
 
 Person::Person() {
 
@@ -26,4 +27,9 @@ void Person::setSurname(std::string surname) {
 };
 void Person::setDocument(std::string document) {
     strcpy(_document, document.c_str());
+};
+void Person::show(){
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "APELLIDO       : " << getSurname() << std::endl;
+    std::cout << "DOCUMENTO      : " << getDocument() << std::endl;
 };

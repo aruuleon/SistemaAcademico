@@ -21,4 +21,5 @@ class Career {
         void setStudioType(int);
         void setDuration(int);
         void setState(bool);
+        void show();
 };
