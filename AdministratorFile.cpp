@@ -11,9 +11,9 @@ AdministratorFile::AdministratorFile(std::string fileName){
 Administrator AdministratorFile::read(int position){
 Administrator administrator;
 FILE *p = fopen(_fileName, "rb");
-// if(p == nullptr){
-//     return administrator;
-// }
+if(p == nullptr){
+    return administrator;
+}
 fseek(p, position * sizeof(Administrator), SEEK_SET);
 fread(&administrator, sizeof(Administrator), 1, p);
 fclose(p);
@@ -27,7 +27,7 @@ int AdministratorFile::searchRecord(int registryNumber){
         return -1;
         }
         while(fread(&administrator, sizeof(Administrator), 1, p)) {
-            if(administrator.getFile() == registryNumber){//id para buscar {
+            if(administrator.getFile() == registryNumber){
                 fclose(p);
                 return position;
             }
@@ -38,18 +38,16 @@ int AdministratorFile::searchRecord(int registryNumber){
 }
 int AdministratorFile::numberOfRecords(){
     FILE *p = fopen(_fileName, "rb");
-    // if(p == nullptr){
-    //     std::cout << "NO PUDO ABRIR EL ARCHIVO" << std::endl;
-    //     return -1;
-    // }
-    std::cout << "PUDO ABRIR EL ARCHIVO" << std::endl;
+    if(p == nullptr){
+        return -1;
+    }
     fseek(p, 0, SEEK_END);
     int bytes = ftell(p);
     fclose(p);
     return bytes / sizeof(Administrator);
 }
 bool AdministratorFile::save(const Administrator& administrator){
-        bool successfulSave = false; //guardado exitoso
+        bool successfulSave = false;
         FILE * p = fopen(_fileName, "ab");
         if(p == nullptr) {
             return successfulSave;
@@ -70,7 +68,7 @@ bool AdministratorFile::save(const Administrator& administrator, int position) {
     return successfulSave;
 }
 bool AdministratorFile::update(const Administrator& administrator, int registryNumber){
-    bool couldUpdate = false; //pudo actualizar
+    bool couldUpdate = false;
     FILE *p = fopen(_fileName, "rb+");
     if(p == nullptr){
         return couldUpdate;

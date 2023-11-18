@@ -5,8 +5,8 @@
 FacultyStaff::FacultyStaff() {
 
 };
-FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) {
-    Person:Person(name, surname, document);
+FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) 
+:Person(name, surname, document) {
     setEmail(email);
     setPassword(password);
     setPhone(phone);

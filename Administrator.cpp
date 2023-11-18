@@ -3,8 +3,9 @@
 Administrator::Administrator() {
 
 };
-Administrator::Administrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) {
-    FacultyStaff:FacultyStaff(name, surname, document, email, password, phone, file, userType);
+Administrator::Administrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
+:FacultyStaff(name, surname, document, email, password, phone, file, userType) {
+    
 };
 void Administrator::showMenu(Administrator administrator) {
     int selectedOption;

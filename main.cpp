@@ -11,6 +11,7 @@
 int main() {
     System system("UTN");
     system.runProgram();
+
     // std::cout << sizeof(Administrator);
     // std::cout << sizeof(FacultyStaff);
     // GenericFile <SuperAdministrator> genericFile("superAdministrators.dat");
@@ -92,5 +93,9 @@ int main() {
     //     std::cout << a.getPassword() << std::endl;
     //     std::cout << a.getUserType() << std::endl;
     // }
+
+    // Administrator administrator = Administrator("nombre", "apellido", "123456789", "789456123", "email@gmail.com", "password", 1, 1);
+    // administrator.show();
+
     return 0;
 }

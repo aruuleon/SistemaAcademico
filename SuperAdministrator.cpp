@@ -58,13 +58,11 @@ void SuperAdministrator::registerAdministrator() {
     std::cin >>  phone;
     std::cout << "INGRESAR CLAVE: " << std::endl; 
     std::cin >> password;
+    file = verifyFile();
     AdministratorFile administratorFile ("administrators.dat");
-    file = verifyFile(administratorFile);
     UserLoginFile userLoginFile ("usersLogin.dat");
-    Administrator administrator = Administrator(name, surname, document, email, phone, password, file, 2);
-    UserLogin userLogin = UserLogin(password, file, 2);
-    bool administratorResponse = administratorFile.save(administrator);
-    bool userResponse = userLoginFile.save(userLogin);
+    bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, phone, password, file, 2));
+    bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
 };
 void SuperAdministrator::withdrawAdministrator() {
     std::cout << "ELIMINANDO ADMINISTRADOR.." << std::endl;
@@ -78,9 +76,9 @@ void SuperAdministrator::listAdministrators() {
     int numberOfRecords = administratorFile.numberOfRecords();
     for(int i = 0; i < numberOfRecords; i++) {
        Administrator administrator = administratorFile.read(i);
-        std::cout << administrator.getFile() << std::endl;
-        std::cout << administrator.getPassword() << std::endl;
-        std::cout << administrator.getUserType() << std::endl;
+        std::cout << "LEGAJO: " << administrator.getFile() << std::endl;
+        std::cout << "PASSWORD: "<< administrator.getPassword() << std::endl;
+        std::cout << "TIPO USUARIO: "<< administrator.getUserType() << std::endl;
         std::cout << std::endl;
     }
 };
@@ -94,20 +92,14 @@ void SuperAdministrator::show(){
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
     std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
 };
-int SuperAdministrator::verifyFile(AdministratorFile administratorFile){
+int SuperAdministrator::verifyFile(){
+    AdministratorFile administratorFile ("administrators.dat");
     int generatedFile;
     int numberOfRecords = administratorFile.numberOfRecords();
-    std::cout << "CANT. REGISTROS " << numberOfRecords << std::endl;
-    if(numberOfRecords==0){
+    if(numberOfRecords > 0){
+        generatedFile = administratorFile.read(numberOfRecords - 1).getFile() + 1;
+    } else {
         generatedFile = 1;
-        std::cout << "NO HAY REGISTROS";
-    }    
-    else{
-        std::cout << "HAY REGISTROS" << std::endl;
-        Administrator administrator = administratorFile.read(numberOfRecords - 1);
-        generatedFile = administrator.getFile() + 1;
-    }
-    std::cout << "LEGAJO ASIGNADO: " << generatedFile << std::endl;
+    }  
     return generatedFile;
-
 }

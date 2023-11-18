@@ -9,8 +9,7 @@ class SuperAdministrator : public FacultyStaff {
         void withdrawAdministrator();
         void searchAdministrator();
         void listAdministrators();
-        int verifyFile(AdministratorFile);
-        
+        int verifyFile();
     public:
         SuperAdministrator();
         SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
