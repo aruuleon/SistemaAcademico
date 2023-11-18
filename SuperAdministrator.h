@@ -4,15 +4,15 @@
 
 class SuperAdministrator : public FacultyStaff {
     private:
-        void sendRequest(int);
-        void registerAdministrator();
-        void withdrawAdministrator();
-        void searchAdministrator();
-        void listAdministrators();
-        int verifyFile();
+        void sendRequest(int); // ok
+        void registerAdministrator(); // ok
+        void withdrawAdministrator(); // ok
+        void searchAdministrator(); // ok
+        void listAdministrators(); // ok
+        int verifyFile(); // ok
+        void show(); // ok
     public:
         SuperAdministrator();
         SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
-        void showMenu(SuperAdministrator);
-        void show();
+        void showMenu(); // ok
 };

@@ -10,7 +10,7 @@ Administrator::Administrator(std::string name, std::string surname, std::string 
 void Administrator::showMenu(Administrator administrator) {
     int selectedOption;
     do {
-        std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
+        std::cout << "MENU ADMINISTRADOR" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - REGISTRAR" << std::endl;
         std::cout << "2 - MODIFICAR" << std::endl;

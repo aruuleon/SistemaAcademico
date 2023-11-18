@@ -15,4 +15,5 @@ public:
     bool save(const Administrator&, int);
     bool update(const Administrator&, int);
     bool deleteRecord(int);
+    bool numberOfActiveRecords();
 };

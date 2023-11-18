@@ -21,9 +21,7 @@ int main() {
     //std::cout << cantidadRegistros << std::endl;
 
     // StudentFile studentFile("students.dat");
-    // SuperAdministratorFile superAdministratorFile("superAdministrators.dat");
 
-    // UserLoginFile userLoginFile("usersLogin.dat");
     // AdministratorFile administratorFile("administrators.dat");
     // int cantidadRegistrosUsers = administratorFile.numberOfRecords();
     // Administrator a;
@@ -35,14 +33,16 @@ int main() {
     // int cantidadRegistrosStudent = studentFile.numberOfRecords();
     // int cantidadRegistrosSuper = superAdministratorFile.numberOfRecords();
     
-    // UserLogin userLogin("coco", 4, 2);
+    // SuperAdministratorFile superAdministratorFile("superAdministrators.dat");
+    // UserLoginFile userLoginFile("usersLogin.dat");
+    
+    // UserLogin userLogin("super", 1, 1);
     // SuperAdministrator superAdministrator;
-    // superAdministrator.setFile(456);
     // superAdministrator.setPassword("super");
     // superAdministrator.setUserType(1);
+    // superAdministrator.setFile(1);
     
-    //userLoginFile.save(userLogin);
-    //administratorFile.save(a);
+    // userLoginFile.save(userLogin);
     // superAdministratorFile.save(superAdministrator);
 
     // std::cout << "TODOS LOS USUARIOS REGISTRADOS: " << std::endl;

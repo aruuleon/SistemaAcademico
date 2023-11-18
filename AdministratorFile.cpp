@@ -9,30 +9,31 @@ AdministratorFile::AdministratorFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 }
 Administrator AdministratorFile::read(int position){
-Administrator administrator;
-FILE *p = fopen(_fileName, "rb");
-if(p == nullptr){
+    Administrator administrator;
+    FILE *p = fopen(_fileName, "rb");
+    if(p == nullptr){
+        administrator.setState(false);
+        return administrator;
+    }
+    fseek(p, position * sizeof(Administrator), SEEK_SET);
+    fread(&administrator, sizeof(Administrator), 1, p);
+    fclose(p);
     return administrator;
 }
-fseek(p, position * sizeof(Administrator), SEEK_SET);
-fread(&administrator, sizeof(Administrator), 1, p);
-fclose(p);
-return administrator;
-}
-int AdministratorFile::searchRecord(int registryNumber){
-    int position = 0;
-        Administrator administrator;
-        FILE *p = fopen(_fileName, "rb");
-        if(p == nullptr){
+int AdministratorFile::searchRecord(int file){
+    FILE * p = fopen(_fileName, "rb");
+    if(p == nullptr){
         return -1;
+    }
+    Administrator administrator;
+    int position = 0;
+    while(fread(&administrator, sizeof(Administrator), 1, p)) {
+        if(administrator.getFile() == file){
+            fclose(p);
+            return position;
         }
-        while(fread(&administrator, sizeof(Administrator), 1, p)) {
-            if(administrator.getFile() == registryNumber){
-                fclose(p);
-                return position;
-            }
-            position++;
-        }
+        position++;
+    }
     fclose(p);
     return -1;
 }
@@ -46,24 +47,40 @@ int AdministratorFile::numberOfRecords(){
     fclose(p);
     return bytes / sizeof(Administrator);
 }
-bool AdministratorFile::save(const Administrator& administrator){
-        bool successfulSave = false;
-        FILE * p = fopen(_fileName, "ab");
-        if(p == nullptr) {
-            return successfulSave;
+bool AdministratorFile::numberOfActiveRecords() {
+    FILE * p = fopen(_fileName, "rb");
+    if(p == nullptr){
+        return false;
+    }
+    int numberOfRecords = this->numberOfRecords();
+    int position = 0;
+    bool activeRecord = false;
+    while(!activeRecord && position < numberOfRecords) {
+        Administrator administrator = this->read(position);
+        if(administrator.getState()) {
+            activeRecord = true;
         }
-        successfulSave  = fwrite(&administrator, sizeof(Administrator), 1, p);
-        fclose(p);
+        position++;
+    }
+    return activeRecord;
+}
+bool AdministratorFile::save(const Administrator& administrator){
+    bool successfulSave = false;
+    FILE * p = fopen(_fileName, "ab");
+    if(p == nullptr) {
+        return successfulSave;
+    }
+    successfulSave  = fwrite(&administrator, sizeof(Administrator), 1, p);
+    fclose(p);
     return successfulSave;
 }
 bool AdministratorFile::save(const Administrator& administrator, int position) {
-    bool successfulSave = false;
     FILE * p = fopen(_fileName, "rb+");
-        if(p == nullptr) {
-            return successfulSave;
-        }
+    if(p == nullptr) {
+        return false;
+    }
     fseek(p, position * sizeof(Administrator), SEEK_SET);
-    successfulSave = fwrite(&administrator, sizeof(Administrator), 1, p);
+    bool successfulSave = fwrite(&administrator, sizeof(Administrator), 1, p);
     fclose(p);
     return successfulSave;
 }
@@ -78,10 +95,13 @@ bool AdministratorFile::update(const Administrator& administrator, int registryN
     fclose(p);
     return couldUpdate;
 }
-bool AdministratorFile::deleteRecord(int registryNumber){
-    bool couldEliminate = false;
-        int position = searchRecord(registryNumber);
+bool AdministratorFile::deleteRecord(int file){
+    int position = searchRecord(file);
+    if(position != -1) {
         Administrator administrator = read(position);
         administrator.setState(false);
         return save(administrator, position);
+    } else {
+        return false;
+    }
 }

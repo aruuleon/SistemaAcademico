@@ -5,10 +5,11 @@
 SuperAdministrator::SuperAdministrator() {
 
 };
-SuperAdministrator::SuperAdministrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) {
-    FacultyStaff:FacultyStaff(name, surname, document, email, password, phone, file, userType);
+SuperAdministrator::SuperAdministrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
+:FacultyStaff(name, surname, document, email, password, phone, file, userType) {
+    
 };
-void SuperAdministrator::showMenu(SuperAdministrator superAdministrator) {
+void SuperAdministrator::showMenu() {
     int selectedOption;
     do {
         std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
@@ -61,25 +62,55 @@ void SuperAdministrator::registerAdministrator() {
     file = verifyFile();
     AdministratorFile administratorFile ("administrators.dat");
     UserLoginFile userLoginFile ("usersLogin.dat");
-    bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, phone, password, file, 2));
+    bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, file, 2));
     bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
 };
 void SuperAdministrator::withdrawAdministrator() {
+    int file;
+    AdministratorFile administratorFile ("administrators.dat");
+    UserLoginFile userLoginFile ("usersLogin.dat");
+
     std::cout << "ELIMINANDO ADMINISTRADOR.." << std::endl;
+    std::cout << std::endl;
+    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A ELIMINAR: ";
+    std::cin >> file;
+
+    if(administratorFile.deleteRecord(file) && userLoginFile.deleteRecord(file)) {
+        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' SE ELIMINO CORRECTAMENTE" << std::endl;
+    } else {
+        std::cout << "ERROR AL ELIMINAR ADMINISTRADOR" << std::endl;
+    }
 };
 void SuperAdministrator::searchAdministrator() {
+    int file;
+    AdministratorFile administratorFile ("administrators.dat");
+
     std::cout << "BUSCANDO ADMINISTRADOR.." << std::endl;
+    std::cout << std::endl;
+    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A BUSCAR: ";
+    std::cin >> file;
+
+    int position = administratorFile.searchRecord(file);
+    Administrator administrator = administratorFile.read(position);
+    if(position != -1 && administrator.getState()) {
+        administrator.show();
+    } else {
+        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' NO SE ENCUENTRA REGISTRADO" << std::endl;
+    }
 };
 void SuperAdministrator::listAdministrators() {
     std::cout << "MOSTRANDO LISTA ADMINISTRADORES.." << std::endl;
     AdministratorFile administratorFile ("administrators.dat");
     int numberOfRecords = administratorFile.numberOfRecords();
-    for(int i = 0; i < numberOfRecords; i++) {
-       Administrator administrator = administratorFile.read(i);
-        std::cout << "LEGAJO: " << administrator.getFile() << std::endl;
-        std::cout << "PASSWORD: "<< administrator.getPassword() << std::endl;
-        std::cout << "TIPO USUARIO: "<< administrator.getUserType() << std::endl;
-        std::cout << std::endl;
+    if(administratorFile.numberOfActiveRecords()) {
+        for(int i = 0; i < numberOfRecords; i++) {
+            Administrator administrator = administratorFile.read(i);
+            if(administrator.getState()) {
+                administrator.show();
+            }
+        }
+    } else {
+        std::cout << "NO SE ENCUENTRAN ADMINISTRADOS REGISTRADOS EN ESTE MOMENTO" << std::endl;
     }
 };
 void SuperAdministrator::show(){
@@ -100,6 +131,6 @@ int SuperAdministrator::verifyFile(){
         generatedFile = administratorFile.read(numberOfRecords - 1).getFile() + 1;
     } else {
         generatedFile = 1;
-    }  
+    }
     return generatedFile;
-}
+};

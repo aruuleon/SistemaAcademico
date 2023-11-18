@@ -42,7 +42,7 @@ void System::login() {
     } while(true);
 };
 int System::verifyCredentials(int file, std::string password) {
-    UserLoginFile userLoginFile ("facultyStaff.dat");
+    UserLoginFile userLoginFile ("usersLogin.dat");
     int numberOfRecords = userLoginFile.numberOfRecords();
     int userType = 0;
     int userPosition = 0;
@@ -63,7 +63,7 @@ void System::allowAccess(int file, int userType) {
         case 1: 
             {int position = _superAdministratorFile.searchRecord(file);
             SuperAdministrator superAdministrator = _superAdministratorFile.read(position);
-            superAdministrator.showMenu(superAdministrator);}
+            superAdministrator.showMenu();}
             break;
         case 2: 
             {int position = _administratorFile.searchRecord(file);
