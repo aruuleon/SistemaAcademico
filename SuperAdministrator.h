@@ -1,5 +1,6 @@
 #pragma once
 #include "FacultyStaff.h"
+#include "AdministratorFile.h"
 
 class SuperAdministrator : public FacultyStaff {
     private:
@@ -8,6 +9,8 @@ class SuperAdministrator : public FacultyStaff {
         void withdrawAdministrator();
         void searchAdministrator();
         void listAdministrators();
+        int verifyFile(AdministratorFile);
+        
     public:
         SuperAdministrator();
         SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);

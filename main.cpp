@@ -9,37 +9,47 @@
 #include "GenericFile.h"
 
 int main() {
-    // System system("UTN");
-    // system.runProgram();
+    System system("UTN");
+    system.runProgram();
+    // std::cout << sizeof(Administrator);
+    // std::cout << sizeof(FacultyStaff);
+    // GenericFile <SuperAdministrator> genericFile("superAdministrators.dat");
+    
 
-    GenericFile <SuperAdministrator> genericFile("superAdministrators.dat");
+    //int cantidadRegistros = genericFile.numberOfRecords();
+    //std::cout << cantidadRegistros << std::endl;
 
-    int cantidadRegistros = genericFile.numberOfRecords();
-    std::cout << cantidadRegistros << std::endl;
-
-    // UserLoginFile userLoginFile("usersLogin.dat");
     // StudentFile studentFile("students.dat");
     // SuperAdministratorFile superAdministratorFile("superAdministrators.dat");
+
+    // UserLoginFile userLoginFile("usersLogin.dat");
+    // AdministratorFile administratorFile("administrators.dat");
+    // int cantidadRegistrosUsers = administratorFile.numberOfRecords();
+    // Administrator a;
+    // a.setFile(4);
+    // a.setPassword("coco");
+    // a.setUserType(2);
 
     // int cantidadRegistrosUsers = userLoginFile.numberOfRecords();
     // int cantidadRegistrosStudent = studentFile.numberOfRecords();
     // int cantidadRegistrosSuper = superAdministratorFile.numberOfRecords();
-
-    // UserLogin userLogin("super", 456, 1);
+    
+    // UserLogin userLogin("coco", 4, 2);
     // SuperAdministrator superAdministrator;
     // superAdministrator.setFile(456);
     // superAdministrator.setPassword("super");
     // superAdministrator.setUserType(1);
     
-    // userLoginFile.save(userLogin);
+    //userLoginFile.save(userLogin);
+    //administratorFile.save(a);
     // superAdministratorFile.save(superAdministrator);
 
     // std::cout << "TODOS LOS USUARIOS REGISTRADOS: " << std::endl;
     // for(int i = 0; i < cantidadRegistrosUsers; i++) {
-    //     UserLogin userLogin = userLoginFile.read(i);
-    //     std::cout << userLogin.getFile() << std::endl;
-    //     std::cout << userLogin.getPassword() << std::endl;
-    //     std::cout << userLogin.getUserType() << std::endl;
+    //   UserLogin userLogin = userLoginFile.read(i);
+    //    std::cout << userLogin.getFile() << std::endl;
+    //    std::cout << userLogin.getPassword() << std::endl;
+    //    std::cout << userLogin.getUserType() << std::endl;
     // }
 
     // std::cout << std::endl;
@@ -73,6 +83,14 @@ int main() {
     //     std::cout << userLogin.getPassword() << std::endl;
     //     std::cout << userLogin.getUserType() << std::endl;
     // }
-
+    // AdministratorFile administratorFile("administrators.dat");
+    // int registros = administratorFile.numberOfRecords();
+    // std::cout << registros << std::endl;
+    // for(int i = 0; i < registros; i++){
+    //     Administrator a = administratorFile.read(i); 
+    //     std::cout << a.getFile() << std::endl;
+    //     std::cout << a.getPassword() << std::endl;
+    //     std::cout << a.getUserType() << std::endl;
+    // }
     return 0;
 }
