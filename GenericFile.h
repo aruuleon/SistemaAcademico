@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-template <typename T>
+template <class T>
 class GenericFile {
 private:
     char _fileName[30];

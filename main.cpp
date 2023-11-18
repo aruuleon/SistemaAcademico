@@ -5,11 +5,17 @@
 #include "StudentFile.h"
 #include "UserLoginFile.h"
 #include "FacultyStaff.h"
+#include "SuperAdministrator.h"
 #include "GenericFile.h"
 
 int main() {
-    System system("UTN");
-    system.runProgram();
+    // System system("UTN");
+    // system.runProgram();
+
+    GenericFile <SuperAdministrator> genericFile("superAdministrators.dat");
+
+    int cantidadRegistros = genericFile.numberOfRecords();
+    std::cout << cantidadRegistros << std::endl;
 
     // UserLoginFile userLoginFile("usersLogin.dat");
     // StudentFile studentFile("students.dat");

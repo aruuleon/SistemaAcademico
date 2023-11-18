@@ -2,15 +2,15 @@
 #include <cstdio>
 #include "GenericFile.h"
 
-template <typename T>
+template <class T>
 GenericFile<T>::GenericFile(){
 
 };
-template <typename T>
+template <class T>
 GenericFile<T>::GenericFile(std::string fileName){
     strcpy(_fileName, fileName.c_str());
 };
-template <typename T>
+template <class T>
 T GenericFile<T>::read(int registryNumber){
 T facultyStaff;
 FILE *p = fopen(_fileName, "rb");
@@ -22,7 +22,7 @@ fread(&facultyStaff, sizeof(T), 1, p);
 fclose(p);
 return facultyStaff;
 };
-template <typename T>
+template <class T>
 int GenericFile<T>::searchRecord(int registryNumber){
     int position = 0;
         T facultyStaff;
@@ -31,7 +31,7 @@ int GenericFile<T>::searchRecord(int registryNumber){
         return -1;
         }
         while(fread(&facultyStaff, sizeof(T), 1, p)) {
-            if(facultyStaff.getFile() == registryNumber){//id para buscar {
+            if(facultyStaff.getFile() == registryNumber){
                 fclose(p);
                 return position;
             }
@@ -40,7 +40,7 @@ int GenericFile<T>::searchRecord(int registryNumber){
     fclose(p);
     return -1;
 };
-template <typename T>
+template <class T>
 int GenericFile<T>::numberOfRecords(){
     FILE *p = fopen(_fileName, "rb");
     if(p == nullptr){
@@ -51,7 +51,7 @@ int GenericFile<T>::numberOfRecords(){
     fclose(p);
     return bytes / sizeof(T);
 };
-template <typename T>
+template <class T>
 bool GenericFile<T>::save(const T& facultyStaff){
         bool successfulSave = false;
         FILE * p = fopen(_fileName, "ab");
@@ -62,7 +62,7 @@ bool GenericFile<T>::save(const T& facultyStaff){
         fclose(p);
     return successfulSave;
 };
-template <typename T>
+template <class T>
 bool GenericFile<T>::save(const T& facultyStaff, int position) {
     bool successfulSave = false;
     FILE * p = fopen(_fileName, "rb+");
@@ -74,7 +74,7 @@ bool GenericFile<T>::save(const T& facultyStaff, int position) {
     fclose(p);
     return successfulSave;
 };
-template <typename T>
+template <class T>
 bool GenericFile<T>::update(const T& facultyStaff, int registryNumber){
     bool couldUpdate = false;
     FILE *p = fopen(_fileName, "rb+");
@@ -86,7 +86,7 @@ bool GenericFile<T>::update(const T& facultyStaff, int registryNumber){
     fclose(p);
     return couldUpdate;
 };
-template <typename T>
+template <class T>
 bool GenericFile<T>::deleteRecord(int registryNumber){
     bool couldEliminate = false;
     int position = searchRecord(registryNumber);
