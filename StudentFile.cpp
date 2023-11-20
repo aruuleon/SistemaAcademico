@@ -46,6 +46,23 @@ int StudentFile::numberOfRecords() {
     fclose(p);
     return bytes / sizeof(Student);
 }
+bool StudentFile::numberOfActiveRecords() {
+    FILE * p = fopen(_fileName, "rb");
+    if(p == nullptr){
+        return false;
+    }
+    int numberOfRecords = this->numberOfRecords();
+    int position = 0;
+    bool activeRecord = false;
+    while(!activeRecord && position < numberOfRecords) {
+        Student student = this->read(position);
+        if(student.getState()) {
+            activeRecord = true;
+        }
+        position++;
+    }
+    return activeRecord;
+}
 bool StudentFile::save(const Student& student){
     bool successfulSave = false; //guardado exitoso
     FILE * p = fopen(_fileName, "ab");
@@ -67,21 +84,23 @@ bool StudentFile::save(const Student& student, int position) {
     fclose(p);
     return successfulSave;
 }
-bool StudentFile::update(const Student& student, int registryNumber){
-    bool couldUpdate = false;
-    FILE *p = fopen(_fileName, "rb+");
-    if(p == nullptr){
-        return couldUpdate;
-    }
-    fseek(p, registryNumber * sizeof(Student), SEEK_SET);
-    couldUpdate = fwrite(&student, sizeof(Student), 1, p);
-    fclose(p);
-    return couldUpdate;
-}
 bool StudentFile::deleteRecord(int registryNumber) {
-    bool couldEliminate = false;
         int position = searchRecord(registryNumber);
         Student student = read(position);
         student.setState(false);
         return save(student, position);
+}
+bool StudentFile::addOrDelete(int file, int action){
+    int position = searchRecord(file);
+    if(position != -1) {
+        Student student = read(position);
+        if(action == 1){
+            student.setState(true);
+        } else {
+            student.setState(false);
+        }
+        return save(student, position);
+    } else {
+        return false;
+    }
 }

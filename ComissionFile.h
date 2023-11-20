@@ -11,6 +11,5 @@ class ComissionFile{
         int searchRecord(std::string);
         int getNumberOfRecords();
         bool save(const Comission&);
-        bool update(const Comission&, int);
         bool deleteRecord(std::string);
 };

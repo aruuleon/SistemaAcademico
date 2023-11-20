@@ -12,8 +12,9 @@ public:
     Student read(int);
     int searchRecord(int);
     int numberOfRecords();
+    bool numberOfActiveRecords();
     bool save(const Student&);
     bool save(const Student&, int);
-    bool update(const Student&, int);
     bool deleteRecord(int);
+    bool addOrDelete(int, int);
 };

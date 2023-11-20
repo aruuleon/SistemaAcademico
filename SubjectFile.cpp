@@ -73,21 +73,6 @@ bool SubjectFile::save(const Subject& obj){
     return successfulSave;
 }
 
-bool SubjectFile::update(const Subject& obj, int position){
-    bool successfulSave = false;
-    FILE * reg = fopen("subjects.txt", "rb+");
-
-    if(!reg) {
-        return successfulSave;
-    }
-
-    fseek(reg, position * sizeof(Subject), SEEK_SET);
-    successfulSave = fwrite(&obj, sizeof(Subject), 1, reg);
-    fclose(reg);
-
-    return successfulSave;
-}
-
 bool SubjectFile::deleteRecord(int file){
     int position = searchRecord(file);
     Subject subject = read(position);

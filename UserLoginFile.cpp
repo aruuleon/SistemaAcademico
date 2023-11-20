@@ -67,17 +67,6 @@ bool UserLoginFile::save(const UserLogin& userLogin, int position) {
     fclose(p);
     return successfulSave;
 }
-bool UserLoginFile::update(const UserLogin& userLogin, int registryNumber){
-    bool couldUpdate = false;
-    FILE *p = fopen(_fileName, "rb+");
-    if(p == nullptr){
-        return couldUpdate;
-    }
-    fseek(p, registryNumber * sizeof(UserLogin), SEEK_SET);
-    couldUpdate = fwrite(&userLogin, sizeof(UserLogin), 1, p);
-    fclose(p);
-    return couldUpdate;
-}
 bool UserLoginFile::addOrDelete(int registryNumber, int action) {
         int position = searchRecord(registryNumber);
         UserLogin userLogin = read(position);

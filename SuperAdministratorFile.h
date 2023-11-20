@@ -14,6 +14,5 @@ public:
     int numberOfRecords();
     bool save(const SuperAdministrator&);
     bool save(const SuperAdministrator&, int);
-    bool update(const SuperAdministrator&, int);
     bool deleteRecord(int);
 };

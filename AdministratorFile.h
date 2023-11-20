@@ -13,7 +13,6 @@ public:
     int numberOfRecords();
     bool save(const Administrator&);
     bool save(const Administrator&, int);
-    bool update(const Administrator&, int);
     bool addOrDelete(int, int);
     bool numberOfActiveRecords();
 };

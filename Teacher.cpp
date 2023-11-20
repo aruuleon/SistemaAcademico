@@ -3,8 +3,8 @@
 Teacher::Teacher() {
 
 };
-Teacher::Teacher(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) {
-    FacultyStaff:FacultyStaff(name, surname, document, email, password, phone, file, userType);
+Teacher::Teacher(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
+:FacultyStaff(name, surname, document, email, password, phone, file, userType) {
 };
 void Teacher::showMenu(Teacher teacher) {
     int selectedOption;

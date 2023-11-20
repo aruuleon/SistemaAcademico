@@ -11,6 +11,5 @@ class CareerFile{
         int searchRecord(int);
         int getNumberOfRecords();
         bool save(const Career&);
-        bool update(const Career&, int);
         bool deleteRecord(int);
 };

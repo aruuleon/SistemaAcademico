@@ -12,7 +12,6 @@ Administrator AdministratorFile::read(int position){
     Administrator administrator;
     FILE *p = fopen(_fileName, "rb");
     if(p == nullptr){
-        administrator.setState(false);
         return administrator;
     }
     fseek(p, position * sizeof(Administrator), SEEK_SET);
@@ -83,17 +82,6 @@ bool AdministratorFile::save(const Administrator& administrator, int position) {
     bool successfulSave = fwrite(&administrator, sizeof(Administrator), 1, p);
     fclose(p);
     return successfulSave;
-}
-bool AdministratorFile::update(const Administrator& administrator, int registryNumber){
-    bool couldUpdate = false;
-    FILE *p = fopen(_fileName, "rb+");
-    if(p == nullptr){
-        return couldUpdate;
-    }
-    fseek(p, registryNumber * sizeof(Administrator), SEEK_SET);
-    couldUpdate = fwrite(&administrator, sizeof(Administrator), 1, p);
-    fclose(p);
-    return couldUpdate;
 }
 bool AdministratorFile::addOrDelete(int file, int action){
     int position = searchRecord(file);

@@ -29,12 +29,12 @@ int main() {
     // a.setPassword("coco");
     // a.setUserType(2);
 
-    // int cantidadRegistrosUsers = userLoginFile.numberOfRecords();
     // int cantidadRegistrosStudent = studentFile.numberOfRecords();
     // int cantidadRegistrosSuper = superAdministratorFile.numberOfRecords();
     
     // SuperAdministratorFile superAdministratorFile("superAdministrators.dat");
     // UserLoginFile userLoginFile("usersLogin.dat");
+    // int cantidadRegistrosUsers = userLoginFile.numberOfRecords();
     
     // UserLogin userLogin("super", 1, 1);
     // SuperAdministrator superAdministrator;

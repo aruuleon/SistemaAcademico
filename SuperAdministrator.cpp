@@ -1,6 +1,8 @@
 #include "SuperAdministrator.h"
 // #include "AdministratorFile.h"
 #include "UserLoginFile.h"
+#include "Functions.h"
+
 SuperAdministrator::SuperAdministrator() {
 
 };
@@ -61,75 +63,23 @@ void SuperAdministrator::registerAdministrator() {
     std::cin >>  phone;
     std::cout << "INGRESAR CLAVE: " << std::endl; 
     std::cin >> password;
-    file = verifyFile();
+    file = verifyFileAdministrators();
     AdministratorFile administratorFile ("administrators.dat");
     UserLoginFile userLoginFile ("usersLogin.dat");
     bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, file, 2));
     bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
 };
 void SuperAdministrator::withdrawAdministrator() {
-    int file;
-    AdministratorFile administratorFile ("administrators.dat");
-    UserLoginFile userLoginFile ("usersLogin.dat");
-
-    std::cout << "ELIMINANDO ADMINISTRADOR.." << std::endl;
-    std::cout << std::endl;
-    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A ELIMINAR: ";
-    std::cin >> file;
-
-    if(administratorFile.addOrDelete(file, 2) && userLoginFile.addOrDelete(file, 2)) {
-        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' SE ELIMINO CORRECTAMENTE" << std::endl;
-    } else {
-        std::cout << "ERROR AL ELIMINAR ADMINISTRADOR" << std::endl;
-    }
+    withdrawAdministrator();
 };
 void SuperAdministrator::searchAdministrator() {
-    int file;
-    AdministratorFile administratorFile ("administrators.dat");
-
-    std::cout << "BUSCANDO ADMINISTRADOR.." << std::endl;
-    std::cout << std::endl;
-    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A BUSCAR: ";
-    std::cin >> file;
-
-    int position = administratorFile.searchRecord(file);
-    Administrator administrator = administratorFile.read(position);
-    if(position != -1 && administrator.getState()) {
-        administrator.show();
-    } else {
-        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' NO SE ENCUENTRA REGISTRADO" << std::endl;
-    }
+    searchAdministrator();
 };
 void SuperAdministrator::listAdministrators() {
-    std::cout << "MOSTRANDO LISTA ADMINISTRADORES.." << std::endl;
-    AdministratorFile administratorFile ("administrators.dat");
-    int numberOfRecords = administratorFile.numberOfRecords();
-    if(administratorFile.numberOfActiveRecords()) {
-        for(int i = 0; i < numberOfRecords; i++) {
-            Administrator administrator = administratorFile.read(i);
-            if(administrator.getState()) {
-                administrator.show();
-            }
-        }
-    } else {
-        std::cout << "NO SE ENCUENTRAN ADMINISTRADOS REGISTRADOS EN ESTE MOMENTO" << std::endl;
-    }
+    listAdministrators();
 };
 void SuperAdministrator::reEnrollAdministrator(){
-    int file;
-    AdministratorFile administratorFile ("administrators.dat");
-    UserLoginFile userLoginFile ("usersLogin.dat");
-
-    std::cout << "VOLVIENDO A DAR DE ALTA ADMINISTRADOR..." << std::endl;
-    std::cout << std::endl;
-    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A DAR DE ALTA NUEVAMENTE: ";
-    std::cin >> file;
-
-    if(administratorFile.addOrDelete(file, 1) && userLoginFile.addOrDelete(file, 1)) {
-        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' FUE DADO DE ALTA CORRECTAM,ENTE" << std::endl;
-    } else {
-        std::cout << "ERROR AL DAR DE ALTA AL ADMINISTRADOR" << std::endl;
-    }
+    reEnrollAdministrator();
 }
 
 void SuperAdministrator::show(){
@@ -141,15 +91,4 @@ void SuperAdministrator::show(){
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
     std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
-};
-int SuperAdministrator::verifyFile(){
-    AdministratorFile administratorFile ("administrators.dat");
-    int generatedFile;
-    int numberOfRecords = administratorFile.numberOfRecords();
-    if(numberOfRecords > 0){
-        generatedFile = administratorFile.read(numberOfRecords - 1).getFile() + 1;
-    } else {
-        generatedFile = 1;
-    }
-    return generatedFile;
 };

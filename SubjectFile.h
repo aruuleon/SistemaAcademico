@@ -11,6 +11,5 @@ class SubjectFile{
         int searchRecord(int);
         int getNumberOfRecords();
         bool save(const Subject&);
-        bool update(const Subject&, int);
         bool deleteRecord(int);
 };

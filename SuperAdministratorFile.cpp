@@ -67,17 +67,7 @@ bool SuperAdministratorFile::save(const SuperAdministrator& superAdministrator, 
     fclose(p);
     return successfulSave;
 }
-bool SuperAdministratorFile::update(const SuperAdministrator& superAdministrator, int registryNumber){
-    bool couldUpdate = false; //pudo actualizar
-    FILE *p = fopen("superAdministrators.dat", "rb+");
-    if(p == nullptr){
-        return couldUpdate;
-    }
-    fseek(p, registryNumber * sizeof(SuperAdministrator), SEEK_SET);
-    couldUpdate = fwrite(&superAdministrator, sizeof(SuperAdministrator), 1, p);
-    fclose(p);
-    return couldUpdate;
-}
+
 bool SuperAdministratorFile::deleteRecord(int registryNumber){ //borrar registro
     bool couldEliminate = false; //pudo eliminar
         int position = searchRecord(registryNumber);

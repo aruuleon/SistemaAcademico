@@ -73,21 +73,6 @@ bool ComissionFile::save(const Comission& obj){
     return successfulSave;
 }
 
-bool ComissionFile::update(const Comission& obj, int position){
-    bool successfulSave = false;
-    FILE * reg = fopen("comissions.txt", "rb+");
-
-    if(!reg) {
-        return successfulSave;
-    }
-
-    fseek(reg, position * sizeof(Comission), SEEK_SET);
-    successfulSave = fwrite(&obj, sizeof(Comission), 1, reg);
-    fclose(reg);
-
-    return successfulSave;
-}
-
 bool ComissionFile::deleteRecord(std::string comissionCode){
     int position = searchRecord(comissionCode);
     Comission comission = read(position);

@@ -4,22 +4,27 @@
 class Administrator : public FacultyStaff {
     private:
         void sendRequest(int);
-        void registerStaff(int);
+        void registerStaff(int); //ok
         void editStaff();
-        void removeStaff(int);
-        void reEnrollStaff(int);
-        void verifyInformation(int);
-        void listStaff(int);
+        void withdrawStaff(int); //ok
+        void reEnrollStaff(int); //ok
+        void verifyInformation(int); //ok
+        void listStaff(int); //ok
         void assignNoteStudent();
         void editStudentNote();
-        void postNotices();
-        void showGenericMenu(int);
-        void showMenuTeacher();
-        void showMenuStudent();
-        void sendGenericRequest(int, int);
+        void postNotice();
+        void withdrawNotice();
+        void editNotice();
+        void showGenericMenu(int); //ok
+        void showMenuTeacher(); //ok
+        void showMenuStudent(); //ok
+        void showMenuNotice();
+        void sendGenericRequest(int, int); //ok
+        void sendNoticeRequest(int);
+        int verifyFile(int); //ok
     public:
         Administrator();
         Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
-        void showMenu();
-        void show();
+        void showMenu(); //ok
+        void show(); //ok
 };

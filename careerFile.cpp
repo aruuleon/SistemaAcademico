@@ -73,21 +73,6 @@ bool CareerFile::save(const Career& obj){
     return successfulSave;
 }
 
-bool CareerFile::update(const Career& obj, int position){
-    bool successfulSave = false;
-    FILE * reg = fopen("careers.txt", "rb+");
-
-    if(!reg) {
-        return successfulSave;
-    }
-
-    fseek(reg, position * sizeof(Career), SEEK_SET);
-    successfulSave = fwrite(&obj, sizeof(Career), 1, reg);
-    fclose(reg);
-
-    return successfulSave;
-}
-
 bool CareerFile::deleteRecord(int file){
     int position = searchRecord(file);
     Career career = read(position);

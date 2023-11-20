@@ -1,20 +1,20 @@
 #pragma once
+#include "Notice.h"
 #include <string>
-#include "Teacher.h"
 
-class TeacherFile{
+class NoticeFile{
 private:
     char _fileName[30];
 public:
-    TeacherFile();
-    TeacherFile(std::string);
+    NoticeFile();
+    NoticeFile(std::string);
 
-    Teacher read(int);
+    Notice read(int);
     int searchRecord(int);
     int numberOfRecords();
     bool numberOfActiveRecords();
-    bool save(const Teacher&);
-    bool save(const Teacher&, int);
+    bool save(const Notice&);
+    bool save(const Notice&, int);
     bool deleteRecord(int);
     bool addOrDelete(int, int);
 };

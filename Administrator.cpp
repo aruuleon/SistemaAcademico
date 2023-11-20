@@ -1,4 +1,10 @@
 #include "Administrator.h"
+#include "TeacherFile.h"
+#include "StudentFile.h"
+#include "Functions.h"
+#include "UserLoginFile.h"
+#include "Fecha.h"
+#include "NoticeFile.h"
 
 Administrator::Administrator() {
 
@@ -14,7 +20,7 @@ void Administrator::showMenu() {
         std::cout << std::endl;
         std::cout << "1 - PROFESOR " << std::endl;
         std::cout << "2 - ALUMNO" << std::endl;
-        std::cout << "3 - SUBIR AVISOS" << std::endl;
+        std::cout << "3 - AVISOS" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
         sendRequest(selectedOption);
@@ -26,7 +32,7 @@ void Administrator::sendRequest(int selectedOption) {
             break;
         case 2: showGenericMenu(4);
             break;
-        case 3: postNotices();
+        case 3: showMenuNotice();
             break;
         case 0: logout();
             break;
@@ -53,47 +59,33 @@ void Administrator::registerStaff(int userType) {
     std::cin >>  phone;
     std::cout << "INGRESAR CLAVE: " << std::endl; 
     std::cin >> password;
-    // file = verifyFile();
-    // AdministratorFile administratorFile ("administrators.dat");
-    // UserLoginFile userLoginFile ("usersLogin.dat");
-    // bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, file, 2));
-    // bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
+    file = verifyFile(userType);
+    bool saveResponse;
     if(userType == 3){
-        
+        std::cout << "REGISTRANDO PROFESOR..." << std::endl;
+        TeacherFile teacherFile("teachers.dat");
+        saveResponse = teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
     } else{
-
+        std::cout << "REGISTRANDO ALUMNO..." << std::endl;
+        StudentFile studentFile("students.dat");
+        saveResponse = studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
     }
+    UserLoginFile userLoginFile ("usersLogin.dat");
+    bool userResponse = userLoginFile.save(UserLogin(password, file, userType));
 };
 void Administrator::editStaff() {
 };
-void Administrator::removeStaff(int userType) {
-    if(userType == 3){
-
-    } else{
-
-    }
+void Administrator::withdrawStaff(int userType) {
+    (userType == 3) ? withdrawTeacher() : withdrawStudent();
 };
 void Administrator::reEnrollStaff(int userType){
-    if(userType == 3){
-
-    } else{
-
-    }
+    (userType == 3) ? reEnrollTeacher() : reEnrollStudent();
 };
 void Administrator::verifyInformation(int userType) {
-    if(userType == 3){
-
-    } else{
-
-    }
+    (userType == 3) ? searchTeacher() : searchStudent();
 };
 void Administrator::listStaff(int userType) {
-    std::cout << "MOSTRANDO LISTA STAFF.." << std::endl;
-    if(userType == 3){
-
-    } else{
-
-    }
+    (userType == 3) ? listTeachers() : listStudents();
 };
 void Administrator::assignNoteStudent() {
 
@@ -101,8 +93,33 @@ void Administrator::assignNoteStudent() {
 void Administrator::editStudentNote() {
 
 };
-void Administrator::postNotices() {
-
+void Administrator::postNotice() {
+    std::string title; 
+    std::string content;
+    int code;
+    int day;
+    int month;
+    int year;
+    std::cout << "INGRESAR FECHA AVISO: ";
+    std::cout << "DIA: ";
+    std::cin >> day;
+    std::cout << "MES: ";
+    std::cin >> month;
+    std::cout << "ANIO: ";
+    std::cin >> year;
+    std::cout << "INGRESAR TITULO AVISO: ";
+    std::cin >> title;
+    std::cout << "INGRESAR DESCRIPCION AVISO: ";
+    std::cin >> content;  
+    code = verifyCodeNotice();
+    NoticeFile noticeFile("notices.dat");
+    bool response = noticeFile.save(Notice(Fecha(day, month, year), title, content, code));
+};
+void Administrator::withdrawNotice(){
+    withDrawNotice();
+};
+void Administrator::editNotice(){
+    
 };
 void Administrator::show(){
     std::cout << "LEGAJO         : " << getFile() << std::endl; 
@@ -141,11 +158,24 @@ void Administrator::showMenuStudent(){
     std::cout << "6 - ASIGNAR NOTA" << std::endl;
     std::cout << "7 - MODIFICAR NOTA" << std::endl;
 };
+void Administrator::showMenuNotice(){
+    int selectedOption;
+    do {
+        std::cout << "MENU AVISOS" << std::endl;
+        std::cout << std::endl;
+        std::cout << "1 - SUBIR AVISO " << std::endl;
+        std::cout << "2 - EDITAR AVISO" << std::endl;
+        std::cout << "3 - DAR DE BAJA AVISO" << std::endl;
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cin >> selectedOption;
+        sendNoticeRequest(selectedOption);
+    } while(selectedOption != 0);
+};
 void Administrator::sendGenericRequest(int selectedOption, int userType) {
     switch(selectedOption) {
         case 1: registerStaff(userType);
             break;
-        case 2: removeStaff(userType);
+        case 2: withdrawStaff(userType);
             break;
         case 3: reEnrollStaff(userType);
             break;
@@ -156,4 +186,26 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
         case 0: logout();
             break;
     }
+};
+void Administrator::sendNoticeRequest(int selectedOption){
+switch(selectedOption) {
+        case 1: postNotice();
+            break;
+        case 2: withdrawNotice();
+            break;
+        case 3: editNotice();
+            break;
+        //case 0: logout();
+        //    break;
+    }
+};
+
+int Administrator::verifyFile(int userType){
+    int generatedFile;
+    if(userType == 3){
+        generatedFile = verifyFileTeachers();
+    } else{
+        generatedFile = verifyFileStudents();
+    }    
+    return generatedFile;
 };
