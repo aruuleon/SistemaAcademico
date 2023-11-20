@@ -15,5 +15,5 @@ public:
     bool save(const UserLogin&);
     bool save(const UserLogin&, int);
     bool update(const UserLogin&, int);
-    bool deleteRecord(int);
+    bool addOrDelete(int, int);
 };

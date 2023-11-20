@@ -68,7 +68,7 @@ void System::allowAccess(int file, int userType) {
         case 2: 
             {int position = _administratorFile.searchRecord(file);
             Administrator administrator = _administratorFile.read(position);
-            administrator.showMenu(administrator);}
+            administrator.showMenu();}
             break;
         case 3: 
             {int position = _teacherFile.searchRecord(file);

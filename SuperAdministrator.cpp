@@ -1,7 +1,6 @@
 #include "SuperAdministrator.h"
 // #include "AdministratorFile.h"
 #include "UserLoginFile.h"
-
 SuperAdministrator::SuperAdministrator() {
 
 };
@@ -16,8 +15,9 @@ void SuperAdministrator::showMenu() {
         std::cout << std::endl;
         std::cout << "1 - REGISTRAR ADMINISTRADOR" << std::endl;
         std::cout << "2 - ELIMINAR ADMINISTRADOR" << std::endl;
-        std::cout << "3 - BUSCAR ADMINISTRADOR" << std::endl;
-        std::cout << "4 - MOSTRAR LISTA ADMINISTRADORES" << std::endl;
+        std::cout << "3 - VOLVER A DAR DE ALTA ADMINISTADOR" << std::endl;
+        std::cout << "4 - BUSCAR ADMINISTRADOR" << std::endl;
+        std::cout << "5 - MOSTRAR LISTA ADMINISTRADORES" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
         sendRequest(selectedOption);
@@ -29,9 +29,11 @@ void SuperAdministrator::sendRequest(int selectedOption) {
             break;
         case 2: withdrawAdministrator();
             break;
-        case 3: searchAdministrator();
+        case 3: reEnrollAdministrator();
             break;
-        case 4: listAdministrators();
+        case 4: searchAdministrator();
+            break;
+        case 5: listAdministrators();
             break;
         case 0: logout();
             break;
@@ -75,7 +77,7 @@ void SuperAdministrator::withdrawAdministrator() {
     std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A ELIMINAR: ";
     std::cin >> file;
 
-    if(administratorFile.deleteRecord(file) && userLoginFile.deleteRecord(file)) {
+    if(administratorFile.addOrDelete(file, 2) && userLoginFile.addOrDelete(file, 2)) {
         std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' SE ELIMINO CORRECTAMENTE" << std::endl;
     } else {
         std::cout << "ERROR AL ELIMINAR ADMINISTRADOR" << std::endl;
@@ -113,6 +115,23 @@ void SuperAdministrator::listAdministrators() {
         std::cout << "NO SE ENCUENTRAN ADMINISTRADOS REGISTRADOS EN ESTE MOMENTO" << std::endl;
     }
 };
+void SuperAdministrator::reEnrollAdministrator(){
+    int file;
+    AdministratorFile administratorFile ("administrators.dat");
+    UserLoginFile userLoginFile ("usersLogin.dat");
+
+    std::cout << "VOLVIENDO A DAR DE ALTA ADMINISTRADOR..." << std::endl;
+    std::cout << std::endl;
+    std::cout << "INGRESAR LEGAJO DE ADMINISTRADOR A DAR DE ALTA NUEVAMENTE: ";
+    std::cin >> file;
+
+    if(administratorFile.addOrDelete(file, 1) && userLoginFile.addOrDelete(file, 1)) {
+        std::cout << "EL ADMINISTRADOR CON LEGAJO '" << file << "' FUE DADO DE ALTA CORRECTAM,ENTE" << std::endl;
+    } else {
+        std::cout << "ERROR AL DAR DE ALTA AL ADMINISTRADOR" << std::endl;
+    }
+}
+
 void SuperAdministrator::show(){
     std::cout << "LEGAJO         : " << getFile() << std::endl; 
     std::cout << "NOMBRE         : " << getName() << std::endl;

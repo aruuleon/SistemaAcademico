@@ -95,11 +95,15 @@ bool AdministratorFile::update(const Administrator& administrator, int registryN
     fclose(p);
     return couldUpdate;
 }
-bool AdministratorFile::deleteRecord(int file){
+bool AdministratorFile::addOrDelete(int file, int action){
     int position = searchRecord(file);
     if(position != -1) {
         Administrator administrator = read(position);
-        administrator.setState(false);
+        if(action == 1){
+            administrator.setState(true);
+        } else {
+            administrator.setState(false);
+        }
         return save(administrator, position);
     } else {
         return false;

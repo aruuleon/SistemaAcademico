@@ -2,6 +2,7 @@
 #include "FacultyStaff.h"
 #include "AdministratorFile.h"
 
+
 class SuperAdministrator : public FacultyStaff {
     private:
         void sendRequest(int); // ok
@@ -9,6 +10,7 @@ class SuperAdministrator : public FacultyStaff {
         void withdrawAdministrator(); // ok
         void searchAdministrator(); // ok
         void listAdministrators(); // ok
+        void reEnrollAdministrator();//ok
         int verifyFile(); // ok
         void show(); // ok
     public:

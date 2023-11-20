@@ -78,10 +78,13 @@ bool UserLoginFile::update(const UserLogin& userLogin, int registryNumber){
     fclose(p);
     return couldUpdate;
 }
-bool UserLoginFile::deleteRecord(int registryNumber) {
-    bool couldEliminate = false;
+bool UserLoginFile::addOrDelete(int registryNumber, int action) {
         int position = searchRecord(registryNumber);
         UserLogin userLogin = read(position);
+        if(action == 1){
+            userLogin.setState(true);
+        } else {
         userLogin.setState(false);
+        }
         return save(userLogin, position);
 }
