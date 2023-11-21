@@ -5,7 +5,7 @@
 #include "UserLoginFile.h"
 #include "NoticeFile.h"
 
-int verifyFileAdministrators(){
+int verifyFileAdministrators() {
     AdministratorFile administratorFile("administrators.dat");
     int generatedFile;
     int numberOfRecords = administratorFile.numberOfRecords();
@@ -17,7 +17,7 @@ int verifyFileAdministrators(){
     return generatedFile;
 };
 
-int verifyFileTeachers(){
+int verifyFileTeachers() {
     TeacherFile teacherFile("teachers.dat");
     int generatedFile;
     int numberOfRecords = teacherFile.numberOfRecords();
@@ -29,7 +29,7 @@ int verifyFileTeachers(){
     return generatedFile;
 };
 
-int verifyFileStudents(){
+int verifyFileStudents() {
     StudentFile studentFile("students.dat");
     int generatedFile;
     int numberOfRecords = studentFile.numberOfRecords();

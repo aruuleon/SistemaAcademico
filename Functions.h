@@ -18,5 +18,3 @@ void listStudents();
 void searchAdministrator();
 void searchTeacher();
 void searchStudent();
-
-

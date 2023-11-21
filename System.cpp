@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 #include "System.h"
-#include "UserLoginFile.h"
 #include "UserLogin.h"
 #include "GenericFile.h"
 
@@ -10,6 +9,10 @@ System::System() {
 };
 System::System(std::string name) {
     setName(name);
+    GenericFile <SuperAdministrator> _superAdministratorFile = GenericFile <SuperAdministrator> ("superAdministrators.dat");
+    GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
+    GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
+    GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
 };
 std::string System::getName() const {
     return _name;
@@ -42,7 +45,7 @@ void System::login() {
     } while(true);
 };
 int System::verifyCredentials(int file, std::string password) {
-    UserLoginFile userLoginFile ("usersLogin.dat");
+    GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
     int numberOfRecords = userLoginFile.numberOfRecords();
     int userType = 0;
     int userPosition = 0;
@@ -60,25 +63,29 @@ int System::verifyCredentials(int file, std::string password) {
 };
 void System::allowAccess(int file, int userType) {
     switch(userType) {
-        case 1: 
-            {int position = _superAdministratorFile.searchRecord(file);
-            SuperAdministrator superAdministrator = _superAdministratorFile.read(position);
-            superAdministrator.showMenu();}
-            break;
+        case 1:
+            {
+                SuperAdministrator superAdministrator = _superAdministratorFile.read(_superAdministratorFile.searchRecord(file));
+                superAdministrator.showMenu();
+            }
+        break;
         case 2: 
-            {int position = _administratorFile.searchRecord(file);
-            Administrator administrator = _administratorFile.read(position);
-            administrator.showMenu();}
-            break;
+            {
+                Administrator administrator = _administratorFile.read(_administratorFile.searchRecord(file));
+                administrator.showMenu();
+            }
+        break;
         case 3: 
-            {int position = _teacherFile.searchRecord(file);
-            Teacher teacher = _teacherFile.read(position);
-            teacher.showMenu(teacher);}
-            break;
+            {
+                Teacher teacher = _teacherFile.read(_teacherFile.searchRecord(file));
+                teacher.showMenu(teacher);
+            }
+        break;
         case 4: 
-            {int position = _studentFile.searchRecord(file);
-            Student student = _studentFile.read(position);
-            student.showMenu(student);}
-            break;
+            {
+                Student student = _studentFile.read(_studentFile.searchRecord(file));
+                student.showMenu(student);
+            }
+        break;
     }
 };

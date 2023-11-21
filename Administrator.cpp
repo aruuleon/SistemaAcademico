@@ -1,10 +1,11 @@
 #include "Administrator.h"
-#include "TeacherFile.h"
-#include "StudentFile.h"
-#include "Functions.h"
-#include "UserLoginFile.h"
-#include "Fecha.h"
+#include "Teacher.h"
+#include "Student.h"
+#include "UserLogin.h"
+#include "GenericFile.h"
 #include "NoticeFile.h"
+#include "Functions.h"
+#include "Fecha.h"
 
 Administrator::Administrator() {
 
@@ -63,14 +64,14 @@ void Administrator::registerStaff(int userType) {
     bool saveResponse;
     if(userType == 3){
         std::cout << "REGISTRANDO PROFESOR..." << std::endl;
-        TeacherFile teacherFile("teachers.dat");
+        GenericFile <Teacher> teacherFile ("teachers.dat");
         saveResponse = teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
     } else{
         std::cout << "REGISTRANDO ALUMNO..." << std::endl;
-        StudentFile studentFile("students.dat");
+        GenericFile <Student> studentFile ("students.dat");
         saveResponse = studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
     }
-    UserLoginFile userLoginFile ("usersLogin.dat");
+    GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
     bool userResponse = userLoginFile.save(UserLogin(password, file, userType));
 };
 void Administrator::editStaff() {

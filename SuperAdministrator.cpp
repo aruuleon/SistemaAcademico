@@ -1,6 +1,6 @@
 #include "SuperAdministrator.h"
-// #include "AdministratorFile.h"
-#include "UserLoginFile.h"
+#include "UserLogin.h"
+#include "GenericFile.h"
 #include "Functions.h"
 
 SuperAdministrator::SuperAdministrator() {
@@ -64,8 +64,8 @@ void SuperAdministrator::registerAdministrator() {
     std::cout << "INGRESAR CLAVE: " << std::endl; 
     std::cin >> password;
     file = verifyFileAdministrators();
-    AdministratorFile administratorFile ("administrators.dat");
-    UserLoginFile userLoginFile ("usersLogin.dat");
+    GenericFile <Administrator> administratorFile ("administrators.dat");
+    GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
     bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, file, 2));
     bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
 };

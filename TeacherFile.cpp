@@ -21,18 +21,18 @@ return teacher;
 }
 int TeacherFile::searchRecord(int registryNumber){
     int position = 0;
-        Teacher teacher;
-        FILE *p = fopen(_fileName, "rb");
-        if(p == nullptr){
-        return -1;
+    Teacher teacher;
+    FILE *p = fopen(_fileName, "rb");
+    if(p == nullptr){
+    return -1;
+    }
+    while(fread(&teacher, sizeof(Teacher), 1, p)) {
+        if(teacher.getFile() == registryNumber){//id para buscar {
+            fclose(p);
+            return position;
         }
-        while(fread(&teacher, sizeof(Teacher), 1, p)) {
-            if(teacher.getFile() == registryNumber){//id para buscar {
-                fclose(p);
-                return position;
-            }
-            position++;
-        }
+        position++;
+    }
     fclose(p);
     return -1;
 }
