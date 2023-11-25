@@ -53,6 +53,23 @@ public:
         fclose(file);
         return bytes / sizeof(T);
     };
+    bool numberOfActiveRecords() {
+        FILE * file = fopen(_fileName, "rb");
+        if(file == nullptr){
+            return false;
+        }
+        int numberOfRecords = this->numberOfRecords();
+        int position = 0;
+        bool activeRecord = false;
+        while(!activeRecord && position < numberOfRecords) {
+            T facultyStaff = this->read(position);
+            if(facultyStaff.getState()) {
+                activeRecord = true;
+            }
+            position++;
+        }
+        return activeRecord;
+    };
     bool save(const T& facultyStaff) {
         FILE * file = fopen(_fileName, "ab");
         if(file == nullptr) {

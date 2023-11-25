@@ -1,6 +1,5 @@
 #pragma once
 #include "FacultyStaff.h"
-#include "AdministratorFile.h"
 
 
 class SuperAdministrator : public FacultyStaff {

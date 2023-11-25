@@ -1,4 +1,5 @@
 #include "SuperAdministrator.h"
+#include "Administrator.h"
 #include "UserLogin.h"
 #include "GenericFile.h"
 #include "Functions.h"
