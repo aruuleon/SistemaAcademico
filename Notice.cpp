@@ -4,11 +4,11 @@
 Notice::Notice(){
 
 };
-Notice::Notice(Fecha fecha, std::string title, std::string content, int code){
+Notice::Notice(Fecha fecha, std::string title, std::string content, int id){
     setFecha(fecha);
     setTitle(title);
     setContent(content);
-    setCode(code);
+    setId(id);
     setState(true);
 };
 Fecha Notice::getFecha() const{
@@ -20,8 +20,8 @@ std::string Notice::getTitle() const{
 std::string Notice::getContent() const{
     return _content;
 };
-int Notice::getCode() const{
-    return _code;
+int Notice::getId() const{
+    return _id;
 };
 bool Notice::getState() const{
     return _state;
@@ -35,14 +35,14 @@ void Notice::setTitle(std::string title){
 void Notice::setContent(std::string content){
     strcpy(_content, content.c_str());
 };
-void Notice::setCode(int code){
-    _code = code;
+void Notice::setId(int id){
+    _id = id;
 };
 void Notice::setState(bool state){
     _state = state;
 };
 void Notice::show(){
     std::cout << "FECHA PUBLICACION: " << getFecha().toString() << std::endl;
-    std::cout << "TITULO: " << getTitle() << std::endl;
-    std::cout << getContent() << std::endl;
+    std::cout << "TITULO           : " << getTitle() << std::endl;
+    std::cout << "DESCRIPCION      : " << getContent() << std::endl;
 };

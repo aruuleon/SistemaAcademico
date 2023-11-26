@@ -4,10 +4,10 @@
 
 class FacultyStaff : public Person {
     private:
-        char _email[20];
-        char _password[20];
+        char _email[40];
+        char _password[40];
         char _phone[20];
-        int _file;
+        int _id;
         int _userType;
         bool _state;
     public:
@@ -16,13 +16,13 @@ class FacultyStaff : public Person {
         std::string getEmail() const;
         std::string getPassword() const;
         std::string getPhone() const;
-        int getFile() const;
+        int getId() const;
         int getUserType() const;
         bool getState() const;
         void setEmail(std::string);
         void setPassword(std::string);
         void setPhone(std::string);
-        void setFile(int);
+        void setId(int);
         void setUserType(int);
         void setState(bool);
         void logout();

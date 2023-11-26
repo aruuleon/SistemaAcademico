@@ -1,90 +1,125 @@
 #include "SuperAdministrator.h"
-#include "Administrator.h"
-#include "UserLogin.h"
-#include "GenericFile.h"
 #include "Functions.h"
 
 SuperAdministrator::SuperAdministrator() {
 
 };
-SuperAdministrator::SuperAdministrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
-:FacultyStaff(name, surname, document, email, password, phone, file, userType) {
-    
+SuperAdministrator::SuperAdministrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int id, int userType)
+:FacultyStaff(name, surname, document, email, password, phone, id, userType) {
 };
 void SuperAdministrator::showMenu() {
     int selectedOption;
     do {
         std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
         std::cout << std::endl;
-        std::cout << "1 - REGISTRAR ADMINISTRADOR" << std::endl;
-        std::cout << "2 - ELIMINAR ADMINISTRADOR" << std::endl;
-        std::cout << "3 - VOLVER A DAR DE ALTA ADMINISTADOR" << std::endl;
-        std::cout << "4 - BUSCAR ADMINISTRADOR" << std::endl;
-        std::cout << "5 - MOSTRAR LISTA ADMINISTRADORES" << std::endl;
+        std::cout << "1 - ADMINISTRADOR" << std::endl;
+        std::cout << "2 - CARRERA" << std::endl;
+        std::cout << "3 - MATERIA" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
         sendRequest(selectedOption);
     } while(selectedOption != 0);
 };
 void SuperAdministrator::sendRequest(int selectedOption) {
+    if(selectedOption != 0) {
+        showGenericMenu(selectedOption);
+    } else {
+        logout();
+    }
+};
+void SuperAdministrator::showGenericMenu(int optionReceived) {
+    int selectedOption;
+    do {
+        std::cout << "1 - REGISTRAR" << std::endl;
+        std::cout << "2 - EDITAR" << std::endl;
+        std::cout << "3 - ELIMINAR" << std::endl;
+        std::cout << "4 - VOLVER A DAR DE ALTA" << std::endl;
+        std::cout << "5 - MOSTRAR INFORMACION" << std::endl;
+        std::cout << "6 - MOSTRAR LISTA" << std::endl;
+        if(optionReceived == 2) std::cout << "7 - ASIGNAR MATERIA A CARRERA" << std::endl;
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cin >> selectedOption;
+        sendGenericRequest(optionReceived, selectedOption);
+    } while(selectedOption != 0);
+};
+void SuperAdministrator::sendGenericRequest(int optionReceived, int selectedOption) {
     switch(selectedOption) {
-        case 1: registerAdministrator();
+        case 1: registerByOption(optionReceived);
             break;
-        case 2: withdrawAdministrator();
+        case 2: editByOption(optionReceived);
             break;
-        case 3: reEnrollAdministrator();
+        case 3: withdrawByOption(optionReceived);
             break;
-        case 4: searchAdministrator();
+        case 4: reEnrollByOption(optionReceived);
             break;
-        case 5: listAdministrators();
+        case 5: searchByOption(optionReceived);
             break;
-        case 0: logout();
+        case 6: listByOption(optionReceived);
             break;
     }
 };
-void SuperAdministrator::registerAdministrator() {
-    std::string name;
-    std::string surname;
-    std::string document;
-    std::string email;
-    std::string password;
-    std::string phone;
-    int file;
-    int userType;
-    std::cout << "REGISTRANDO ADMINISTRADOR.." << std::endl;
-    std::cout << "INGRESAR NOMBRE: " << std::endl; 
-    std::cin >>  name;
-    std::cout << "INGRESAR APELLIDO: " << std::endl;
-    std::cin >>  surname; 
-    std::cout << "INGRESAR DNI: " << std::endl;
-    std::cin >>  document; 
-    std::cout << "INGRESAR CORREO: " << std::endl; 
-    std::cin >>  email;
-    std::cout << "INGRESAR TELEFONO: " << std::endl; 
-    std::cin >>  phone;
-    std::cout << "INGRESAR CLAVE: " << std::endl; 
-    std::cin >> password;
-    file = verifyFileAdministrators();
-    GenericFile <Administrator> administratorFile ("administrators.dat");
-    GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
-    bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, file, 2));
-    bool userResponse = userLoginFile.save(UserLogin(password, file, 2));
+void SuperAdministrator::registerByOption(int optionReceived)  {
+    switch(optionReceived) {
+        case 1: registerAdministrator();
+            break;
+        case 2: registerCareer();
+            break;
+        case 3: registerSubject();
+            break;
+    }
 };
-void SuperAdministrator::withdrawAdministrator() {
-    withdrawAdministrator();
+void SuperAdministrator::editByOption(int optionReceived) {
+    switch(optionReceived) {
+        case 1: editAdministrator();
+            break;
+        case 2: editCareer();
+            break;
+        case 3: editSubject();
+            break;
+    }
 };
-void SuperAdministrator::searchAdministrator() {
-    searchAdministrator();
+void SuperAdministrator::withdrawByOption(int optionReceived) {
+    switch(optionReceived) {
+        case 1: withdrawRegisterByOption(_administratorFile, "user");
+            break;
+        case 2: withdrawRegisterByOption(_careerFile, "resource");
+            break;
+        case 3: withdrawRegisterByOption(_subjectFile, "resource");
+            break;
+    }
 };
-void SuperAdministrator::listAdministrators() {
-    listAdministrators();
+void SuperAdministrator::reEnrollByOption(int optionReceived) {
+    switch(optionReceived) {
+        case 1: reEnrollRegisterByOption(_administratorFile, "user");
+            break;
+        case 2: reEnrollRegisterByOption(_careerFile, "resource");
+            break;
+        case 3: reEnrollRegisterByOption(_subjectFile, "resource");
+            break;
+    }
 };
-void SuperAdministrator::reEnrollAdministrator(){
-    reEnrollAdministrator();
-}
-
+void SuperAdministrator::searchByOption(int optionReceived) {
+    switch(optionReceived) {
+        case 1: searchRegisterByOption(_administratorFile);
+            break;
+        case 2: searchRegisterByOption(_careerFile);
+            break;
+        case 3: searchRegisterByOption(_subjectFile);
+            break;
+    }
+};
+void SuperAdministrator::listByOption(int optionReceived) {
+    switch(optionReceived) {
+        case 1: listRegisterByOption(_administratorFile);
+            break;
+        case 2: listRegisterByOption(_careerFile);
+            break;
+        case 3: listRegisterByOption(_subjectFile);
+            break;
+    }
+};
 void SuperAdministrator::show(){
-    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "LEGAJO         : " << getId() << std::endl; 
     std::cout << "NOMBRE         : " << getName() << std::endl;
     std::cout << "APELLIDO       : " << getSurname() << std::endl;
     std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 

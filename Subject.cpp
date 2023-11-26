@@ -5,23 +5,24 @@
 Subject::Subject() {
 
 };
-Subject::Subject(std::string name, int subjectId, int careerId, int duration) {
+Subject::Subject(std::string name, std::string duration, int id, int yearCareer) {
     setName(name);
-    setSubjectId(subjectId);
-    setCareerId(careerId);
     setDuration(duration);
+    setId(id);
+    setCareerId(-1);
+    setYearCareer(yearCareer);
     setState(true);
 };
 std::string Subject::getName() const {
     return _name;
 };
-int Subject::getSubjectId() const {
-    return _subjectId;
+int Subject::getId() const {
+    return _id;
 };
 int Subject::getCareerId() const {
     return _careerId;
 };
-int Subject::getDuration() const {
+std::string Subject::getDuration() const {
     return _duration;
 };
 int Subject::getyearCareer() const {
@@ -33,14 +34,14 @@ bool Subject::getState() const {
 void Subject::setName(std::string name) {
     strcpy(_name, name.c_str());
 };
-void Subject::setSubjectId(int subjectId) {
-    _subjectId = subjectId;
+void Subject::setId(int id) {
+    _id = id;
 };
 void Subject::setCareerId(int careerId) {
     _careerId = careerId;
 };
-void Subject::setDuration(int duration) {
-    _duration = duration;
+void Subject::setDuration(std::string duration) {
+    strcpy(_duration, duration.c_str());
 };
 void Subject::setYearCareer(int yearCareer) {
     _yearCareer = yearCareer;
@@ -50,7 +51,7 @@ void Subject::setState(bool state) {
 };
 void Subject::show(){
     std::cout << "NOMBRE         : " << getName() << std::endl;
-    std::cout << "ID MATERIA     : " << getSubjectId() << std::endl;
+    std::cout << "ID MATERIA     : " << getId() << std::endl;
     std::cout << "ID CARRERA     : " << getCareerId() << std::endl; 
     std::cout << "DURACION       : " << getDuration() << std::endl; 
 };

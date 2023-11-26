@@ -3,8 +3,8 @@
 
 class Person {
     private:
-        char _name[20];
-        char _surname[20];
+        char _name[40];
+        char _surname[40];
         char _document[20];
     public:
         Person();

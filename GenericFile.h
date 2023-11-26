@@ -34,7 +34,7 @@ public:
         T facultyStaff;
         int position = 0;
         while(fread(&facultyStaff, sizeof(T), 1, file)) {
-            if(facultyStaff.getFile() == code){
+            if(facultyStaff.getId() == code){
                 fclose(file);
                 return position;
             }

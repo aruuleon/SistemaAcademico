@@ -24,7 +24,7 @@ void System::runProgram() {
     login();
 };
 void System::login() {
-    int file;
+    int id;
     int userType;
     std::string password;
 
@@ -33,18 +33,18 @@ void System::login() {
             std::cout << "INICIAR SESION" << std::endl;
             std::cout << std::endl;
             std::cout << "LEGAJO: ";
-            std::cin >> file;
+            std::cin >> id;
             std::cout << "CLAVE: ";
             std::cin >> password;
-            userType = verifyCredentials(file, password);
+            userType = verifyCredentials(id, password);
             if(userType == 0) {
                 std::cout << "CREDENCIALES INCORRECTAS" << std::endl;
             }
         } while(userType == 0);
-        allowAccess(file, userType);
+        allowAccess(id, userType);
     } while(true);
 };
-int System::verifyCredentials(int file, std::string password) {
+int System::verifyCredentials(int id, std::string password) {
     GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
     int numberOfRecords = userLoginFile.numberOfRecords();
     int userType = 0;
@@ -53,7 +53,7 @@ int System::verifyCredentials(int file, std::string password) {
 
     while(!userFound && userPosition < numberOfRecords) {
         UserLogin userLogin = userLoginFile.read(userPosition);
-        if(userLogin.getFile() == file && userLogin.getPassword() == password) {
+        if(userLogin.getId() == id && userLogin.getPassword() == password) {
             userFound = true;
             userType = userLogin.getUserType();
         }
@@ -61,29 +61,29 @@ int System::verifyCredentials(int file, std::string password) {
     }
     return userType;
 };
-void System::allowAccess(int file, int userType) {
+void System::allowAccess(int id, int userType) {
     switch(userType) {
         case 1:
             {
-                SuperAdministrator superAdministrator = _superAdministratorFile.read(_superAdministratorFile.searchRecord(file));
+                SuperAdministrator superAdministrator = _superAdministratorFile.read(_superAdministratorFile.searchRecord(id));
                 superAdministrator.showMenu();
             }
         break;
         case 2: 
             {
-                Administrator administrator = _administratorFile.read(_administratorFile.searchRecord(file));
+                Administrator administrator = _administratorFile.read(_administratorFile.searchRecord(id));
                 administrator.showMenu();
             }
         break;
         case 3: 
             {
-                Teacher teacher = _teacherFile.read(_teacherFile.searchRecord(file));
+                Teacher teacher = _teacherFile.read(_teacherFile.searchRecord(id));
                 teacher.showMenu(teacher);
             }
         break;
         case 4: 
             {
-                Student student = _studentFile.read(_studentFile.searchRecord(file));
+                Student student = _studentFile.read(_studentFile.searchRecord(id));
                 student.showMenu(student);
             }
         break;

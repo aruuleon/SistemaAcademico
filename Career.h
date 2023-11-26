@@ -3,22 +3,22 @@
 
 class Career {
     private:
-        char _name[40];
-        int _careerId;
-        int _studioType;
+        char _name[60];
+        char _studyType[40];
+        int _id;
         int _duration;
         bool _state;
     public:
         Career();
-        Career(std::string, int, int, int);
+        Career(std::string, std::string, int, int);
         std::string getName() const;
-        int getCareerId() const;
-        int getStudioType() const;
+        std::string getStudyType() const;
+        int getId() const;
         int getDuration() const;
         bool getState() const;
         void setName(std::string);
-        void setCareerId(int);
-        void setStudioType(int);
+        void setStudyType(std::string);
+        void setId(int);
         void setDuration(int);
         void setState(bool);
         void show();

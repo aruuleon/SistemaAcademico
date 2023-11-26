@@ -3,25 +3,25 @@
 
 class Subject {
     private:
-        char _name[20];
-        int _subjectId;
+        char _name[60];
+        char _duration[20];
+        int _id;
         int _careerId;
-        int _duration;
         int _yearCareer;
         bool _state;
     public:
         Subject();
-        Subject(std::string, int, int, int);
+        Subject(std::string, std::string, int, int);
         std::string getName() const;
-        int getSubjectId() const;
+        std::string getDuration() const;
+        int getId() const;
         int getCareerId() const;
-        int getDuration() const;
         int getyearCareer() const;
         bool getState() const;
         void setName(std::string);
-        void setSubjectId(int);
+        void setId(int);
         void setCareerId(int);
-        void setDuration(int);
+        void setDuration(std::string);
         void setYearCareer(int);
         void setState(bool);
         void show();

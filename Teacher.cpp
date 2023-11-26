@@ -3,8 +3,8 @@
 Teacher::Teacher() {
 
 };
-Teacher::Teacher(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
-:FacultyStaff(name, surname, document, email, password, phone, file, userType) {
+Teacher::Teacher(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int id, int userType)
+:FacultyStaff(name, surname, document, email, password, phone, id, userType) {
 };
 void Teacher::showMenu(Teacher teacher) {
     int selectedOption;
@@ -35,7 +35,7 @@ void Teacher::showAssignedSubjects() {
 
 };
 void Teacher::show(){
-    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "LEGAJO         : " << getId() << std::endl; 
     std::cout << "NOMBRE         : " << getName() << std::endl;
     std::cout << "APELLIDO       : " << getSurname() << std::endl;
     std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 

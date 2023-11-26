@@ -5,12 +5,12 @@
 FacultyStaff::FacultyStaff() {
 
 };
-FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType) 
+FacultyStaff::FacultyStaff(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int id, int userType) 
 :Person(name, surname, document) {
     setEmail(email);
     setPassword(password);
     setPhone(phone);
-    setFile(file);
+    setId(id);
     setUserType(userType);
     setState(true);
 };
@@ -23,8 +23,8 @@ std::string FacultyStaff::getPassword() const {
 std::string FacultyStaff::getPhone() const {
     return _phone;
 };
-int FacultyStaff::getFile() const {
-    return _file;
+int FacultyStaff::getId() const {
+    return _id;
 };
 int FacultyStaff::getUserType() const {
     return _userType;
@@ -41,8 +41,8 @@ void FacultyStaff::setPassword(std::string password) {
 void FacultyStaff::setPhone(std::string phone) {
     strcpy(_phone, phone.c_str());
 };
-void FacultyStaff::setFile(int file) {
-    _file = file;
+void FacultyStaff::setId(int id) {
+    _id = id;
 };
 void FacultyStaff::setUserType(int userType) {
     _userType = userType;
@@ -54,7 +54,7 @@ void FacultyStaff::logout() {
     std::cout << "FINALIZANDO SESION" << std::endl;
 };
 void FacultyStaff::show(){
-    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "LEGAJO         : " << getId() << std::endl; 
     std::cout << "NOMBRE         : " << getName() << std::endl;
     std::cout << "APELLIDO       : " << getSurname() << std::endl;
     std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 

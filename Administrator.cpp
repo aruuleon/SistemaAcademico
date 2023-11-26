@@ -1,10 +1,6 @@
 #include "Administrator.h"
-#include "Teacher.h"
-#include "Student.h"
-#include "UserLogin.h"
-#include "GenericFile.h"
-#include "NoticeFile.h"
 #include "Functions.h"
+#include "GenericFile.h"
 #include "Fecha.h"
 
 Administrator::Administrator() {
@@ -12,7 +8,6 @@ Administrator::Administrator() {
 };
 Administrator::Administrator(std::string name, std::string surname, std::string document, std::string email, std::string password, std::string phone, int file, int userType)
 :FacultyStaff(name, surname, document, email, password, phone, file, userType) {
-    
 };
 void Administrator::showMenu() {
     int selectedOption;
@@ -48,10 +43,11 @@ void Administrator::registerStaff(int userType) {
     std::string phone;
     int file;
     std::cout << "REGISTRANDO STAFF.." << std::endl;
-    std::cout << "INGRESAR NOMBRE: " << std::endl; 
-    std::cin >>  name;
+    std::cout << "INGRESAR NOMBRE: " << std::endl;
+    std::cin.ignore();
+    getline(std::cin, name);
     std::cout << "INGRESAR APELLIDO: " << std::endl;
-    std::cin >>  surname; 
+    getline(std::cin, surname);
     std::cout << "INGRESAR DNI: " << std::endl;
     std::cin >>  document; 
     std::cout << "INGRESAR CORREO: " << std::endl; 
@@ -60,33 +56,35 @@ void Administrator::registerStaff(int userType) {
     std::cin >>  phone;
     std::cout << "INGRESAR CLAVE: " << std::endl; 
     std::cin >> password;
-    file = verifyFile(userType);
     bool saveResponse;
     if(userType == 3){
+        file = verifyIdRegisterByOption(_teacherFile);
         std::cout << "REGISTRANDO PROFESOR..." << std::endl;
-        GenericFile <Teacher> teacherFile ("teachers.dat");
-        saveResponse = teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
+        saveResponse = _teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
     } else{
+        file = verifyIdRegisterByOption(_studentFile);
         std::cout << "REGISTRANDO ALUMNO..." << std::endl;
-        GenericFile <Student> studentFile ("students.dat");
-        saveResponse = studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
+        saveResponse = _studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
     }
-    GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
-    bool userResponse = userLoginFile.save(UserLogin(password, file, userType));
+    bool userResponse = _userLoginFile.save(UserLogin(password, file, userType));
 };
 void Administrator::editStaff() {
+    
 };
 void Administrator::withdrawStaff(int userType) {
-    (userType == 3) ? withdrawTeacher() : withdrawStudent();
+    (userType == 3) ? withdrawRegisterByOption(_teacherFile, "user") : withdrawRegisterByOption(_studentFile, "user");
 };
 void Administrator::reEnrollStaff(int userType){
-    (userType == 3) ? reEnrollTeacher() : reEnrollStudent();
+    (userType == 3) ? reEnrollRegisterByOption(_teacherFile, "user") : reEnrollRegisterByOption(_studentFile, "user");
 };
 void Administrator::verifyInformation(int userType) {
-    (userType == 3) ? searchTeacher() : searchStudent();
+    (userType == 3) ? searchRegisterByOption(_teacherFile) : searchRegisterByOption(_studentFile);
 };
 void Administrator::listStaff(int userType) {
-    (userType == 3) ? listTeachers() : listStudents();
+    (userType == 3) ? listRegisterByOption(_teacherFile) : listRegisterByOption(_studentFile);
+};
+void Administrator::listNotices() {
+    listRegisterByOption(_noticeFile);
 };
 void Administrator::assignNoteStudent() {
 
@@ -97,7 +95,7 @@ void Administrator::editStudentNote() {
 void Administrator::postNotice() {
     std::string title; 
     std::string content;
-    int code;
+    int id;
     int day;
     int month;
     int year;
@@ -109,21 +107,21 @@ void Administrator::postNotice() {
     std::cout << "ANIO: ";
     std::cin >> year;
     std::cout << "INGRESAR TITULO AVISO: ";
-    std::cin >> title;
+    std::cin.ignore();
+    getline(std::cin, title);
     std::cout << "INGRESAR DESCRIPCION AVISO: ";
-    std::cin >> content;  
-    code = verifyCodeNotice();
-    NoticeFile noticeFile("notices.dat");
-    bool response = noticeFile.save(Notice(Fecha(day, month, year), title, content, code));
+    getline(std::cin, content);
+    id = verifyIdRegisterByOption(_noticeFile);
+    bool response = _noticeFile.save(Notice(Fecha(day, month, year), title, content, id));
 };
 void Administrator::withdrawNotice(){
-    withDrawNotice();
+    withdrawRegisterByOption(_noticeFile, "resource");
 };
 void Administrator::editNotice(){
     
 };
 void Administrator::show(){
-    std::cout << "LEGAJO         : " << getFile() << std::endl; 
+    std::cout << "LEGAJO         : " << getId() << std::endl; 
     std::cout << "NOMBRE         : " << getName() << std::endl;
     std::cout << "APELLIDO       : " << getSurname() << std::endl;
     std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 
@@ -167,6 +165,7 @@ void Administrator::showMenuNotice(){
         std::cout << "1 - SUBIR AVISO " << std::endl;
         std::cout << "2 - EDITAR AVISO" << std::endl;
         std::cout << "3 - DAR DE BAJA AVISO" << std::endl;
+        std::cout << "4 - MOSTRAR LISTA AVISOS" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
         sendNoticeRequest(selectedOption);
@@ -184,7 +183,7 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
             break;
         case 5: listStaff(userType);
             break;
-        case 0: logout();
+        case 0: "VOLVIENDO..";
             break;
     }
 };
@@ -192,21 +191,13 @@ void Administrator::sendNoticeRequest(int selectedOption){
 switch(selectedOption) {
         case 1: postNotice();
             break;
-        case 2: withdrawNotice();
+        case 2: editNotice();
             break;
-        case 3: editNotice();
+        case 3: withdrawNotice();
             break;
-        //case 0: logout();
-        //    break;
+        case 4: listNotices();
+            break;
+        case 0: "VOLVIENDO..";
+           break;
     }
-};
-
-int Administrator::verifyFile(int userType){
-    int generatedFile;
-    if(userType == 3){
-        generatedFile = verifyFileTeachers();
-    } else{
-        generatedFile = verifyFileStudents();
-    }    
-    return generatedFile;
 };

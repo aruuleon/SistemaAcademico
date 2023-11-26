@@ -6,9 +6,9 @@
 class Notice{
     private:
         Fecha _fecha;
-        char _title[30];
+        char _title[80];
         char _content[500];
-        int _code;
+        int _id;
         bool _state;
     public:
         Notice();
@@ -16,12 +16,12 @@ class Notice{
         Fecha getFecha() const;
         std::string getTitle() const;
         std::string getContent() const;
-        int getCode() const;
+        int getId() const;
         bool getState() const;
         void setFecha(Fecha);
         void setTitle(std::string);
         void setContent(std::string);
-        void setCode(int);
+        void setId(int);
         void setState(bool);
         void show();
 };
