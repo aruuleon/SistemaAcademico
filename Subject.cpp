@@ -5,7 +5,7 @@
 Subject::Subject() {
 
 };
-Subject::Subject(std::string name, std::string duration, int id, int yearCareer) {
+Subject::Subject(std::string name, int duration, int id, int yearCareer) {
     setName(name);
     setDuration(duration);
     setId(id);
@@ -23,7 +23,7 @@ int Subject::getCareerId() const {
     return _careerId;
 };
 std::string Subject::getDuration() const {
-    return _duration;
+    return (_duration == 1) ? "CUATRIMESTRAL" : "ANUAL";
 };
 int Subject::getyearCareer() const {
     return _yearCareer;
@@ -40,8 +40,8 @@ void Subject::setId(int id) {
 void Subject::setCareerId(int careerId) {
     _careerId = careerId;
 };
-void Subject::setDuration(std::string duration) {
-    strcpy(_duration, duration.c_str());
+void Subject::setDuration(int duration) {
+    _duration = duration;
 };
 void Subject::setYearCareer(int yearCareer) {
     _yearCareer = yearCareer;

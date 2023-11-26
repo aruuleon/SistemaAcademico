@@ -8,14 +8,15 @@
 class SuperAdministrator : public FacultyStaff {
     private:
         void sendRequest(int); // ok
-        void sendGenericRequest(int, int);
-        void showGenericMenu(int);
-        void registerByOption(int);
-        void editByOption(int);
-        void withdrawByOption(int);
-        void reEnrollByOption(int);
-        void searchByOption(int);
-        void listByOption(int);
+        void sendGenericRequest(int, int); //ok
+        void showGenericMenu(int); //ok
+        void registerByOption(int); //ok
+        void editByOption(int); 
+        void withdrawByOption(int); //ok
+        void reEnrollByOption(int); //ok
+        void searchByOption(int); //ok
+        void listByOption(int); //ok
+        void assignSubjectToCareer();
         GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");

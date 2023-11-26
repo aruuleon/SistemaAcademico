@@ -17,6 +17,7 @@ void Administrator::showMenu() {
         std::cout << "1 - PROFESOR " << std::endl;
         std::cout << "2 - ALUMNO" << std::endl;
         std::cout << "3 - AVISOS" << std::endl;
+        std::cout << "4 - COMISION" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
         sendRequest(selectedOption);
@@ -29,6 +30,8 @@ void Administrator::sendRequest(int selectedOption) {
         case 2: showGenericMenu(4);
             break;
         case 3: showMenuNotice();
+            break;
+        case 4: showMenuComission();
             break;
         case 0: logout();
             break;
@@ -171,6 +174,22 @@ void Administrator::showMenuNotice(){
         sendNoticeRequest(selectedOption);
     } while(selectedOption != 0);
 };
+void Administrator::showMenuComission(){
+    int selectedOption;
+    do {
+        std::cout << "MENU COMISION" << std::endl;
+        std::cout << std::endl;
+        std::cout << "1 - REGISTRAR COMISION " << std::endl;
+        std::cout << "2 - EDITAR COMISION" << std::endl;
+        std::cout << "3 - ELIMINAR COMISION" << std::endl;
+        std::cout << "4 - DAR DE ALTA COMISION" << std::endl;
+        std::cout << "5 - MOSTRAR INFORMACION COMISION" << std::endl;
+        std::cout << "6 - MOSTRAR LISTA COMISION" << std::endl;
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cin >> selectedOption;
+        sendComissionRequest(selectedOption);
+    } while(selectedOption != 0);
+};
 void Administrator::sendGenericRequest(int selectedOption, int userType) {
     switch(selectedOption) {
         case 1: registerStaff(userType);
@@ -182,8 +201,6 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
         case 4: verifyInformation(userType);
             break;
         case 5: listStaff(userType);
-            break;
-        case 0: "VOLVIENDO..";
             break;
     }
 };
@@ -197,7 +214,63 @@ switch(selectedOption) {
             break;
         case 4: listNotices();
             break;
-        case 0: "VOLVIENDO..";
-           break;
     }
+};
+void Administrator::sendComissionRequest(int selectedOption) {
+    switch(selectedOption) {
+        case 1: registerComission();
+            break;
+        case 2: editComission();
+            break;
+        case 3: withdrawComission();
+            break;
+        case 4: reEnrollComission();
+            break;
+        case 5: verifyInformationComission();
+            break;
+        case 6: listComissions();
+            break;
+    }
+};
+void Administrator::registerComission(){
+    int modality;
+    int id;
+    int turn;
+    int year;
+    int fourthQuarter;
+
+    std::cout << "REGISTRANDO COMISION" << std::endl;
+    std::cout << "TIPO MODALIDAD" << std::endl;    
+    std::cout << "1- PRESENCIAL" << std::endl;
+    std::cout << "2- VIRTUAL" << std::endl;
+    std::cout << "SELECCIONAR UNA OPCION: ";
+    std::cin >> modality;    
+    std::cout << "TURNO DE CURSADA" << std::endl;
+    std::cout << "1- MANIANA" << std::endl;
+    std::cout << "2- NOCHE" << std::endl;
+    std::cout << "SELECCIONAR UNA OPCION: ";
+    std::cin >> turn;
+    std::cout << "INGRESAR ANIO DE COMISION: ";
+    std::cin >> year;
+    std::cout << "INGRESAR CUATRIMESTRE: " << std::endl;
+    std::cout << "1- PRIMER CUATRIMESTRE" << std::endl;
+    std::cout << "2- SEGUNDO CUATRIMESTRE" << std::endl;
+    std::cout << "SELECCIONAR UNA OPCION: ";
+    std::cin >>fourthQuarter;
+    id = verifyIdRegisterByOption(_comissionFile);
+    bool response = _comissionFile.save(Comission(id, modality, turn, year, fourthQuarter));
+};
+void Administrator::editComission(){
+};
+void Administrator::withdrawComission(){
+    withdrawRegisterByOption(_comissionFile, "resource");
+};
+void Administrator::reEnrollComission(){
+    reEnrollRegisterByOption(_comissionFile, "resource");
+};
+void Administrator::verifyInformationComission(){
+    searchRegisterByOption(_comissionFile);
+    };
+void Administrator::listComissions(){
+    listRegisterByOption(_comissionFile);
 };

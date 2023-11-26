@@ -17,7 +17,7 @@ std::string getStudyType(int);
 std::string getCourseDuration(int);
 
 template <class T>
-int listRegisterByOption(GenericFile<T> file) {
+bool listRegisterByOption(GenericFile<T> file) {
     std::cout << "MOSTRANDO LISTA REGISTROS.." << std::endl;
     int numberOfRecords = file.numberOfRecords();
     if(file.numberOfActiveRecords()) {
@@ -27,6 +27,7 @@ int listRegisterByOption(GenericFile<T> file) {
             }
         }
     } else {
+        
         std::cout << "NO SE ENCUENTRAN REGISTROS EN ESTE MOMENTO" << std::endl;
     }
 };

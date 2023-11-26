@@ -1,18 +1,12 @@
 #include <iostream>
 #include <cstring>
 #include "System.h"
-#include "UserLogin.h"
-#include "GenericFile.h"
 
 System::System() {
 
 };
 System::System(std::string name) {
     setName(name);
-    GenericFile <SuperAdministrator> _superAdministratorFile = GenericFile <SuperAdministrator> ("superAdministrators.dat");
-    GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
-    GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
-    GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
 };
 std::string System::getName() const {
     return _name;

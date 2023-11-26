@@ -5,22 +5,22 @@
 Comission::Comission() {
 
 };
-Comission::Comission(std::string comissionCode, std::string modality, int turn, int year, int fourthQuarter) {
-    setComissionCode(comissionCode);
+Comission::Comission(int id, int modality, int turn, int year, int fourthQuarter) {
+    setId(id);
     setModality(modality);
     setTurn(turn);
     setYear(year);
     setFourthQuarter(fourthQuarter);
     setState(true);
 };
-std::string Comission::getComissionCode() const {
-    return _comissionCode;
+int Comission::getId() const {
+    return _id;
 };
 std::string Comission::getModality() const {
-    return _modality;
+    return (_modality == 1) ? "PRESENCIAL" : "VIRTUAL";
 };
-int Comission::getTurn() const {
-    return _turn;
+std::string Comission::getTurn() const {
+    return (_turn == 1) ? "MANIANA" : "NOCHE";
 };
 int Comission::getYear() const {
     return _year;
@@ -31,11 +31,11 @@ int Comission::getFourthQuarter() const {
 bool Comission::getState() const {
     return _state;
 };
-void Comission::setComissionCode(std::string comissionCode) {
-    strcpy(_comissionCode, comissionCode.c_str());
+void Comission::setId(int id) {
+    _id = id;
 };
-void Comission::setModality(std::string modality) {
-    strcpy(_modality, modality.c_str());
+void Comission::setModality(int modality) {
+    _modality = modality;
 };
 void Comission::setTurn(int turn) {
     _turn = turn;
@@ -50,7 +50,7 @@ void Comission::setState(bool state) {
     _state = state;
 };
 void Comission::show(){
-    std::cout << "CODIGO DE COMISION         : " << getComissionCode() << std::endl; 
+    std::cout << "CODIGO DE COMISION         : " << getId() << std::endl; 
     std::cout << "MODALIDAD                  : " << getModality() << std::endl;
     std::cout << "TURNO                      : " << getTurn() << std::endl;
     std::cout << "ANIO                       : " << getYear() << std::endl; 

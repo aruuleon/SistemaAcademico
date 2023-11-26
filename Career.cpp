@@ -5,7 +5,7 @@
 Career::Career(){
 
 };
-Career::Career(std::string name, std::string studyType, int id, int duration) {
+Career::Career(std::string name, int studyType, int id, int duration) {
     setName(name);
     setStudyType(studyType);
     setId(id);
@@ -19,7 +19,16 @@ int Career::getId() const {
     return _id;
 };
 std::string Career::getStudyType() const {
-    return _studyType;
+    std::string studyType;
+    switch(_studyType) {
+        case 1: studyType = "TECNICATURA";
+            break;
+        case 2: studyType = "CARRERA DE GRADO";
+            break;
+        case 3: studyType = "POSGRADO";
+            break;
+    }
+    return studyType;
 };
 int Career::getDuration() const {
     return _duration;
@@ -33,8 +42,8 @@ void Career::setName(std::string name) {
 void Career::setId(int id) {
     _id = id;
 };
-void Career::setStudyType(std::string studyType) {
-    strcpy(_studyType, studyType.c_str());
+void Career::setStudyType(int studyType) {
+    _studyType = studyType;
 };
 void Career::setDuration(int duration) {
     _duration = duration;
@@ -45,6 +54,6 @@ void Career::setState(bool state) {
 void Career::show(){
     std::cout << "NOMBRE: " << getName() << std::endl;
     std::cout << "TIPO DE ESTUDIO: " << getStudyType() << std::endl;
-    // std::cout << "ID CARRERA: " << getId() << std::endl;
+    std::cout << "ID CARRERA: " << getId() << std::endl;
     std::cout << "DURACION: " << getDuration() << " ANIOS" << std::endl;
 };

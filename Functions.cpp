@@ -38,11 +38,10 @@ void registerAdministrator() {
     bool userResponse = userLoginFile.save(UserLogin(password, id, 2));
 };
 void registerCareer() {
-    std::string studyType;
     std::string name;
+    int studyType;
     int id;
     int duration;
-    int selectedOption;
 
     std::cout << "REGISTRANDO CARRERA.." << std::endl;
     std::cout << "TIPO DE ESTUDIO: " << std::endl;
@@ -50,10 +49,9 @@ void registerCareer() {
     std::cout << "2 - CARRERA DE GRADO" << std::endl;
     std::cout << "3 - POSGRADO" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
-    std::cin >> selectedOption;
-    studyType = getStudyType(selectedOption);
-    std::cin.ignore();
+    std::cin >> studyType;
     std::cout << "INGRESAR NOMBRE: ";
+    std::cin.ignore();
     getline(std::cin, name);
     std::cout << "INGRESAR DURACION: ";
     std::cin >> duration;
@@ -63,7 +61,7 @@ void registerCareer() {
 };
 void registerSubject() {
     std::string name;
-    std::string duration;
+    int duration;
     int id;
     int yearCareer;
     int selectedOption;
@@ -76,9 +74,7 @@ void registerSubject() {
     std::cout << "1 - CUATRIMESTRAL" << std::endl;
     std::cout << "2 - ANUAL" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
-    std::cin >> selectedOption;
-    duration = getCourseDuration(selectedOption);
-    std::cin.ignore();
+    std::cin >> duration;
     std::cout << "INGRESAR EN QUE ANIO DE LA CARRERA SE DICTA: ";
     std::cin >> yearCareer;
     GenericFile <Subject> subjectFile ("subjects.dat");
@@ -93,19 +89,4 @@ void editCareer() {
 };
 void editSubject() {
 
-};
-std::string getStudyType(int selectedOption) {
-    std::string studyType;
-    switch(selectedOption) {
-        case 1: studyType = "TECNICATURA";
-            break;
-        case 2: studyType = "CARRERA DE GRADO";
-            break;
-        case 3: studyType = "POSGRADO";
-            break;
-    }
-    return studyType;
-};
-std::string getCourseDuration(int selectedOption) {
-    return (selectedOption == 1) ? "CUATRIMESTRAL" : "ANUAL";
 };

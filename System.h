@@ -9,10 +9,10 @@
 class System {
     private:
         char _name[20];
-        GenericFile <SuperAdministrator> _superAdministratorFile;
-        GenericFile <Administrator> _administratorFile;
-        GenericFile <Teacher> _teacherFile;
-        GenericFile <Student> _studentFile;
+        GenericFile <SuperAdministrator> _superAdministratorFile = GenericFile <SuperAdministrator> ("superAdministrators.dat");
+        GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
+        GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
+        GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         int verifyCredentials(int file, std::string password);
         void allowAccess(int, int); // permitir ingreso
     public:

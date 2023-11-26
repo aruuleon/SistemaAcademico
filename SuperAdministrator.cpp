@@ -56,6 +56,8 @@ void SuperAdministrator::sendGenericRequest(int optionReceived, int selectedOpti
             break;
         case 6: listByOption(optionReceived);
             break;
+        case 7: assignSubjectToCareer();
+            break;
     }
 };
 void SuperAdministrator::registerByOption(int optionReceived)  {
@@ -116,6 +118,26 @@ void SuperAdministrator::listByOption(int optionReceived) {
             break;
         case 3: listRegisterByOption(_subjectFile);
             break;
+    }
+};
+void SuperAdministrator::assignSubjectToCareer(){
+    int idCareer;
+    int idSubject;
+    int positionSubject;
+    std::cout << "INGRESAR ID DE ALGUNA DE ESTAS CARRERAS A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
+    if(_careerFile.numberOfActiveRecords() > 0){
+        listRegisterByOption(_careerFile);
+        std::cin >> idCareer;
+        std::cout << "INGRESAR ID DE ALGUNA DE ESTAS MATERIAS A ASIGNAR: " << std::endl;
+        if(_subjectFile.numberOfActiveRecords() > 0){
+            listRegisterByOption(_subjectFile);
+            std::cin >> idSubject;
+            positionSubject = _subjectFile.searchRecord(idSubject);
+
+            Subject subject = _subjectFile.read(_subjectFile.searchRecord(idSubject));
+            subject.setCareerId(idCareer);
+            _subjectFile.save(subject, positionSubject);
+        }
     }
 };
 void SuperAdministrator::show(){
