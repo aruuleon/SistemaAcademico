@@ -14,9 +14,9 @@ class Comission {
         Comission(int, int, int, int, int);
         std::string getModality() const;
         std::string getTurn() const;
+        std::string getFourthQuarter() const;
         int getId() const;
         int getYear() const;
-        int getFourthQuarter() const;
         bool getState() const;
         void setId(int);
         void setModality(int);

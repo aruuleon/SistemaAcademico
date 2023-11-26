@@ -3,19 +3,16 @@
 
 class SubjectXComission {
     private:
-        char _comissionCode[20];
         int _subjectId;
-        int _numberOfExams;
-        bool _assignedTime;
+        int _comissionId;
+        bool _state;
     public:
         SubjectXComission();
-        SubjectXComission(std::string, int, int);
-        std::string getComissionCode() const;
+        SubjectXComission(int, int);
+        int getComissionId() const;
         int getSubjectId() const;
-        int getNumberOfExams() const;
-        bool getAssignedTime() const;
-        void setComissionCode(std::string);
+        bool getState() const;
+        void setComissionId(int);
         void setSubjectId(int);
-        void setNumberOfExams(int);
-        void setAssignedTime(bool);
+        void setState(bool);
 };

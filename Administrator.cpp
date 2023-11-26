@@ -1,6 +1,5 @@
 #include "Administrator.h"
 #include "Functions.h"
-#include "GenericFile.h"
 #include "Fecha.h"
 
 Administrator::Administrator() {
@@ -185,6 +184,8 @@ void Administrator::showMenuComission(){
         std::cout << "4 - DAR DE ALTA COMISION" << std::endl;
         std::cout << "5 - MOSTRAR INFORMACION COMISION" << std::endl;
         std::cout << "6 - MOSTRAR LISTA COMISION" << std::endl;
+        std::cout << "7 - ASIGNAR MATERIA A COMISION" << std::endl;
+        std::cout << "8 - MOSTRAR MATERIAS SEGUN COMISION" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
         sendComissionRequest(selectedOption);
@@ -230,6 +231,10 @@ void Administrator::sendComissionRequest(int selectedOption) {
             break;
         case 6: listComissions();
             break;
+        case 7: assignSubjectToComission();
+            break;
+        case 8: showSubjectsByComission();
+            break;
     }
 };
 void Administrator::registerComission(){
@@ -256,7 +261,7 @@ void Administrator::registerComission(){
     std::cout << "1- PRIMER CUATRIMESTRE" << std::endl;
     std::cout << "2- SEGUNDO CUATRIMESTRE" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
-    std::cin >>fourthQuarter;
+    std::cin >> fourthQuarter;
     id = verifyIdRegisterByOption(_comissionFile);
     bool response = _comissionFile.save(Comission(id, modality, turn, year, fourthQuarter));
 };
@@ -273,4 +278,58 @@ void Administrator::verifyInformationComission(){
     };
 void Administrator::listComissions(){
     listRegisterByOption(_comissionFile);
+};
+
+void Administrator::assignSubjectToComission(){
+    int comissionId;
+    int subjectId;
+    bool checkRelationship = false;
+    int position = 0;
+    int numberOfRecords = _subjectXComissionFile.numberOfRecords();
+    std::cout << "INGRESAR ID DE ALGUNA DE ESTAS COMISIONES A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
+    if(_comissionFile.numberOfActiveRecords() > 0){
+        listRegisterByOption(_comissionFile);
+        std::cin >> comissionId;
+        std::cout << "INGRESAR ID DE ALGUNA DE ESTAS MATERIAS A ASIGNAR: " << std::endl;
+        if(_subjectFile.numberOfActiveRecords() > 0){
+            listRegisterByOption(_subjectFile);
+            std::cin >> subjectId;
+            while(!checkRelationship && position < numberOfRecords){
+                SubjectXComission subjectXComission = _subjectXComissionFile.read(position);
+                if(subjectXComission.getSubjectId() == subjectId && subjectXComission.getComissionId() == comissionId){
+                    checkRelationship = true;
+                }
+                position ++;
+            }
+            if(!checkRelationship){
+            _subjectXComissionFile.save(SubjectXComission(subjectId, comissionId));
+            std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA COMISION" <<  std::endl; 
+            } else {
+                std::cout << "LA MATERIA QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA COMISION" << std::endl;
+            }
+        }
+    }
+};
+void Administrator::showSubjectsByComission(){
+    int id;
+    std::cout << "INGRESAR ID DE LA COMISION" << std::endl;
+    std::cin >> id;
+    int position = _comissionFile.searchRecord(id);
+    Comission comission = _comissionFile.read(position);
+    int numberOfRecordsRelationship = _subjectXComissionFile.numberOfRecords();
+    int numberOfRecordsSubjects = _subjectFile.numberOfRecords();
+    std::cout << "COMISION: " << comission.getId() << std::endl;
+    std::cout << "MATERIAS CORRESPONDIENTES: " << std::endl;
+    std::cout << std::endl;
+    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
+        SubjectXComission subjectXComission = _subjectXComissionFile.read(i);
+        if(subjectXComission.getComissionId() == comission.getId()) {
+            for(int j = 0; j < numberOfRecordsSubjects; j ++) {
+                Subject subject = _subjectFile.read(j);
+                if(subject.getState() && subject.getId() == subjectXComission.getSubjectId()) {
+                    subject.show();
+                }
+            }
+        }
+    }
 };

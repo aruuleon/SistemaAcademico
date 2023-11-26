@@ -4,33 +4,26 @@
 SubjectXComission::SubjectXComission() {
 
 };
-SubjectXComission::SubjectXComission(std::string comissionCode, int subjectId, int numberOfExams) {
-    setComissionCode(comissionCode);
+SubjectXComission::SubjectXComission(int comissionId, int subjectId) {
+    setComissionId(comissionId);
     setSubjectId(subjectId);
-    setNumberOfExams(numberOfExams);
-    setAssignedTime(true);
+    setState(true);
 };
-std::string SubjectXComission::getComissionCode() const {
-    return _comissionCode;
+int SubjectXComission::getComissionId() const {
+    return _comissionId;
 };
 int SubjectXComission::getSubjectId() const {
     return _subjectId;
 };
-int SubjectXComission::getNumberOfExams() const {
-    return _numberOfExams;
+bool SubjectXComission::getState() const {
+    return _state;
 };
-bool SubjectXComission::getAssignedTime() const {
-    return _assignedTime;
-};
-void SubjectXComission::setComissionCode(std::string comissionCode) {
-    strcpy(_comissionCode, comissionCode.c_str());
+void SubjectXComission::setComissionId(int comissionId) {
+    _comissionId = comissionId;
 };
 void SubjectXComission::setSubjectId(int subjectId) {
     _subjectId = subjectId;
 };
-void SubjectXComission::setNumberOfExams(int numberOfExams) {
-    _numberOfExams = numberOfExams;
-};
-void SubjectXComission::setAssignedTime(bool assignedTime) {
-    _assignedTime = assignedTime;
+void SubjectXComission::setState(bool state) {
+    _state = state;
 };

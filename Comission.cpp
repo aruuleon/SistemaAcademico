@@ -25,8 +25,8 @@ std::string Comission::getTurn() const {
 int Comission::getYear() const {
     return _year;
 };
-int Comission::getFourthQuarter() const {
-    return _fourthQuarter;
+std::string Comission::getFourthQuarter() const {
+    return (_fourthQuarter == 1) ? "PRIMER CUATRIMESTRE" : "SEGUNDO CUATRIMESTRE";
 };
 bool Comission::getState() const {
     return _state;

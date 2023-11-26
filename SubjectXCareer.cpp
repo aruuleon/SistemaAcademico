@@ -4,9 +4,9 @@ SubjectXCareer::SubjectXCareer() {
 
 };
 SubjectXCareer::SubjectXCareer(int subjectId, int careerId) {
-   setSubjectId(subjectId);
-   setCareerId(careerId);
-   setState(true);
+    setSubjectId(subjectId);
+    setCareerId(careerId);
+    setState(true);
 };
 int SubjectXCareer::getSubjectId() const {
     return _subjectId;

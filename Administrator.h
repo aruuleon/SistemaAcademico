@@ -4,8 +4,10 @@
 #include "Student.h"
 #include "UserLogin.h"
 #include "Notice.h"
+#include "Subject.h"
 #include "Comission.h"
 #include "GenericFile.h"
+#include "SubjectXComission.h"
 
 class Administrator : public FacultyStaff {
     private:
@@ -36,12 +38,15 @@ class Administrator : public FacultyStaff {
         void reEnrollComission();
         void verifyInformationComission();
         void listComissions();
+        void assignSubjectToComission();
+        void showSubjectsByComission();
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <UserLogin> _userLoginFile = GenericFile <UserLogin> ("usersLogin.dat");
         GenericFile <Notice> _noticeFile = GenericFile <Notice> ("notices.dat");
         GenericFile <Comission> _comissionFile = GenericFile <Comission> ("comissions.dat");
-
+        GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <SubjectXComission> _subjectXComissionFile = GenericFile <SubjectXComission> ("subjectsXComissions.dat");
     public:
         Administrator();
         Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);

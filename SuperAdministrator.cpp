@@ -127,28 +127,28 @@ void SuperAdministrator::listByOption(int optionReceived) {
     }
 };
 void SuperAdministrator::assignSubjectToCareer(){
-    int idCareer;
-    int idSubject;
+    int careerId;
+    int subjectId;
     bool checkRelationship = false;
     int position = 0;
     int numberOfRecords = _subjectXCareerFile.numberOfRecords();
     std::cout << "INGRESAR ID DE ALGUNA DE ESTAS CARRERAS A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
     if(_careerFile.numberOfActiveRecords() > 0){
         listRegisterByOption(_careerFile);
-        std::cin >> idCareer;
+        std::cin >> careerId;
         std::cout << "INGRESAR ID DE ALGUNA DE ESTAS MATERIAS A ASIGNAR: " << std::endl;
         if(_subjectFile.numberOfActiveRecords() > 0){
             listRegisterByOption(_subjectFile);
-            std::cin >> idSubject;
+            std::cin >> subjectId;
             while(!checkRelationship && position < numberOfRecords){
                 SubjectXCareer subjectXCareer = _subjectXCareerFile.read(position);
-                if(subjectXCareer.getSubjectId() == idSubject && subjectXCareer.getCareerId() == idCareer){
+                if(subjectXCareer.getSubjectId() == subjectId && subjectXCareer.getCareerId() == careerId){
                     checkRelationship = true;
                 }
                 position ++;
             }
             if(!checkRelationship){
-            _subjectXCareerFile.save(SubjectXCareer(idSubject, idCareer));
+            _subjectXCareerFile.save(SubjectXCareer(subjectId, careerId));
             std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA CARRERA" <<  std::endl; 
             } else {
                 std::cout << "LA MATERIA QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA CARRERA" << std::endl;
@@ -157,17 +157,6 @@ void SuperAdministrator::assignSubjectToCareer(){
         }
     }
 };
-void SuperAdministrator::show(){
-    std::cout << "LEGAJO         : " << getId() << std::endl; 
-    std::cout << "NOMBRE         : " << getName() << std::endl;
-    std::cout << "APELLIDO       : " << getSurname() << std::endl;
-    std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 
-    std::cout << "CLAVE          : " << getPassword() << std::endl; 
-    std::cout << "MAIL           : " << getEmail() << std::endl; 
-    std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
-};
-
 void SuperAdministrator::withdrawSubject(int id) {
     int position = _subjectFile.searchRecord(id);
     Subject subject = _subjectFile.read(position);
@@ -180,7 +169,6 @@ void SuperAdministrator::withdrawSubject(int id) {
         }
     }  
 };
-
 void SuperAdministrator::withdrawCareer(int id) {
     int position = _careerFile.searchRecord(id);
     Career career = _careerFile.read(position);
@@ -193,7 +181,6 @@ void SuperAdministrator::withdrawCareer(int id) {
         }
     }    
 };
-
 void SuperAdministrator::showSubjectsByCareer() {
     int id;
     std::cout << "INGRESAR ID DE LA CARRERA" << std::endl;
@@ -216,4 +203,14 @@ void SuperAdministrator::showSubjectsByCareer() {
             }
         }
     }
+};
+void SuperAdministrator::show(){
+    std::cout << "LEGAJO         : " << getId() << std::endl; 
+    std::cout << "NOMBRE         : " << getName() << std::endl;
+    std::cout << "APELLIDO       : " << getSurname() << std::endl;
+    std::cout << "DOCUMENTO      : " << getDocument() << std::endl; 
+    std::cout << "CLAVE          : " << getPassword() << std::endl; 
+    std::cout << "MAIL           : " << getEmail() << std::endl; 
+    std::cout << "TELEFONO       : " << getPhone() << std::endl; 
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
 };
