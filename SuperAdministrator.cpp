@@ -36,7 +36,10 @@ void SuperAdministrator::showGenericMenu(int optionReceived) {
         std::cout << "4 - VOLVER A DAR DE ALTA" << std::endl;
         std::cout << "5 - MOSTRAR INFORMACION" << std::endl;
         std::cout << "6 - MOSTRAR LISTA" << std::endl;
-        if(optionReceived == 2) std::cout << "7 - ASIGNAR MATERIA A CARRERA" << std::endl;
+        if(optionReceived == 2) {
+            std::cout << "7 - ASIGNAR MATERIA A CARRERA" << std::endl;
+            std::cout << "8 - MOSTRAR MATERIAS SEGUN CARRERA" << std::endl;
+        }
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
         sendGenericRequest(optionReceived, selectedOption);
@@ -58,6 +61,9 @@ void SuperAdministrator::sendGenericRequest(int optionReceived, int selectedOpti
             break;
         case 7: assignSubjectToCareer();
             break;
+        case 8: showSubjectsByCareer();
+        break;
+
     }
 };
 void SuperAdministrator::registerByOption(int optionReceived)  {
@@ -84,9 +90,9 @@ void SuperAdministrator::withdrawByOption(int optionReceived) {
     switch(optionReceived) {
         case 1: withdrawRegisterByOption(_administratorFile, "user");
             break;
-        case 2: withdrawRegisterByOption(_careerFile, "resource");
+        case 2: withdrawCareer(withdrawRegisterByOption(_careerFile, "resource"));
             break;
-        case 3: withdrawRegisterByOption(_subjectFile, "resource");
+        case 3: withdrawSubject(withdrawRegisterByOption(_subjectFile, "resource"));
             break;
     }
 };
@@ -123,7 +129,9 @@ void SuperAdministrator::listByOption(int optionReceived) {
 void SuperAdministrator::assignSubjectToCareer(){
     int idCareer;
     int idSubject;
-    int positionSubject;
+    bool checkRelationship = false;
+    int position = 0;
+    int numberOfRecords = _subjectXCareerFile.numberOfRecords();
     std::cout << "INGRESAR ID DE ALGUNA DE ESTAS CARRERAS A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
     if(_careerFile.numberOfActiveRecords() > 0){
         listRegisterByOption(_careerFile);
@@ -132,11 +140,20 @@ void SuperAdministrator::assignSubjectToCareer(){
         if(_subjectFile.numberOfActiveRecords() > 0){
             listRegisterByOption(_subjectFile);
             std::cin >> idSubject;
-            positionSubject = _subjectFile.searchRecord(idSubject);
-
-            Subject subject = _subjectFile.read(_subjectFile.searchRecord(idSubject));
-            subject.setCareerId(idCareer);
-            _subjectFile.save(subject, positionSubject);
+            while(!checkRelationship && position < numberOfRecords){
+                SubjectXCareer subjectXCareer = _subjectXCareerFile.read(position);
+                if(subjectXCareer.getSubjectId() == idSubject && subjectXCareer.getCareerId() == idCareer){
+                    checkRelationship = true;
+                }
+                position ++;
+            }
+            if(!checkRelationship){
+            _subjectXCareerFile.save(SubjectXCareer(idSubject, idCareer));
+            std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA CARRERA" <<  std::endl; 
+            } else {
+                std::cout << "LA MATERIA QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA CARRERA" << std::endl;
+            }
+            
         }
     }
 };
@@ -149,4 +166,54 @@ void SuperAdministrator::show(){
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
     std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+};
+
+void SuperAdministrator::withdrawSubject(int id) {
+    int position = _subjectFile.searchRecord(id);
+    Subject subject = _subjectFile.read(position);
+    int numberOfRecords = _subjectXCareerFile.numberOfRecords();
+    for(int i = 0; i < numberOfRecords; i ++) {
+        SubjectXCareer subjectXCareer = _subjectXCareerFile.read(i);
+        if(subjectXCareer.getSubjectId() == subject.getId()) {
+            subjectXCareer.setState(false);
+            _subjectXCareerFile.save(subjectXCareer, i);
+        }
+    }  
+};
+
+void SuperAdministrator::withdrawCareer(int id) {
+    int position = _careerFile.searchRecord(id);
+    Career career = _careerFile.read(position);
+    int numberOfRecords = _subjectXCareerFile.numberOfRecords();
+    for(int i = 0; i < numberOfRecords; i ++) {
+        SubjectXCareer subjectXCareer = _subjectXCareerFile.read(i);
+        if(subjectXCareer.getCareerId() == career.getId()) {
+            subjectXCareer.setState(false);
+            _subjectXCareerFile.save(subjectXCareer, i);
+        }
+    }    
+};
+
+void SuperAdministrator::showSubjectsByCareer() {
+    int id;
+    std::cout << "INGRESAR ID DE LA CARRERA" << std::endl;
+    std::cin >> id;
+    int position = _careerFile.searchRecord(id);
+    Career career = _careerFile.read(position);
+    int numberOfRecordsRelationship = _subjectXCareerFile.numberOfRecords();
+    int numberOfRecordsSubjects = _subjectFile.numberOfRecords();
+    std::cout << "CARRERA: " << career.getName() << std::endl;
+    std::cout << "MATERIAS CORRESPONDIENTES: " << std::endl;
+    std::cout << std::endl;
+    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
+        SubjectXCareer subjectXCareer = _subjectXCareerFile.read(i);
+        if(subjectXCareer.getCareerId() == career.getId()) {
+            for(int j = 0; j < numberOfRecordsSubjects; j ++) {
+                Subject subject = _subjectFile.read(j);
+                if(subject.getState() && subject.getId() == subjectXCareer.getSubjectId()) {
+                    subject.show();
+                }
+            }
+        }
+    }
 };

@@ -6,7 +6,6 @@ class Subject {
         char _name[60];
         int _duration;
         int _id;
-        int _careerId;
         int _yearCareer;
         bool _state;
     public: 
@@ -15,12 +14,10 @@ class Subject {
         std::string getName() const;
         std::string getDuration() const;
         int getId() const;
-        int getCareerId() const;
         int getyearCareer() const;
         bool getState() const;
         void setName(std::string);
         void setId(int);
-        void setCareerId(int);
         void setDuration(int);
         void setYearCareer(int);
         void setState(bool);

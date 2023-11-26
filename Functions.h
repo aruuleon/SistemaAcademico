@@ -58,11 +58,11 @@ int verifyIdRegisterByOption(GenericFile<T> file) {
     return generatedFile;
 };
 template <class T>
-void withdrawRegisterByOption(GenericFile<T> file, std::string optionReceived) {
+int withdrawRegisterByOption(GenericFile<T> file, std::string optionReceived) {
     char optionCompare[20];
     int id;
     bool response;
-
+    int idRegister;
     strcpy(optionCompare, optionReceived.c_str());
 
     std::cout << "ELIMINANDO REGISTRO.." << std::endl;
@@ -76,10 +76,13 @@ void withdrawRegisterByOption(GenericFile<T> file, std::string optionReceived) {
         response = file.addOrDelete(id, 2);
     }
     if(response) {
+        idRegister = id;
         std::cout << "EL REGISTRO CON ID '" << id << "' SE ELIMINO CORRECTAMENTE" << std::endl;
     } else {
+        idRegister = -1;
         std::cout << "ERROR AL ELIMINAR REGISTRO" << std::endl;
     }
+    return idRegister;
 };
 template <class T>
 void reEnrollRegisterByOption(GenericFile<T> file, std::string optionReceived) {

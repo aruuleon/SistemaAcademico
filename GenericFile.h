@@ -110,4 +110,21 @@ public:
             return false;
         }
     };
+    // bool addOrDeleteRelationship(int file, int action){
+    //     int position = searchRecord(file);
+    //     if(position != -1) {
+    //         for(int i = 0; i < numberOfRecords(); i ++) {
+    //             T relationship = read(i);
+    //             if(relationship.getCareerId() == )
+    //         }
+    //         if(action == 1){
+    //             facultyStaff.setState(true);
+    //         } else {                
+    //             facultyStaff.setState(false);
+    //         }
+    //         return save(facultyStaff, position);
+    //     } else {
+    //         return false;
+    //     }
+    // };
 };

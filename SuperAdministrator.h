@@ -4,6 +4,8 @@
 #include "Administrator.h"
 #include "Career.h"
 #include "Subject.h"
+#include "SubjectXCareer.h"
+
 
 class SuperAdministrator : public FacultyStaff {
     private:
@@ -20,9 +22,13 @@ class SuperAdministrator : public FacultyStaff {
         GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <SubjectXCareer> _subjectXCareerFile = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
     public:
         SuperAdministrator();
         SuperAdministrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
         void showMenu(); // ok
         void show(); // ok
+        void withdrawSubject(int);
+        void withdrawCareer(int);
+        void showSubjectsByCareer();
 };
