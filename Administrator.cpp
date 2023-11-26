@@ -275,11 +275,10 @@ void Administrator::reEnrollComission(){
 };
 void Administrator::verifyInformationComission(){
     searchRegisterByOption(_comissionFile);
-    };
+};
 void Administrator::listComissions(){
     listRegisterByOption(_comissionFile);
 };
-
 void Administrator::assignSubjectToComission(){
     int comissionId;
     int subjectId;
@@ -302,8 +301,8 @@ void Administrator::assignSubjectToComission(){
                 position ++;
             }
             if(!checkRelationship){
-            _subjectXComissionFile.save(SubjectXComission(subjectId, comissionId));
-            std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA COMISION" <<  std::endl; 
+                _subjectXComissionFile.save(SubjectXComission(subjectId, comissionId));
+                std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA COMISION" <<  std::endl;
             } else {
                 std::cout << "LA MATERIA QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA COMISION" << std::endl;
             }

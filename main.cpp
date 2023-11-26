@@ -23,5 +23,10 @@ int main() {
     // UserLogin userLoginUno = UserLogin("dkloster", 321, 1);
     // UserLogin userLoginDos = UserLogin("blara", 654, 2);
 
+    // superAdministratorFile.save(superAdministrator);
+    // administratorFile.save(administrator);
+    // userLoginFile.save(userLoginUno);
+    // userLoginFile.save(userLoginDos);
+
     return 0;
 }
