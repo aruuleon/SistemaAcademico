@@ -282,8 +282,8 @@ void Administrator::listComissions(){
 void Administrator::assignSubjectToComission(){
     int comissionId;
     int subjectId;
-    bool checkRelationship = false;
     int position = 0;
+    bool checkRelationship = false;
     int numberOfRecords = _subjectXComissionFile.numberOfRecords();
     std::cout << "INGRESAR ID DE ALGUNA DE ESTAS COMISIONES A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
     if(_comissionFile.numberOfActiveRecords() > 0){

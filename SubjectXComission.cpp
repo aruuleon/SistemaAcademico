@@ -4,9 +4,9 @@
 SubjectXComission::SubjectXComission() {
 
 };
-SubjectXComission::SubjectXComission(int comissionId, int subjectId) {
-    setComissionId(comissionId);
+SubjectXComission::SubjectXComission(int subjectId, int comissionId) {
     setSubjectId(subjectId);
+    setComissionId(comissionId);
     setState(true);
 };
 int SubjectXComission::getComissionId() const {
