@@ -2,10 +2,9 @@
 #include "FacultyStaff.h"
 #include "GenericFile.h"
 #include "Administrator.h"
-#include "Career.h"
 #include "Subject.h"
+#include "Career.h"
 #include "SubjectXCareer.h"
-
 
 class SuperAdministrator : public FacultyStaff {
     private:
@@ -18,7 +17,6 @@ class SuperAdministrator : public FacultyStaff {
         void reEnrollByOption(int); //ok
         void searchByOption(int); //ok
         void listByOption(int); //ok
-        void assignSubjectToCareer();
         GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
@@ -32,3 +30,8 @@ class SuperAdministrator : public FacultyStaff {
         void withdrawCareer(int);
         void showSubjectsByCareer();
 };
+// template <class T>
+// void reEnrollByOption(int optionReceived, GenericFile <T> file) {
+//     std::string name = (optionReceived == 1) ? "user" : "resourse"; 
+//     reEnrollRegisterByOption(file, name);
+// };

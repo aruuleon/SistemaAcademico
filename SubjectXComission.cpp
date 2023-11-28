@@ -4,25 +4,25 @@
 SubjectXComission::SubjectXComission() {
 
 };
-SubjectXComission::SubjectXComission(int subjectId, int comissionId) {
-    setSubjectId(subjectId);
-    setComissionId(comissionId);
+SubjectXComission::SubjectXComission(int firstResourceId, int secondResourceId) {
+    setFirstResourceId(firstResourceId);
+    setSecondResourceId(secondResourceId);
     setState(true);
 };
-int SubjectXComission::getComissionId() const {
-    return _comissionId;
+int SubjectXComission::getFirstResourceId() const {
+    return _firstResourceId;
 };
-int SubjectXComission::getSubjectId() const {
-    return _subjectId;
+int SubjectXComission::getSecondResourceId() const {
+    return _secondResourceId;
 };
 bool SubjectXComission::getState() const {
     return _state;
 };
-void SubjectXComission::setComissionId(int comissionId) {
-    _comissionId = comissionId;
+void SubjectXComission::setFirstResourceId(int firstResourceId) {
+    _firstResourceId = firstResourceId;
 };
-void SubjectXComission::setSubjectId(int subjectId) {
-    _subjectId = subjectId;
+void SubjectXComission::setSecondResourceId(int secondResourceId) {
+    _secondResourceId = secondResourceId;
 };
 void SubjectXComission::setState(bool state) {
     _state = state;

@@ -13,11 +13,8 @@ void editAdministrator();
 void editCareer();
 void editSubject();
 
-std::string getStudyType(int);
-std::string getCourseDuration(int);
-
 template <class T>
-bool listRegisterByOption(GenericFile<T> file) {
+void listRegisterByOption(GenericFile<T> file) {
     std::cout << "MOSTRANDO LISTA REGISTROS.." << std::endl;
     int numberOfRecords = file.numberOfRecords();
     if(file.numberOfActiveRecords()) {
@@ -27,7 +24,6 @@ bool listRegisterByOption(GenericFile<T> file) {
             }
         }
     } else {
-        
         std::cout << "NO SE ENCUENTRAN REGISTROS EN ESTE MOMENTO" << std::endl;
     }
 };
@@ -106,5 +102,81 @@ void reEnrollRegisterByOption(GenericFile<T> file, std::string optionReceived) {
         std::cout << "EL REGISTRO CON ID '" << id << "' SE RECUPERO CORRECTAMENTE" << std::endl;
     } else {
         std::cout << "ERROR AL RECUPERAR REGISTRO" << std::endl;
+    }
+};
+template <typename FirstResourceFile, typename SecondResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship>
+void setResourceRelationship(FirstResourceFile firstResourceFile, SecondResourceFile secondResourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, std::string nameFirstResource, std::string nameSecondResource) {
+    if(secondResourceFile.numberOfActiveRecords() > 0) {
+        int secondResourceId;
+        listRegisterByOption(secondResourceFile);
+        std::cout << "INGRESAR ID DE ALGUNA " << nameSecondResource << " A LA QUE DESEA ASIGNAR UNA " << nameFirstResource << ": ";
+        std::cin >> secondResourceId;
+        if(firstResourceFile.numberOfActiveRecords() > 0) {
+            int firstResourceId;
+            listRegisterByOption(firstResourceFile);
+            std::cout << "INGRESAR ID DE ALGUNA " << nameFirstResource << " A ASIGNAR: ";
+            std::cin >> firstResourceId;
+            verifyCheckRelationship(resourseRelationshipFile, resourseRelationship, firstResourceId, secondResourceId, nameFirstResource, nameSecondResource);
+        } else {
+            std::cout << "NO SE ENCUENTRAN REGISTROS DE " << nameFirstResource << " EN ESTE MOMENTO" << std::endl;
+        }
+    } else {
+        std::cout << "NO SE ENCUENTRAN REGISTROS DE " << nameSecondResource << " EN ESTE MOMENTO" << std::endl;
+    }
+};
+template <typename ResourseRelationshipFile, typename ResourseRelationship>
+void verifyCheckRelationship(ResourseRelationshipFile resourseRelationshipFile, ResourseRelationship resourseRelationship, int firstResourceId, int secondResourceId, std::string nameFirstResource, std::string nameSecondResource) {
+    int position = 0;
+    bool checkRelationship = false;
+    int numberOfRecords = resourseRelationshipFile.numberOfRecords();
+    while(!checkRelationship && position < numberOfRecords){
+        resourseRelationship = resourseRelationshipFile.read(position);
+        if(resourseRelationship.getFirstResourceId() == firstResourceId && resourseRelationship.getSecondResourceId() == secondResourceId){
+            checkRelationship = true;
+        }
+        position ++;
+    }
+    if(!checkRelationship) {
+        resourseRelationshipFile.save(ResourseRelationship(firstResourceId, secondResourceId));
+        std::cout << "LA " << nameFirstResource << " SE ASIGNO CORRECTAMENTE A LA " << nameSecondResource << std::endl;
+    } else {
+        std::cout << "LA " << nameFirstResource << " QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA " << nameSecondResource << std::endl;
+    }
+};
+template <typename FirstResourceFile, typename SecondResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship, typename FirstResource, typename SecondResource>
+void showFirstResourcesBySecondResources(FirstResourceFile firstResourceFile, SecondResourceFile secondResourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, FirstResource firstResource, SecondResource secondResource, std::string nameFirstResource, std::string nameSecondResource) {
+    int resourceId;
+    std::cout << "INGRESAR ID DE LA " <<  nameSecondResource << ": ";
+    std::cin >> resourceId;
+    int position = secondResourceFile.searchRecord(resourceId);
+    secondResource = secondResourceFile.read(position);
+    int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
+    int numberOfRecordsFirstResource = firstResourceFile.numberOfRecords();
+    std::cout << "NOMBRE" << " -> " << secondResource.getName() << std::endl;
+    std::cout << "LISTA DE " << nameFirstResource << " CORRESPONDIENTES: " << std::endl;
+    std::cout << std::endl;
+    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
+        resourseRelationship = resourseRelationshipFile.read(i);
+        if(resourseRelationship.getSecondResourceId() == secondResource.getId()) {
+            for(int j = 0; j < numberOfRecordsFirstResource; j ++) {
+                firstResource = firstResourceFile.read(j);
+                if(firstResource.getState() && firstResource.getId() == resourseRelationship.getFirstResourceId()) {
+                    firstResource.show();
+                }
+            }
+        }
+    }
+};
+template <typename ResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship, typename Resource>
+void withdrawResource(ResourceFile resourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, Resource resource, int id) {
+    int position = resourceFile.searchRecord(id);
+    resource = resourceFile.read(position);
+    int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
+    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
+        resourseRelationship = resourseRelationshipFile.read(i);
+        if(resourseRelationship.getFirstResourceId() == resource.getId()) {
+            resourseRelationship.setState(false);
+            resourseRelationshipFile.save(resourseRelationship, i);
+        }
     }
 };

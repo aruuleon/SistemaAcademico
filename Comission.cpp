@@ -22,11 +22,14 @@ std::string Comission::getModality() const {
 std::string Comission::getTurn() const {
     return (_turn == 1) ? "MANIANA" : "NOCHE";
 };
-int Comission::getYear() const {
-    return _year;
-};
 std::string Comission::getFourthQuarter() const {
     return (_fourthQuarter == 1) ? "PRIMER CUATRIMESTRE" : "SEGUNDO CUATRIMESTRE";
+};
+std::string Comission::getName() const {
+    return "COMISION: " + std::to_string(getId()) + " - MODALIDAD: " + getModality() + " - TURNO: " + getTurn() + " - CUATRIMESTRE: " + getFourthQuarter();
+};
+int Comission::getYear() const {
+    return _year;
 };
 bool Comission::getState() const {
     return _state;

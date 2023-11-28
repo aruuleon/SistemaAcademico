@@ -223,17 +223,17 @@ void Administrator::sendComissionRequest(int selectedOption) {
             break;
         case 2: editComission();
             break;
-        case 3: withdrawComission();
+        case 3: withdrawRegisterByOption(_comissionFile, "resource");
             break;
-        case 4: reEnrollComission();
+        case 4: reEnrollRegisterByOption(_comissionFile, "resource");
             break;
-        case 5: verifyInformationComission();
+        case 5: searchRegisterByOption(_comissionFile);
             break;
-        case 6: listComissions();
+        case 6: listRegisterByOption(_comissionFile);
             break;
-        case 7: assignSubjectToComission();
+        case 7: setResourceRelationship(_subjectFile, _comissionFile, _subjectXComissionFile, SubjectXComission(), "MATERIA", "COMISION");
             break;
-        case 8: showSubjectsByComission();
+        case 8: showFirstResourcesBySecondResources(_subjectFile, _comissionFile, _subjectXComissionFile, SubjectXComission(), Subject(), Comission(), "MATERIAS", "COMISION");
             break;
     }
 };
@@ -266,69 +266,4 @@ void Administrator::registerComission(){
     bool response = _comissionFile.save(Comission(id, modality, turn, year, fourthQuarter));
 };
 void Administrator::editComission(){
-};
-void Administrator::withdrawComission(){
-    withdrawRegisterByOption(_comissionFile, "resource");
-};
-void Administrator::reEnrollComission(){
-    reEnrollRegisterByOption(_comissionFile, "resource");
-};
-void Administrator::verifyInformationComission(){
-    searchRegisterByOption(_comissionFile);
-};
-void Administrator::listComissions(){
-    listRegisterByOption(_comissionFile);
-};
-void Administrator::assignSubjectToComission(){
-    int comissionId;
-    int subjectId;
-    int position = 0;
-    bool checkRelationship = false;
-    int numberOfRecords = _subjectXComissionFile.numberOfRecords();
-    std::cout << "INGRESAR ID DE ALGUNA DE ESTAS COMISIONES A LA QUE DESEA ASIGNAR MATERIA: " << std::endl;
-    if(_comissionFile.numberOfActiveRecords() > 0){
-        listRegisterByOption(_comissionFile);
-        std::cin >> comissionId;
-        std::cout << "INGRESAR ID DE ALGUNA DE ESTAS MATERIAS A ASIGNAR: " << std::endl;
-        if(_subjectFile.numberOfActiveRecords() > 0){
-            listRegisterByOption(_subjectFile);
-            std::cin >> subjectId;
-            while(!checkRelationship && position < numberOfRecords){
-                SubjectXComission subjectXComission = _subjectXComissionFile.read(position);
-                if(subjectXComission.getSubjectId() == subjectId && subjectXComission.getComissionId() == comissionId){
-                    checkRelationship = true;
-                }
-                position ++;
-            }
-            if(!checkRelationship){
-                _subjectXComissionFile.save(SubjectXComission(subjectId, comissionId));
-                std::cout << "LA MATERIA SE ASIGNO CORRECTAMENTE A LA COMISION" <<  std::endl;
-            } else {
-                std::cout << "LA MATERIA QUE INTENTA AGREGAR, YA SE ENCUENTRA ASIGNADA A LA COMISION" << std::endl;
-            }
-        }
-    }
-};
-void Administrator::showSubjectsByComission(){
-    int id;
-    std::cout << "INGRESAR ID DE LA COMISION" << std::endl;
-    std::cin >> id;
-    int position = _comissionFile.searchRecord(id);
-    Comission comission = _comissionFile.read(position);
-    int numberOfRecordsRelationship = _subjectXComissionFile.numberOfRecords();
-    int numberOfRecordsSubjects = _subjectFile.numberOfRecords();
-    std::cout << "COMISION: " << comission.getId() << std::endl;
-    std::cout << "MATERIAS CORRESPONDIENTES: " << std::endl;
-    std::cout << std::endl;
-    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
-        SubjectXComission subjectXComission = _subjectXComissionFile.read(i);
-        if(subjectXComission.getComissionId() == comission.getId()) {
-            for(int j = 0; j < numberOfRecordsSubjects; j ++) {
-                Subject subject = _subjectFile.read(j);
-                if(subject.getState() && subject.getId() == subjectXComission.getSubjectId()) {
-                    subject.show();
-                }
-            }
-        }
-    }
 };

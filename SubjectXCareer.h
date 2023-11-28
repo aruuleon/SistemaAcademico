@@ -3,16 +3,16 @@
 
 class SubjectXCareer {
     private:
-        int _subjectId;
-        int _careerId;
+        int _firstResourceId;
+        int _secondResourceId;
         bool _state;
     public:
         SubjectXCareer();
         SubjectXCareer(int, int);
-        int getSubjectId() const;
-        int getCareerId() const;
+        int getFirstResourceId() const;
+        int getSecondResourceId() const;
         bool getState() const;
-        void setSubjectId(int);
-        void setCareerId(int);
+        void setFirstResourceId(int);
+        void setSecondResourceId(int);
         void setState(bool);
 };

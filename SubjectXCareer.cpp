@@ -3,25 +3,25 @@
 SubjectXCareer::SubjectXCareer() {
 
 };
-SubjectXCareer::SubjectXCareer(int subjectId, int careerId) {
-    setSubjectId(subjectId);
-    setCareerId(careerId);
+SubjectXCareer::SubjectXCareer(int firstResourceId, int secondResourceId) {
+    setFirstResourceId(firstResourceId);
+    setSecondResourceId(secondResourceId);
     setState(true);
 };
-int SubjectXCareer::getSubjectId() const {
-    return _subjectId;
+int SubjectXCareer::getFirstResourceId() const {
+    return _firstResourceId;
 };
-int SubjectXCareer::getCareerId() const {
-    return _careerId;
+int SubjectXCareer::getSecondResourceId() const {
+    return _secondResourceId;
 };
 bool SubjectXCareer::getState() const {
     return _state;
 };
-void SubjectXCareer::setSubjectId(int subjectId) {
-    _subjectId = subjectId;
+void SubjectXCareer::setFirstResourceId(int firstResourceId) {
+    _firstResourceId = firstResourceId;
 };
-void SubjectXCareer::setCareerId(int careerId) {
-    _careerId = careerId;
+void SubjectXCareer::setSecondResourceId(int secondResourceId) {
+    _secondResourceId = secondResourceId;
 };
 void SubjectXCareer::setState(bool state) {
     _state = state;

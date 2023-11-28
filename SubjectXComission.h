@@ -3,16 +3,16 @@
 
 class SubjectXComission {
     private:
-        int _subjectId;
-        int _comissionId;
+        int _firstResourceId;
+        int _secondResourceId;
         bool _state;
     public:
         SubjectXComission();
         SubjectXComission(int, int);
-        int getComissionId() const;
-        int getSubjectId() const;
+        int getFirstResourceId() const;
+        int getSecondResourceId() const;
         bool getState() const;
-        void setComissionId(int);
-        void setSubjectId(int);
+        void setFirstResourceId(int);
+        void setSecondResourceId(int);
         void setState(bool);
 };
