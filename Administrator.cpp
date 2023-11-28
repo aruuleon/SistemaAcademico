@@ -45,18 +45,18 @@ void Administrator::registerStaff(int userType) {
     std::string phone;
     int file;
     std::cout << "REGISTRANDO STAFF.." << std::endl;
-    std::cout << "INGRESAR NOMBRE: " << std::endl;
+    std::cout << "INGRESAR NOMBRE: " ;
     std::cin.ignore();
     getline(std::cin, name);
-    std::cout << "INGRESAR APELLIDO: " << std::endl;
+    std::cout << "INGRESAR APELLIDO: " ;
     getline(std::cin, surname);
-    std::cout << "INGRESAR DNI: " << std::endl;
+    std::cout << "INGRESAR DNI: " ;
     std::cin >>  document; 
-    std::cout << "INGRESAR CORREO: " << std::endl; 
+    std::cout << "INGRESAR CORREO: " ; 
     std::cin >>  email;
-    std::cout << "INGRESAR TELEFONO: " << std::endl; 
+    std::cout << "INGRESAR TELEFONO: " ; 
     std::cin >>  phone;
-    std::cout << "INGRESAR CLAVE: " << std::endl; 
+    std::cout << "INGRESAR CLAVE: " ; 
     std::cin >> password;
     bool saveResponse;
     if(userType == 3){
