@@ -5,14 +5,31 @@
 System::System() {
 
 };
-System::System(std::string name) {
+System::System(std::string name, std::string country, std::string province) {
     setName(name);
+    setCountry(country);
+    setProvince(province);
 };
 std::string System::getName() const {
     return _name;
 };
+std::string System::getCountry() const {
+    return _country;
+};
+std::string System::getProvince() const {
+    return _province;
+};
+std::string System::getLocation() const {
+    return getProvince() + ", " + getCountry();
+};
 void System::setName(std::string name) {
     strcpy(_name, name.c_str());
+};
+void System::setCountry(std::string country) {
+    strcpy(_country, country.c_str());
+};
+void System::setProvince(std::string province) {
+    strcpy(_province, province.c_str());
 };
 void System::runProgram() {
     login();
@@ -24,11 +41,7 @@ void System::login() {
 
     do {
         do {
-            system("cls");
-            std::cout << "=========================================================================" << std::endl;
-            std::cout << "                      " << this->getName() << "                      " <<std::endl;
-            std::cout << "=========================================================================" << std::endl;
-            std::cout << "                              INICIAR SESION" << std::endl;
+            std::cout << "INICIAR SESION" << std::endl;
             std::cout << std::endl;
             std::cout << "LEGAJO: ";
             std::cin >> id;
@@ -38,7 +51,6 @@ void System::login() {
             if(userType == 0) {
                 std::cout << "CREDENCIALES INCORRECTAS" << std::endl;
             }
-            system("cls");
         } while(userType == 0);
         allowAccess(id, userType);
     } while(true);

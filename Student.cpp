@@ -1,4 +1,7 @@
+#include <fstream>
 #include "Student.h"
+#include "System.h"
+#include "Fecha.h"
 
 Student::Student() {
 
@@ -10,9 +13,7 @@ Student::Student(std::string name, std::string surname, std::string document, st
 void Student::showMenu(Student student) {
     int selectedOption;
     do {
-        std::cout << "================================= ALUMNO ================================" << std::endl;
-        std::cout << " " << this->getSurname() << ", " << this->getName() << std::endl;
-        std::cout << "=========================================================================" << std::endl;
+        std::cout << "MENU ALUMNO" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - INSCRIBIRSE A EXAMEN" << std::endl;
         std::cout << "2 - INSCRIBIRSE A MATERIA" << std::endl;
@@ -20,12 +21,13 @@ void Student::showMenu(Student student) {
         std::cout << "4 - LISTA DE MATERIAS DEL PLAN" << std::endl;
         std::cout << "5 - ESTADO ACADEMICO" << std::endl;
         std::cout << "6 - NOTAS DE EXAMEN" << std::endl;
+        std::cout << "7 - GENERAR CERTIFICADO EXAMEN" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
-        sendRequest(selectedOption);
+        sendRequest(student, selectedOption);
     } while(selectedOption != 0);
 };
-void Student::sendRequest(int selectedOption) {
+void Student::sendRequest(Student student, int selectedOption) {
     switch(selectedOption) {
         case 1: registerToExam();
             break;
@@ -39,27 +41,149 @@ void Student::sendRequest(int selectedOption) {
             break;
         case 6: showExamNotes();
             break;
+        case 7: showExamsByStudent(student);
+            break;
         case 0: logout();
             break;
     }
 };
 void Student::registerToExam() {
-    system("pause");
+
 };
 void Student::registerToSubject() {
-    system("pause");
+
 };
 void Student::removeSubject() {
-    system("pause");
+
 };
 void Student::showCareerSubjects() {
-    system("pause");
+
 };
 void Student::showAcademicState() {
-    system("pause");
+
 };
 void Student::showExamNotes() {
-    system("pause");
+
+};
+void Student::showExamsByStudent(Student student) {
+    int numberOfRecordsRelationship = _examXStudentXSubjectFile.numberOfRecords();
+    int numberOfRecordsSubject = _subjectFile.numberOfRecords();
+    int numberOfrecordsExam = _examFile.numberOfRecords();
+
+    if(numberOfRecordsRelationship > 0) {
+        for(int i = 0; i < numberOfRecordsRelationship; i++) {
+            ExamXStudentXSubject examXStudentXSubject = _examXStudentXSubjectFile.read(i);
+            int positionExam = 0;
+            bool examFound = false;
+            while(!examFound && positionExam < numberOfrecordsExam) {
+                Exam exam = _examFile.read(positionExam);
+                if(exam.getId() == examXStudentXSubject.getFirstResourceId() 
+                && student.getId() == examXStudentXSubject.getSecondResourceId()) {
+                    int positionSubject = 0;
+                    bool subjectFound = false;                
+                    while(!subjectFound && positionSubject < numberOfRecordsSubject) {
+                        Subject subject = _subjectFile.read(positionSubject);
+                        if(subject.getState() && subject.getId() == examXStudentXSubject.getThirdResourceId()) {
+                            subjectFound = true;
+                            showExam(exam, subject);
+                        }
+                        positionSubject++;
+                    }
+                    examFound = true;
+                }
+                positionExam++;
+            }
+        }
+        requestCertificate(student);
+    } else {
+        std::cout << "NO REALIZASTE EXAMENES POR EL MOMENTO" << std::endl;
+    }
+};
+void Student::requestCertificate(Student student) {
+    int examenId;
+    int numberOfRecordsRelationship = _examXStudentXSubjectFile.numberOfRecords();
+    std::cout << "SELECCIONAR ID DE EXAMEN A CERTIFICAR: ";
+    std::cin >> examenId;
+    int positionExam = _examFile.searchRecord(examenId);
+    Exam exam = _examFile.read(positionExam);
+    int position = 0;
+    bool examFound = false;
+    while(!examFound && position < numberOfRecordsRelationship) {
+        ExamXStudentXSubject examXStudentXSubject = _examXStudentXSubjectFile.read(position);
+        if(examXStudentXSubject.getFirstResourceId() == examenId) {
+            examFound = true;
+            if(examXStudentXSubject.getAttendance()) {
+                generateCertificate(examXStudentXSubject, exam, student);
+            } else {
+                showMessageErrorGenerateCertificate(exam);
+            }
+        }
+        position++;
+    }
+};
+void Student::showMessageErrorGenerateCertificate(Exam exam) {
+    std::cout << "NO PODES REALIZAR EL CERTIFICADO DEL EXAMEN CON ID " << exam.getId() << " PORQUE ESTUVISTE AUSENTE" << std::endl;
+};
+void Student::generateCertificate(ExamXStudentXSubject examXStudentXSubject, Exam exam, Student student) {
+    int numberOfRecordsSubject = _subjectFile.numberOfRecords();
+    int positionSubject = 0;
+    bool subjectFound = false;
+    while(!subjectFound && positionSubject < numberOfRecordsSubject) {
+        Subject subject = _subjectFile.read(positionSubject);
+        if(subject.getId() == examXStudentXSubject.getThirdResourceId()) {
+            subjectFound = true;
+            showGeneratedCertificate(exam, student, subject);
+        }
+        positionSubject++;
+    }
+}
+void Student::showGeneratedCertificate(Exam exam, Student student, Subject subject) {
+    System system = System("UNIVERSIDAD TECNOLOGICA NACIONAL", "Argentina", "Buenos Aires");
+    Fecha date;
+    std::cout << "SE CERTIFICA QUE " << student.getName() << " " << student.getSurname() << std::endl;
+    std::cout << "RINDIO EL EXAMEN CORRESPONDIENTE A LA MATERIA " << subject.getName() << "EL DIA DE LA FECHA " << exam.getDate().toString() << std::endl;
+    std::cout << "SE EXTIENDE EL PRESENTE A PEDIDO DEL/LA INTERESADO/A PARA SER PRESENTADO ANTE QUIEN CORRESPONDA"  << std::endl;
+    std::cout << "A LA FECHA DEL " << date.toString() << ", EN " << system.getLocation() << "."  << std::endl;
+    std::cout << std::endl;
+    std::cout << "FIRMA: " << system.getName() << std::endl;
+};
+// void Student::showGeneratedCertificate(Exam exam, Student student, Subject subject) {
+//     System system = System("UNIVERSIDAD TECNOLOGICA NACIONAL", "Argentina", "Buenos Aires");
+//     Fecha date;
+
+//     // Nombre del archivo HTML
+//     const char* file_name = "certificate.html";
+
+//     // Contenido HTML
+//     const char* html_content = R"(
+//         <!DOCTYPE html>
+//         <html>
+//         <head>
+//             <title>Certificado</title>
+//         </head>
+//         <body>
+//             <h2>SE CERTIFICA QUE )";
+
+//     // Abrir el archivo HTML
+//     std::ofstream file(file_name);
+
+//     // Verificar si el archivo se abrió correctamente
+//     if (file.is_open()) {
+//         // Escribir el contenido HTML en el archivo
+//         file << html_content << student.getName() << " " << student.getSurname() << " rindió el examen correspondiente a la materia "
+//              << subject.getName() << " el día " << ".. / .. / .." << ".<br>";
+//         file << "Se extiende el presente a pedido del/la interesado/a para ser presentado ante quien corresponda<br>";
+//         file << "A la fecha del " << date.toString() << ", en " << system.getLocation() << ".<br><br>";
+//         file << "Firma: " << system.getName() << "</h2></body></html>";
+//         // Cerrar el archivo
+//         file.close();
+//         std::cout << "Archivo HTML generado correctamente: " << file_name << std::endl;
+//     } else {
+//         std::cerr << "Error al abrir el archivo para escribir." << std::endl;
+//     }
+// };
+void Student::showExam(Exam exam, Subject subject) {
+    
 };
 void Student::show(){
     std::cout << "LEGAJO         : " << getId() << std::endl; 
@@ -69,4 +193,5 @@ void Student::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
 };

@@ -348,7 +348,7 @@ void Administrator::assignGrade(){
     std::cout << "INGRESAR EL ID DE MATERIA A ASIGNAR LA NOTA: ";
     std::cin >> idSubject;
 
-    _examFile.save(Exam (Fecha(day, month, year)))
+    // _examFile.save(Exam (Fecha(day, month, year)))
     system("pause");
 };
 void Administrator::modifyGrade(){

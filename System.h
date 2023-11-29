@@ -9,6 +9,8 @@
 class System {
     private:
         char _name[20];
+        char _country[20];
+        char _province[20];
         GenericFile <SuperAdministrator> _superAdministratorFile = GenericFile <SuperAdministrator> ("superAdministrators.dat");
         GenericFile <Administrator> _administratorFile = GenericFile <Administrator> ("administrators.dat");
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
@@ -17,9 +19,14 @@ class System {
         void allowAccess(int, int); // permitir ingreso
     public:
         System();
-        System(std::string);
+        System(std::string, std::string, std::string);
         std::string getName() const;
+        std::string getCountry() const;
+        std::string getProvince() const;
+        std::string getLocation() const;
         void setName(std::string);
+        void setCountry(std::string);
+        void setProvince(std::string);
         void runProgram();
         void login();
 };

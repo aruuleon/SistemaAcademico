@@ -1,15 +1,29 @@
 #pragma once
+
 #include "FacultyStaff.h"
+#include "Exam.h"
+#include "Subject.h"
+#include "ExamXStudentXSubject.h"
+#include "GenericFile.h"
 
 class Student : public FacultyStaff {
     private:
-        void sendRequest(int);
+        void sendRequest(Student, int);
         void registerToExam();
         void registerToSubject();
         void removeSubject();
         void showCareerSubjects();
         void showAcademicState();
         void showExamNotes();
+        void showExamsByStudent(Student);
+        void requestCertificate(Student);
+        void generateCertificate(ExamXStudentXSubject, Exam, Student);
+        void showMessageErrorGenerateCertificate(Exam);
+        void showGeneratedCertificate(Exam, Student, Subject);
+        void showExam(Exam, Subject);
+        GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
+        GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
     public:
         Student();
         Student(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
