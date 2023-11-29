@@ -157,7 +157,12 @@ void Administrator::showGenericMenu(int userType){
     std::cout << "0 - VOLVER" << std::endl;
     std::cin >> selectedOption;
     system("cls");
+    if(userType == 3){
     sendGenericRequest(selectedOption, userType);
+    } else{
+        sendStudentRequest(selectedOption);
+    }
+
     } while(selectedOption != 0);
 };
 void Administrator::showMenuTeacher(){
@@ -236,7 +241,7 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
 };
 void Administrator::sendTeacherRequest(int selectedOption) {
     switch(selectedOption) {
-        case 6:
+        case 6: 
             break;
         case 7:
             break;
@@ -246,9 +251,9 @@ void Administrator::sendTeacherRequest(int selectedOption) {
 };
 void Administrator::sendStudentRequest(int selectedOption) {
     switch(selectedOption) {
-        case 6:
+        case 6: assignGrade();
             break;
-        case 7:
+        case 7: modifyGrade();
             break;
         case 8: generateCertificate();
             break;
@@ -322,6 +327,31 @@ void Administrator::registerComission(){
     system("pause");
 };
 void Administrator::editComission(){
+};
+void Administrator::assignGrade(){
+    Student student;
+    Subject subject;
+    Exam exam;
+    int idStudent;
+    int idExam;
+    int grade;
+    int idSubject;
+    bool response;
+
+    std::cout << "* ASIGNAR NOTA A ALUMNO *" << std::endl;
+    listRegisterByOption(_studentFile);
+    std::cout << "INGRESAR EL LEGAJO DEL ALUMNO A ASIGNAR NOTA: "; // O CALIFICACION
+    std::cin >> idStudent;
+    listRegisterByOption(_studentXSubjectnFile);
+    std::cout << "INGRESAR EL ID DE MATERIA A ASIGNAR LA NOTA: ";
+    std::cin >> idSubject;
+    while(student.getId() == idStudent && subject.getId() == idStudent){
+        
+    }
+    system("pause");
+};
+void Administrator::modifyGrade(){
+
 };
 void Administrator::generateCertificate() {
     int id;
