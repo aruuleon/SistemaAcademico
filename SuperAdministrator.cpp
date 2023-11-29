@@ -133,5 +133,6 @@ void SuperAdministrator::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl;
+     
 };

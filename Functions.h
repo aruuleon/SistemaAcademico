@@ -15,14 +15,17 @@ void editSubject();
 
 template <class T>
 void listRegisterByOption(GenericFile<T> file) {
-    std::cout << "MOSTRANDO LISTA REGISTROS.." << std::endl;
     int numberOfRecords = file.numberOfRecords();
     if(file.numberOfActiveRecords()) {
+        std::cout << "=========================================================================" << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         for(int i = 0; i < numberOfRecords; i++) {
             if(file.read(i).getState()) {
                 file.read(i).show();
+                std::cout << "=========================================================================" << std::endl;
             }
         }
+        std::cout << "=========================================================================" << std::endl;
     } else {
         std::cout << "NO SE ENCUENTRAN REGISTROS EN ESTE MOMENTO" << std::endl;
     }
