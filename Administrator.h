@@ -28,12 +28,16 @@ class Administrator : public FacultyStaff {
         void showMenuStudent(); // ok
         void showMenuNotice(); // ok
         void showMenuComission(); // ok
+        void sendUserTypeRequest(int, int);
         void sendGenericRequest(int, int); // ok
+        void sendTeacherRequest(int);
+        void sendStudentRequest(int);
         void sendNoticeRequest(int); //ok
         void sendComissionRequest(int);
         void listNotices(); // ok
         void registerComission(); // ok
         void editComission();
+        void generateCertificate();
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <UserLogin> _userLoginFile = GenericFile <UserLogin> ("usersLogin.dat");

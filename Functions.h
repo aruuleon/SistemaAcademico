@@ -169,14 +169,16 @@ void showFirstResourcesBySecondResources(FirstResourceFile firstResourceFile, Se
 };
 template <typename ResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship, typename Resource>
 void withdrawResource(ResourceFile resourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, Resource resource, int id) {
-    int position = resourceFile.searchRecord(id);
-    resource = resourceFile.read(position);
-    int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
-    for(int i = 0; i < numberOfRecordsRelationship; i ++) {
-        resourseRelationship = resourseRelationshipFile.read(i);
-        if(resourseRelationship.getFirstResourceId() == resource.getId()) {
-            resourseRelationship.setState(false);
-            resourseRelationshipFile.save(resourseRelationship, i);
+    if(id > 0) {
+        int position = resourceFile.searchRecord(id);
+        resource = resourceFile.read(position);
+        int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
+        for(int i = 0; i < numberOfRecordsRelationship; i ++) {
+            resourseRelationship = resourseRelationshipFile.read(i);
+            if(resourseRelationship.getFirstResourceId() == resource.getId()) {
+                resourseRelationship.setState(false);
+                resourseRelationshipFile.save(resourseRelationship, i);
+            }
         }
     }
 };

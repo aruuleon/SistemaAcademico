@@ -135,19 +135,19 @@ void Administrator::show(){
 void Administrator::showGenericMenu(int userType){
     int selectedOption;
     do {
-    std::cout << "1 - REGISTRAR" << std::endl;
-    std::cout << "2 - ELIMINAR" << std::endl;
-    std::cout << "3 - DAR DE ALTA" << std::endl;
-    std::cout << "4 - MOSTRAR INFORMACION" << std::endl;
-    std::cout << "5 - MOSTAR LISTA REGISTROS" << std::endl;
-    if(userType == 3){
-        showMenuTeacher();
-    } else{
-        showMenuStudent();
-    }
-    std::cout << "0 - VOLVER" << std::endl;
-    std::cin >> selectedOption;
-    sendGenericRequest(selectedOption, userType);
+        std::cout << "1 - REGISTRAR" << std::endl;
+        std::cout << "2 - ELIMINAR" << std::endl;
+        std::cout << "3 - DAR DE ALTA" << std::endl;
+        std::cout << "4 - MOSTRAR INFORMACION" << std::endl;
+        std::cout << "5 - MOSTAR LISTA REGISTROS" << std::endl;
+        if(userType == 3){
+            showMenuTeacher();
+        } else{
+            showMenuStudent();
+        }
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cin >> selectedOption;
+        sendUserTypeRequest(selectedOption, userType);
     } while(selectedOption != 0);
 };
 void Administrator::showMenuTeacher(){
@@ -158,6 +158,7 @@ void Administrator::showMenuTeacher(){
 void Administrator::showMenuStudent(){
     std::cout << "6 - ASIGNAR NOTA" << std::endl;
     std::cout << "7 - MODIFICAR NOTA" << std::endl;
+    std::cout << "8 - GENERAR CERTIFICADO EXAMEN" << std::endl;
 };
 void Administrator::showMenuNotice(){
     int selectedOption;
@@ -191,6 +192,16 @@ void Administrator::showMenuComission(){
         sendComissionRequest(selectedOption);
     } while(selectedOption != 0);
 };
+void Administrator::sendUserTypeRequest(int selectedOption, int userType) {
+    switch(selectedOption) {
+        case 3: sendTeacherRequest(selectedOption);
+            break;
+        case 4: sendStudentRequest(selectedOption);
+            break;
+        default: sendGenericRequest(selectedOption, userType);
+            break;
+    }
+};
 void Administrator::sendGenericRequest(int selectedOption, int userType) {
     switch(selectedOption) {
         case 1: registerStaff(userType);
@@ -202,6 +213,26 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
         case 4: verifyInformation(userType);
             break;
         case 5: listStaff(userType);
+            break;
+    }
+};
+void Administrator::sendTeacherRequest(int selectedOption) {
+    switch(selectedOption) {
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+    }
+};
+void Administrator::sendStudentRequest(int selectedOption) {
+    switch(selectedOption) {
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8: generateCertificate();
             break;
     }
 };
@@ -266,4 +297,12 @@ void Administrator::registerComission(){
     bool response = _comissionFile.save(Comission(id, modality, turn, year, fourthQuarter));
 };
 void Administrator::editComission(){
+};
+void Administrator::generateCertificate() {
+    int id;
+    
+    std::cout << "GENERANDO CERTIFICADO.." << std::endl;
+    std::cout << "INGRESAR ID DE ALUMNO: ";
+    std::cin >> id;
+    
 };
