@@ -11,7 +11,10 @@ Administrator::Administrator(std::string name, std::string surname, std::string 
 void Administrator::showMenu() {
     int selectedOption;
     do {
-        std::cout << "MENU ADMINISTRADOR" << std::endl;
+        system("cls");
+        std::cout << "============================= ADMINISTRADOR =============================" << std::endl;
+        std::cout << " " <<this->getSurname() << ", " << this->getName() << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - PROFESOR " << std::endl;
         std::cout << "2 - ALUMNO" << std::endl;
@@ -19,6 +22,7 @@ void Administrator::showMenu() {
         std::cout << "4 - COMISION" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
+        system("cls");
         sendRequest(selectedOption);
     } while(selectedOption != 0);
 };
@@ -44,7 +48,9 @@ void Administrator::registerStaff(int userType) {
     std::string password;
     std::string phone;
     int file;
-    std::cout << "REGISTRANDO STAFF.." << std::endl;
+    std::cout << "=========================================================================" << std::endl;
+    std::cout << "                           INFORMACION REGISTRO                          " << std::endl;
+    std::cout << "=========================================================================" << std::endl;
     std::cout << "INGRESAR NOMBRE: " ;
     std::cin.ignore();
     getline(std::cin, name);
@@ -61,32 +67,36 @@ void Administrator::registerStaff(int userType) {
     bool saveResponse;
     if(userType == 3){
         file = verifyIdRegisterByOption(_teacherFile);
-        std::cout << "REGISTRANDO PROFESOR..." << std::endl;
         saveResponse = _teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
     } else{
         file = verifyIdRegisterByOption(_studentFile);
-        std::cout << "REGISTRANDO ALUMNO..." << std::endl;
         saveResponse = _studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
     }
     bool userResponse = _userLoginFile.save(UserLogin(password, file, userType));
+    system("pause");
 };
 void Administrator::editStaff() {
     
 };
 void Administrator::withdrawStaff(int userType) {
     (userType == 3) ? withdrawRegisterByOption(_teacherFile, "user") : withdrawRegisterByOption(_studentFile, "user");
+    system("pause");
 };
 void Administrator::reEnrollStaff(int userType){
     (userType == 3) ? reEnrollRegisterByOption(_teacherFile, "user") : reEnrollRegisterByOption(_studentFile, "user");
+    system("pause");
 };
 void Administrator::verifyInformation(int userType) {
     (userType == 3) ? searchRegisterByOption(_teacherFile) : searchRegisterByOption(_studentFile);
+    system("pause");
 };
 void Administrator::listStaff(int userType) {
     (userType == 3) ? listRegisterByOption(_teacherFile) : listRegisterByOption(_studentFile);
+    system("pause");
 };
 void Administrator::listNotices() {
     listRegisterByOption(_noticeFile);
+    system("pause");
 };
 void Administrator::assignNoteStudent() {
 
@@ -101,23 +111,27 @@ void Administrator::postNotice() {
     int day;
     int month;
     int year;
-    std::cout << "INGRESAR FECHA AVISO: ";
+    std::cout << "INGRESAR FECHA AVISO: " << std::endl;
     std::cout << "DIA: ";
     std::cin >> day;
     std::cout << "MES: ";
     std::cin >> month;
     std::cout << "ANIO: ";
     std::cin >> year;
+    system("cls");
     std::cout << "INGRESAR TITULO AVISO: ";
     std::cin.ignore();
     getline(std::cin, title);
+    system("cls");
     std::cout << "INGRESAR DESCRIPCION AVISO: ";
     getline(std::cin, content);
     id = verifyIdRegisterByOption(_noticeFile);
     bool response = _noticeFile.save(Notice(Fecha(day, month, year), title, content, id));
+    system("pause");
 };
 void Administrator::withdrawNotice(){
     withdrawRegisterByOption(_noticeFile, "resource");
+    system("pause");
 };
 void Administrator::editNotice(){
     
@@ -130,11 +144,12 @@ void Administrator::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+    system("pause"); 
 };
 void Administrator::showGenericMenu(int userType){
     int selectedOption;
     do {
+    system("cls");
     std::cout << "1 - REGISTRAR" << std::endl;
     std::cout << "2 - ELIMINAR" << std::endl;
     std::cout << "3 - DAR DE ALTA" << std::endl;
@@ -147,6 +162,7 @@ void Administrator::showGenericMenu(int userType){
     }
     std::cout << "0 - VOLVER" << std::endl;
     std::cin >> selectedOption;
+    system("cls");
     sendGenericRequest(selectedOption, userType);
     } while(selectedOption != 0);
 };
@@ -162,32 +178,40 @@ void Administrator::showMenuStudent(){
 void Administrator::showMenuNotice(){
     int selectedOption;
     do {
-        std::cout << "MENU AVISOS" << std::endl;
+        system("cls");
+        std::cout << "=========================================================================" << std::endl;
+        std::cout << "                               MENU AVISOS                               " << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << std::endl;
-        std::cout << "1 - SUBIR AVISO " << std::endl;
-        std::cout << "2 - EDITAR AVISO" << std::endl;
-        std::cout << "3 - DAR DE BAJA AVISO" << std::endl;
-        std::cout << "4 - MOSTRAR LISTA AVISOS" << std::endl;
+        std::cout << "1 - REGISTRAR" << std::endl;
+        std::cout << "2 - EDITAR" << std::endl;
+        std::cout << "3 - ELIMINAR" << std::endl;
+        std::cout << "4 - MOSTRAR LISTA" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
+        system("cls");
         sendNoticeRequest(selectedOption);
     } while(selectedOption != 0);
 };
 void Administrator::showMenuComission(){
     int selectedOption;
     do {
-        std::cout << "MENU COMISION" << std::endl;
+        system("cls");
+        std::cout << "=========================================================================" << std::endl;
+        std::cout << "                               MENU COMISION                             " << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << std::endl;
-        std::cout << "1 - REGISTRAR COMISION " << std::endl;
-        std::cout << "2 - EDITAR COMISION" << std::endl;
-        std::cout << "3 - ELIMINAR COMISION" << std::endl;
-        std::cout << "4 - DAR DE ALTA COMISION" << std::endl;
-        std::cout << "5 - MOSTRAR INFORMACION COMISION" << std::endl;
-        std::cout << "6 - MOSTRAR LISTA COMISION" << std::endl;
+        std::cout << "1 - REGISTRAR" << std::endl;
+        std::cout << "2 - EDITAR" << std::endl;
+        std::cout << "3 - ELIMINAR" << std::endl;
+        std::cout << "4 - DAR DE ALTA" << std::endl;
+        std::cout << "5 - MOSTRAR INFORMACION" << std::endl;
+        std::cout << "6 - MOSTRAR LISTA" << std::endl;
         std::cout << "7 - ASIGNAR MATERIA A COMISION" << std::endl;
         std::cout << "8 - MOSTRAR MATERIAS SEGUN COMISION" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
+        system("cls");
         sendComissionRequest(selectedOption);
     } while(selectedOption != 0);
 };
@@ -244,26 +268,33 @@ void Administrator::registerComission(){
     int year;
     int fourthQuarter;
 
-    std::cout << "REGISTRANDO COMISION" << std::endl;
-    std::cout << "TIPO MODALIDAD" << std::endl;    
+    std::cout << "=========================================================================" << std::endl;
+    std::cout << "                           INFORMACION REGISTRO                          " << std::endl;
+    std::cout << "=========================================================================" << std::endl;
+    std::cout << "* TIPO MODALIDAD" << std::endl;    
     std::cout << "1- PRESENCIAL" << std::endl;
     std::cout << "2- VIRTUAL" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
-    std::cin >> modality;    
-    std::cout << "TURNO DE CURSADA" << std::endl;
+    std::cin >> modality;
+    std::cout << std::endl;    
+    std::cout << "* TURNO DE CURSADA" << std::endl;
     std::cout << "1- MANIANA" << std::endl;
     std::cout << "2- NOCHE" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
     std::cin >> turn;
-    std::cout << "INGRESAR ANIO DE COMISION: ";
+    std::cout << std::endl; 
+    std::cout << "* INGRESAR ANIO DE COMISION: ";
     std::cin >> year;
-    std::cout << "INGRESAR CUATRIMESTRE: " << std::endl;
+    std::cout << std::endl; 
+    std::cout << "* INGRESAR CUATRIMESTRE: " << std::endl;
     std::cout << "1- PRIMER CUATRIMESTRE" << std::endl;
     std::cout << "2- SEGUNDO CUATRIMESTRE" << std::endl;
     std::cout << "SELECCIONAR UNA OPCION: ";
     std::cin >> fourthQuarter;
+    std::cout << std::endl; 
     id = verifyIdRegisterByOption(_comissionFile);
     bool response = _comissionFile.save(Comission(id, modality, turn, year, fourthQuarter));
+    system("pause");
 };
 void Administrator::editComission(){
 };

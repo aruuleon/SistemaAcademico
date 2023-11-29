@@ -57,5 +57,5 @@ void Comission::show(){
     std::cout << "MODALIDAD                  : " << getModality() << std::endl;
     std::cout << "TURNO                      : " << getTurn() << std::endl;
     std::cout << "ANIO                       : " << getYear() << std::endl; 
-    std::cout << "CUATRIMESTRE               : " << getFourthQuarter() << std::endl; 
+    std::cout << "CUATRIMESTRE               : " << getFourthQuarter() << std::endl;
 };
