@@ -3,14 +3,11 @@
 #include <iostream>
 Exam::Exam(){
 };
-Exam::Exam(Fecha date, int grade, int id){
-    setDate(date);
-    setGrade(grade);
+Exam::Exam(int grade, int id, Fecha date){
     setId(id);
+    setGrade(grade);
+    setDate(date);
     setState(true);
-};
-Fecha Exam::getDate() const{
-    return _date;
 };
 int Exam::getGrade() const{
     return _grade;
@@ -18,17 +15,20 @@ int Exam::getGrade() const{
 int Exam::getId() const{
     return _id;
 };
+Fecha Exam::getDate() const{
+    return _date;
+};
 bool Exam::getState() const{
     return _state;
-};
-void Exam::setDate(Fecha date){
-    _date = date;
 };
 void Exam::setGrade(int grade){
     _grade = grade;
 };
 void Exam::setId(int id){
     _id = id;
+};
+void Exam::setDate(Fecha date){
+    _date = date;
 };
 void Exam::setState(bool state){
     _state = state;

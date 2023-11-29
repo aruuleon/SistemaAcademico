@@ -331,23 +331,24 @@ void Administrator::editComission(){
 void Administrator::assignGrade(){
     Student student;
     Subject subject;
-    Exam exam;
     int idStudent;
     int idExam;
     int grade;
     int idSubject;
+    int day, month, year;
+    int numberOfRecordsRelationship = _studentXSubjectFile.numberOfRecords();
+    
     bool response;
 
     std::cout << "* ASIGNAR NOTA A ALUMNO *" << std::endl;
-    listRegisterByOption(_studentFile);
     std::cout << "INGRESAR EL LEGAJO DEL ALUMNO A ASIGNAR NOTA: "; // O CALIFICACION
     std::cin >> idStudent;
-    listRegisterByOption(_studentXSubjectnFile);
+    for(int i = 0; i < numberOfRecordsRelationship; i++){
+    }
     std::cout << "INGRESAR EL ID DE MATERIA A ASIGNAR LA NOTA: ";
     std::cin >> idSubject;
-    while(student.getId() == idStudent && subject.getId() == idStudent){
-        
-    }
+
+    _examFile.save(Exam (Fecha(day, month, year)))
     system("pause");
 };
 void Administrator::modifyGrade(){

@@ -3,17 +3,16 @@
 
 class StudentXSubject{
     private:
-        char _comissionCode[20];
-        int _studentId;
-        int _subjectId;
+        int _firstResourceId;
+        int _secondResourceId;
+        bool _state;
     public:
         StudentXSubject();
-        StudentXSubject(std::string, int, int);
-        std::string getComissionCode() const;
-        int getStudentId() const;
-        int getSubjectId() const;
-        void setComissionCode(std::string);
-        void setStudentId(int);
-        void setSubjectId(int);
-        void show();
+        StudentXSubject(int, int);
+        int getFirstResourceId() const;
+        int getSecondResourceId() const;
+        bool getState() const;
+        void setFirstResourceId(int);
+        void setSecondResourceId(int);
+        void setState(bool);
 };

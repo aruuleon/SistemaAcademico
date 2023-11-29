@@ -49,7 +49,7 @@ class Administrator : public FacultyStaff {
         GenericFile <Comission> _comissionFile = GenericFile <Comission> ("comissions.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
         GenericFile <SubjectXComission> _subjectXComissionFile = GenericFile <SubjectXComission> ("subjectsXComissions.dat");
-        GenericFile <StudentXSubject> _studentXSubjectnFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
+        GenericFile <StudentXSubject> _studentXSubjectFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat"); //?
 
     public:
