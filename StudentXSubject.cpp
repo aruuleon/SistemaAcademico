@@ -31,6 +31,5 @@ void StudentXSubject::setSubjectId(int subjectId) {
 void StudentXSubject::show(){
     std::cout << "CODIGO DE COMISION         : " << getComissionCode() << std::endl;
     std::cout << "ID ALUMNO     : " << getStudentId() << std::endl;
-    std::cout << "ID MATERIA     : " << getSubjectId() << std::endl;
-     
+    std::cout << "ID MATERIA     : " << getSubjectId() << std::endl; 
 };

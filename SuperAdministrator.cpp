@@ -10,7 +10,10 @@ SuperAdministrator::SuperAdministrator(std::string name, std::string surname, st
 void SuperAdministrator::showMenu() {
     int selectedOption;
     do {
-        std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
+        system("cls");
+        std::cout << "========================== SUPER ADMINISTRADOR ==========================" << std::endl;
+        std::cout << " " << getSurname() << ", " << getName() << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - ADMINISTRADOR" << std::endl;
         std::cout << "2 - CARRERA" << std::endl;
@@ -18,6 +21,7 @@ void SuperAdministrator::showMenu() {
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
         sendRequest(selectedOption);
+        system("cls");
     } while(selectedOption != 0);
 };
 void SuperAdministrator::sendRequest(int selectedOption) {
@@ -30,6 +34,7 @@ void SuperAdministrator::sendRequest(int selectedOption) {
 void SuperAdministrator::showGenericMenu(int optionReceived) {
     int selectedOption;
     do {
+        system("cls");
         std::cout << "1 - REGISTRAR" << std::endl;
         std::cout << "2 - EDITAR" << std::endl;
         std::cout << "3 - ELIMINAR" << std::endl;
@@ -42,6 +47,7 @@ void SuperAdministrator::showGenericMenu(int optionReceived) {
         }
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
+        system("cls");
         sendGenericRequest(optionReceived, selectedOption);
     } while(selectedOption != 0);
 };
@@ -66,6 +72,9 @@ void SuperAdministrator::sendGenericRequest(int optionReceived, int selectedOpti
     }
 };
 void SuperAdministrator::registerByOption(int optionReceived)  {
+    std::cout << "=========================================================================" << std::endl;
+    std::cout << "                           INFORMACION REGISTRO                          " << std::endl;
+    std::cout << "=========================================================================" << std::endl;
     switch(optionReceived) {
         case 1: registerAdministrator();
             break;
@@ -133,6 +142,4 @@ void SuperAdministrator::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl;
-     
 };

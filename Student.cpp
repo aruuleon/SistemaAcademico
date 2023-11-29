@@ -10,7 +10,9 @@ Student::Student(std::string name, std::string surname, std::string document, st
 void Student::showMenu(Student student) {
     int selectedOption;
     do {
-        std::cout << "MENU ALUMNO" << std::endl;
+        std::cout << "================================= ALUMNO ================================" << std::endl;
+        std::cout << " " << this->getSurname() << ", " << this->getName() << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << std::endl;
         std::cout << "1 - INSCRIBIRSE A EXAMEN" << std::endl;
         std::cout << "2 - INSCRIBIRSE A MATERIA" << std::endl;
@@ -42,22 +44,22 @@ void Student::sendRequest(int selectedOption) {
     }
 };
 void Student::registerToExam() {
-
+    system("pause");
 };
 void Student::registerToSubject() {
-
+    system("pause");
 };
 void Student::removeSubject() {
-
+    system("pause");
 };
 void Student::showCareerSubjects() {
-
+    system("pause");
 };
 void Student::showAcademicState() {
-
+    system("pause");
 };
 void Student::showExamNotes() {
-
+    system("pause");
 };
 void Student::show(){
     std::cout << "LEGAJO         : " << getId() << std::endl; 
@@ -67,5 +69,4 @@ void Student::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
 };

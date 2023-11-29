@@ -6,7 +6,7 @@
 #include "UserLogin.h"
 
 int main() {
-    System system("UTN");
+    System system("UNIVERSIDAD TECNOLOGICA NACIONAL");
     system.runProgram();
 
     // GenericFile <SuperAdministrator> superAdministratorFile ("superAdministrators.dat");

@@ -29,13 +29,12 @@ void listRegisterByOption(GenericFile<T> file) {
     } else {
         std::cout << "NO SE ENCUENTRAN REGISTROS EN ESTE MOMENTO" << std::endl;
     }
+    system("pause");
 };
 template <class T>
 void searchRegisterByOption(GenericFile<T> file) {
     int id;
 
-    std::cout << "BUSCANDO REGISTRO.." << std::endl;
-    std::cout << std::endl;
     std::cout << "INGRESAR LEGAJO A BUSCAR: ";
     std::cin >> id;
     int position = file.searchRecord(id);
@@ -44,6 +43,7 @@ void searchRegisterByOption(GenericFile<T> file) {
     } else {
         std::cout << "EL REGISTRO CON ID '" << id << "' NO FUE ENCONTRADO" << std::endl;
     }
+    system("pause");
 };
 template <class T>
 int verifyIdRegisterByOption(GenericFile<T> file) {
@@ -64,8 +64,6 @@ int withdrawRegisterByOption(GenericFile<T> file, std::string optionReceived) {
     int idRegister;
     strcpy(optionCompare, optionReceived.c_str());
 
-    std::cout << "ELIMINANDO REGISTRO.." << std::endl;
-    std::cout << std::endl;
     std::cout << "INGRESAR ID DE REGISTRO A ELIMINAR: ";
     std::cin >> id;
     if(strcmp(optionCompare, "user") == 0) {
@@ -81,6 +79,7 @@ int withdrawRegisterByOption(GenericFile<T> file, std::string optionReceived) {
         idRegister = -1;
         std::cout << "ERROR AL ELIMINAR REGISTRO" << std::endl;
     }
+    system("pause");
     return idRegister;
 };
 template <class T>
@@ -91,8 +90,6 @@ void reEnrollRegisterByOption(GenericFile<T> file, std::string optionReceived) {
 
     strcpy(optionCompare, optionReceived.c_str());
 
-    std::cout << "VOLVIENDO A DAR DE ALTA REGISTRO..." << std::endl;
-    std::cout << std::endl;
     std::cout << "INGRESAR ID DE REGISTRO A DAR DE ALTA NUEVAMENTE: ";
     std::cin >> id;
     if(strcmp(optionCompare, "user") == 0) {
@@ -106,6 +103,7 @@ void reEnrollRegisterByOption(GenericFile<T> file, std::string optionReceived) {
     } else {
         std::cout << "ERROR AL RECUPERAR REGISTRO" << std::endl;
     }
+    system("pause");
 };
 template <typename FirstResourceFile, typename SecondResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship>
 void setResourceRelationship(FirstResourceFile firstResourceFile, SecondResourceFile secondResourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, std::string nameFirstResource, std::string nameSecondResource) {
@@ -126,6 +124,7 @@ void setResourceRelationship(FirstResourceFile firstResourceFile, SecondResource
     } else {
         std::cout << "NO SE ENCUENTRAN REGISTROS DE " << nameSecondResource << " EN ESTE MOMENTO" << std::endl;
     }
+    system("pause");
 };
 template <typename ResourseRelationshipFile, typename ResourseRelationship>
 void verifyCheckRelationship(ResourseRelationshipFile resourseRelationshipFile, ResourseRelationship resourseRelationship, int firstResourceId, int secondResourceId, std::string nameFirstResource, std::string nameSecondResource) {
@@ -169,6 +168,7 @@ void showFirstResourcesBySecondResources(FirstResourceFile firstResourceFile, Se
             }
         }
     }
+    system("pause");
 };
 template <typename ResourceFile, typename ResourseRelationshipFile, typename ResourceRelationship, typename Resource>
 void withdrawResource(ResourceFile resourceFile, ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, Resource resource, int id) {
@@ -184,4 +184,5 @@ void withdrawResource(ResourceFile resourceFile, ResourseRelationshipFile resour
             }
         }
     }
+    system("pause");
 };

@@ -24,7 +24,11 @@ void System::login() {
 
     do {
         do {
-            std::cout << "INICIAR SESION" << std::endl;
+            system("cls");
+            std::cout << "=========================================================================" << std::endl;
+            std::cout << "                      " << this->getName() << "                      " <<std::endl;
+            std::cout << "=========================================================================" << std::endl;
+            std::cout << "                              INICIAR SESION" << std::endl;
             std::cout << std::endl;
             std::cout << "LEGAJO: ";
             std::cin >> id;
@@ -34,6 +38,7 @@ void System::login() {
             if(userType == 0) {
                 std::cout << "CREDENCIALES INCORRECTAS" << std::endl;
             }
+            system("cls");
         } while(userType == 0);
         allowAccess(id, userType);
     } while(true);

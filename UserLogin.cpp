@@ -35,8 +35,3 @@ void UserLogin::setUserType(int userType) {
 void UserLogin::setState(bool state) {
     _state = state;
 };
-void UserLogin::show(){
-    std::cout << "CLAVE          : " << getPassword() << std::endl;
-    std::cout << "LEGAJO         : " << getId() << std::endl;
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl;//perfil de usuario?
-};

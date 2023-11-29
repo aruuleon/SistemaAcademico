@@ -8,9 +8,9 @@ Teacher::Teacher(std::string name, std::string surname, std::string document, st
 };
 void Teacher::showMenu(Teacher teacher) {
     int selectedOption;
-    do {
-        std::cout << "MENU SUPER ADMINISTRADOR" << std::endl;
-        std::cout << std::endl;
+    do {std::cout << "================================ PROFESOR ===============================" << std::endl;
+        std::cout << " " << getSurname() << ", " << getName() << std::endl;
+        std::cout << "=========================================================================" << std::endl;
         std::cout << "1 - COMISIONES ASIGNADAS" << std::endl;
         std::cout << "2 - MATERIAS ASIGNADAS" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
@@ -42,5 +42,4 @@ void Teacher::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl;
 };

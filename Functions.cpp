@@ -17,25 +17,25 @@ void registerAdministrator() {
     std::string phone;
     int id;
     int userType;
-    std::cout << "REGISTRANDO ADMINISTRADOR.." << std::endl;
-    std::cout << "INGRESAR NOMBRE: " ;
+    std::cout << "NOMBRE: " ;
     std::cin.ignore();
     getline(std::cin, name);
-    std::cout << "INGRESAR APELLIDO: " ;
+    std::cout << "APELLIDO: " ;
     getline(std::cin, surname);
-    std::cout << "INGRESAR DNI: " ;
+    std::cout << "DNI: " ;
     std::cin >>  document; 
-    std::cout << "INGRESAR CORREO: " ; 
+    std::cout << "CORREO: " ; 
     std::cin >>  email;
-    std::cout << "INGRESAR TELEFONO: " ; 
+    std::cout << "TELEFONO: " ; 
     std::cin >>  phone;
-    std::cout << "INGRESAR CLAVE: " ; 
+    std::cout << "CLAVE: " ; 
     std::cin >> password;
     GenericFile <Administrator> administratorFile ("administrators.dat");
     id = verifyIdRegisterByOption(administratorFile);
     GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
     bool administratorResponse = administratorFile.save(Administrator(name, surname, document, email, password, phone, id, 2));
     bool userResponse = userLoginFile.save(UserLogin(password, id, 2));
+    system("pause");
 };
 void registerCareer() {
     std::string name;
@@ -50,15 +50,16 @@ void registerCareer() {
     std::cout << "SELECCIONAR UNA OPCION: ";
     std::cin >> studyType;
     std::cout << std::endl;
-    std::cout << "* INGRESAR NOMBRE: ";
+    std::cout << "* NOMBRE: ";
     std::cin.ignore();
     getline(std::cin, name);
-    std::cout << "* INGRESAR DURACION: ";
+    std::cout << "* DURACION: ";
     std::cin >> duration;
     std::cout << std::endl;
     GenericFile <Career> careerFile ("careers.dat");
     id = verifyIdRegisterByOption(careerFile);
     bool careerResponse = careerFile.save(Career(name, studyType, id, duration));
+    system("pause");
 };
 void registerSubject() {
     std::string name;
@@ -67,7 +68,7 @@ void registerSubject() {
     int yearCareer;
     int selectedOption;
 
-    std::cout << "* INGRESAR NOMBRE: ";
+    std::cout << "* NOMBRE: ";
     std::cin.ignore();
     getline(std::cin, name);
     std::cout << std::endl;
@@ -77,18 +78,19 @@ void registerSubject() {
     std::cout << "* SELECCIONAR UNA OPCION: ";
     std::cin >> duration;
     std::cout << std::endl;
-    std::cout << "* INGRESAR EN QUE ANIO DE LA CARRERA SE DICTA: ";
+    std::cout << "* EN QUE ANIO DE LA CARRERA SE DICTA: ";
     std::cin >> yearCareer;
     GenericFile <Subject> subjectFile ("subjects.dat");
     id = verifyIdRegisterByOption(subjectFile);
     bool responseSubject = subjectFile.save(Subject(name, duration, id, yearCareer));
+    system("pause");
 };
 void editAdministrator() {
-
+    system("pause");
 };
 void editCareer() {
-
+    system("pause");
 };
 void editSubject() {
-
+    system("pause");
 };

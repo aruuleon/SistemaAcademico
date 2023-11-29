@@ -18,5 +18,4 @@ class UserLogin {
         void setId(int);
         void setUserType(int);
         void setState(bool);
-        void show();
 };

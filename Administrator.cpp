@@ -80,23 +80,18 @@ void Administrator::editStaff() {
 };
 void Administrator::withdrawStaff(int userType) {
     (userType == 3) ? withdrawRegisterByOption(_teacherFile, "user") : withdrawRegisterByOption(_studentFile, "user");
-    system("pause");
 };
 void Administrator::reEnrollStaff(int userType){
     (userType == 3) ? reEnrollRegisterByOption(_teacherFile, "user") : reEnrollRegisterByOption(_studentFile, "user");
-    system("pause");
 };
 void Administrator::verifyInformation(int userType) {
     (userType == 3) ? searchRegisterByOption(_teacherFile) : searchRegisterByOption(_studentFile);
-    system("pause");
 };
 void Administrator::listStaff(int userType) {
     (userType == 3) ? listRegisterByOption(_teacherFile) : listRegisterByOption(_studentFile);
-    system("pause");
 };
 void Administrator::listNotices() {
     listRegisterByOption(_noticeFile);
-    system("pause");
 };
 void Administrator::assignNoteStudent() {
 
@@ -144,16 +139,16 @@ void Administrator::show(){
     std::cout << "CLAVE          : " << getPassword() << std::endl; 
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
-    system("pause"); 
 };
 void Administrator::showGenericMenu(int userType){
     int selectedOption;
     do {
+    system("cls");
     std::cout << "1 - REGISTRAR" << std::endl;
     std::cout << "2 - ELIMINAR" << std::endl;
-    std::cout << "3 - DAR DE ALTA" << std::endl;
-    std::cout << "4 - MOSTRAR INFORMACION" << std::endl;
-    std::cout << "5 - MOSTAR LISTA REGISTROS" << std::endl;
+    std::cout << "3 - RECUPERAR" << std::endl;
+    std::cout << "4 - BUSCAR" << std::endl;
+    std::cout << "5 - LISTA REGISTROS" << std::endl;
     if(userType == 3){
         showMenuTeacher();
     } else{
@@ -161,6 +156,7 @@ void Administrator::showGenericMenu(int userType){
     }
     std::cout << "0 - VOLVER" << std::endl;
     std::cin >> selectedOption;
+    system("cls");
     sendGenericRequest(selectedOption, userType);
     } while(selectedOption != 0);
 };
@@ -185,7 +181,7 @@ void Administrator::showMenuNotice(){
         std::cout << "1 - REGISTRAR" << std::endl;
         std::cout << "2 - EDITAR" << std::endl;
         std::cout << "3 - ELIMINAR" << std::endl;
-        std::cout << "4 - MOSTRAR LISTA" << std::endl;
+        std::cout << "4 - LISTA REGISTROS" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
         std::cin >> selectedOption;
         system("cls");
@@ -203,9 +199,9 @@ void Administrator::showMenuComission(){
         std::cout << "1 - REGISTRAR" << std::endl;
         std::cout << "2 - EDITAR" << std::endl;
         std::cout << "3 - ELIMINAR" << std::endl;
-        std::cout << "4 - DAR DE ALTA" << std::endl;
-        std::cout << "5 - MOSTRAR INFORMACION" << std::endl;
-        std::cout << "6 - MOSTRAR LISTA" << std::endl;
+        std::cout << "4 - RECUPERAR" << std::endl;
+        std::cout << "5 - BUSCAR" << std::endl;
+        std::cout << "6 - LISTA REGISTROS" << std::endl;
         std::cout << "7 - ASIGNAR MATERIA A COMISION" << std::endl;
         std::cout << "8 - MOSTRAR MATERIAS SEGUN COMISION" << std::endl;
         std::cout << "0 - VOLVER" << std::endl;
