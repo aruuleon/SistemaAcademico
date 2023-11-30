@@ -41,6 +41,7 @@ class Administrator : public FacultyStaff {
         void editComission();
         void assignGrade();
         void modifyGrade();
+        void assignTeacherToSubject();
         void generateCertificate();
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");

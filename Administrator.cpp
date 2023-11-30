@@ -143,26 +143,19 @@ void Administrator::show(){
 void Administrator::showGenericMenu(int userType){
     int selectedOption;
     do {
-    system("cls");
-    std::cout << "1 - REGISTRAR" << std::endl;
-    std::cout << "2 - ELIMINAR" << std::endl;
-    std::cout << "3 - RECUPERAR" << std::endl;
-    std::cout << "4 - BUSCAR" << std::endl;
-    std::cout << "5 - LISTA REGISTROS" << std::endl;
-    if(userType == 3){
-        showMenuTeacher();
-    } else{
-        showMenuStudent();
-    }
-    std::cout << "0 - VOLVER" << std::endl;
-    std::cin >> selectedOption;
-    system("cls");
-    if(userType == 3){
-    sendGenericRequest(selectedOption, userType);
-    } else{
-        sendStudentRequest(selectedOption);
-    }
-
+        std::cout << "1 - REGISTRAR" << std::endl;
+        std::cout << "2 - ELIMINAR" << std::endl;
+        std::cout << "3 - DAR DE ALTA" << std::endl;
+        std::cout << "4 - MOSTRAR INFORMACION" << std::endl;
+        std::cout << "5 - MOSTAR LISTA REGISTROS" << std::endl;
+        if(userType == 3){
+            showMenuTeacher();
+        } else{
+            showMenuStudent();
+        }
+        std::cout << "0 - VOLVER" << std::endl;
+        std::cin >> selectedOption;
+        sendUserTypeRequest(selectedOption, userType);
     } while(selectedOption != 0);
 };
 void Administrator::showMenuTeacher(){
@@ -173,7 +166,6 @@ void Administrator::showMenuTeacher(){
 void Administrator::showMenuStudent(){
     std::cout << "6 - ASIGNAR NOTA" << std::endl;
     std::cout << "7 - MODIFICAR NOTA" << std::endl;
-    std::cout << "8 - GENERAR CERTIFICADO EXAMEN" << std::endl;
 };
 void Administrator::showMenuNotice(){
     int selectedOption;
@@ -216,13 +208,12 @@ void Administrator::showMenuComission(){
     } while(selectedOption != 0);
 };
 void Administrator::sendUserTypeRequest(int selectedOption, int userType) {
-    switch(selectedOption) {
-        case 3: sendTeacherRequest(selectedOption);
-            break;
-        case 4: sendStudentRequest(selectedOption);
-            break;
-        default: sendGenericRequest(selectedOption, userType);
-            break;
+    if(selectedOption >= 1 && selectedOption <= 5) {
+        sendGenericRequest(selectedOption, userType);
+    } else if(userType == 3) {
+        sendTeacherRequest(selectedOption);
+    } else {
+        sendStudentRequest(selectedOption);
     }
 };
 void Administrator::sendGenericRequest(int selectedOption, int userType) {
@@ -241,11 +232,7 @@ void Administrator::sendGenericRequest(int selectedOption, int userType) {
 };
 void Administrator::sendTeacherRequest(int selectedOption) {
     switch(selectedOption) {
-        case 6: 
-            break;
-        case 7:
-            break;
-        case 8:
+        case 6: assignTeacherToSubject();
             break;
     }
 };
@@ -254,8 +241,6 @@ void Administrator::sendStudentRequest(int selectedOption) {
         case 6: assignGrade();
             break;
         case 7: modifyGrade();
-            break;
-        case 8: generateCertificate();
             break;
     }
 };
@@ -361,4 +346,8 @@ void Administrator::generateCertificate() {
     std::cout << "INGRESAR ID DE ALUMNO: ";
     std::cin >> id;
     
+};
+void Administrator::assignTeacherToSubject() {
+    std::cout << "ASIGNANDO PROFESOR A MATERIA" << std::endl;
+    system("pause");
 };

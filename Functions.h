@@ -31,6 +31,19 @@ void listRegisterByOption(GenericFile<T> file) {
     }
     system("pause");
 };
+// template <class T, typename A>
+// void editRegisterByOption(T , A file) {
+//     int position  = _file.searchRecord(file.getId());
+//     //std::cout << "ID " << file.getId(); 
+//     //std::cout << position << std::endl;
+//     std::string email;
+//     std::cout << "REGISTRO ACTUAL:" << file.getEmail() << std::endl;
+//     std::cin.ignore();
+//     std::cout << "INGRESAR NUEVO EMAIL: " ;
+//     std::getline(std::cin, email);
+//     file.setEmail(email);
+//     _file.save(_file, position);
+// };
 template <class T>
 void searchRegisterByOption(GenericFile<T> file) {
     int id;

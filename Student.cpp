@@ -2,6 +2,7 @@
 #include "Student.h"
 #include "System.h"
 #include "Fecha.h"
+#include "Functions.h"
 
 Student::Student() {
 
@@ -22,8 +23,10 @@ void Student::showMenu(Student student) {
         std::cout << "5 - ESTADO ACADEMICO" << std::endl;
         std::cout << "6 - NOTAS DE EXAMEN" << std::endl;
         std::cout << "7 - GENERAR CERTIFICADO EXAMEN" << std::endl;
+        std::cout << "8 - EDICION" << std::endl;
         std::cout << "0 - CERRAR SESION" << std::endl;
         std::cin >> selectedOption;
+        system("cls");
         sendRequest(student, selectedOption);
     } while(selectedOption != 0);
 };
@@ -42,6 +45,8 @@ void Student::sendRequest(Student student, int selectedOption) {
         case 6: showExamNotes();
             break;
         case 7: showExamsByStudent(student);
+            break;
+        case 8: editInformation(student);
             break;
         case 0: logout();
             break;
@@ -194,4 +199,59 @@ void Student::show(){
     std::cout << "MAIL           : " << getEmail() << std::endl; 
     std::cout << "TELEFONO       : " << getPhone() << std::endl; 
     std::cout << "TIPO DE USUARIO: " << getUserType() << std::endl; 
+};
+
+void Student::editInformation(Student student){
+    int selectedOption;
+    std::cout << "* SELECCIONE UN CAMPO A EDITAR" << std::endl;   
+    std::cout << "1 - MAIL" << std::endl;
+    std::cout << "2 - TELEFONO" << std::endl;
+    std::cout << "3 - CLAVE" << std::endl;
+    std::cin >> selectedOption;
+    system("cls");
+    sendRequestEdit(student, selectedOption);
+};
+void Student::sendRequestEdit(Student student, int selectedOption){
+    switch (selectedOption){
+    
+    case 1: editMail(student);
+        break;
+    case 2: editPhone(student);
+        break;
+    case 3: editPassword(student);
+        break;
+    }    
+};
+
+void Student::editMail(Student student){
+    int position  = _studentFile.searchRecord(student.getId());
+    std::cout << "ID " << student.getId(); 
+    std::cout << position << std::endl;
+    std::string email;
+    std::cout << "EMAIL ACTUAL:" << student.getEmail() << std::endl;
+    std::cin.ignore();
+    std::cout << "INGRESAR NUEVO EMAIL: " ;
+    std::getline(std::cin, email);
+    student.setEmail(email);
+    _studentFile.save(student, position);
+};
+void Student::editPhone(Student student){
+    int position = _studentFile.searchRecord(student.getId());
+    std::string phone;
+    std::cout << "TELEFONO ACTUAL:" << student.getPhone() << std::endl;
+    std::cin.ignore();
+    std::cout << "INGRESAR NUEVO TELEFONO: " ;
+    std::getline(std::cin, phone);
+    student.setPhone(phone);
+    _studentFile.save(student, position);
+};
+void Student::editPassword(Student student){
+    int position = _studentFile.searchRecord(student.getId());
+    std::string password;
+    std::cout << "CLAVE ACTUAL:" << student.getPassword() << std::endl;
+    std::cin.ignore();
+    std::cout << "INGRESAR NUEVA CLAVE: " ;
+    std::getline(std::cin, password);
+    student.setPhone(password);
+    _studentFile.save(student, position);
 };

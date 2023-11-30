@@ -5,6 +5,7 @@
 #include "Subject.h"
 #include "ExamXStudentXSubject.h"
 #include "GenericFile.h"
+#include "Student.h"
 
 class Student : public FacultyStaff {
     private:
@@ -21,6 +22,12 @@ class Student : public FacultyStaff {
         void showMessageErrorGenerateCertificate(Exam);
         void showGeneratedCertificate(Exam, Student, Subject);
         void showExam(Exam, Subject);
+        void editInformation(Student);
+        void sendRequestEdit(Student, int);
+        void editMail(Student);
+        void editPhone(Student);
+        void editPassword(Student);
+        GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
         GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
