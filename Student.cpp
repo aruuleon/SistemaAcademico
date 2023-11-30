@@ -33,7 +33,7 @@ void Student::showMenu(Student student) {
 };
 void Student::sendRequest(Student student, int selectedOption) {
     switch(selectedOption) {
-        case 1: registerToExam();
+        case 1: registerToExam(student);
             break;
         case 2: registerToSubject(student);
             break;
@@ -55,8 +55,65 @@ void Student::sendRequest(Student student, int selectedOption) {
             break;
     }
 };
-void Student::registerToExam() {
-    
+void Student::registerToExam(Student student) {
+    std::cout << "INSCRIPCION DE ALUMNO A EXAMEN" << std::endl;
+    int numberOfRecordsSubject = _subjectFile.numberOfRecords();
+    int numberOfRecordsStudentXSubject = _studentXSubjectFile.numberOfRecords();
+    int numberOfRecordsExamXSubject = _examXSubjectFile.numberOfRecords();
+    int numberOfRecordsExam = _examFile.numberOfRecords();
+    int numberOfRecordsCareer = _careerFile.numberOfRecords();
+    int careerId;
+
+    for(int i = 0; i < numberOfRecordsSubject; i++) {
+        Subject subject = _subjectFile.read(i);
+        if(subject.getState()) {
+            for(int j = 0; j < numberOfRecordsStudentXSubject; j++) {
+                StudentXSubject studentXSubject = _studentXSubjectFile.read(j);
+                if(studentXSubject.getSecondResourceId() == subject.getId() && studentXSubject.getFirstResourceId() == student.getId()) {
+                    for(int k = 0; k < numberOfRecordsExamXSubject; k++) {
+                        ExamXSubject examXSubject = _examXSubjectFile.read(k);
+                        if(examXSubject.getSecondResourceId()) {
+                            for(int l = 0; l < numberOfRecordsExam; l++) {
+                                Exam exam = _examFile.read(l);
+                                if(exam.getId() == examXSubject.getFirstResourceId()) {
+                                    std::cout << "MATERIA: " << subject.getName() << std::endl;
+                                    exam.show();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    int subjectId;
+    int examId;
+    std::cout << std::endl;
+    std::cout << "INGRESAR ID DE EXAMEN A INSCRIBIR: ";
+    std::cin >> examId;
+
+    int positionRelationship = 0;
+    bool relationShipFound = false;
+    while(!relationShipFound && positionRelationship < numberOfRecordsExamXSubject) {
+        ExamXSubject examXSubject = _examXSubjectFile.read(positionRelationship);
+        if(examXSubject.getFirstResourceId() == examId) {
+            relationShipFound = true;
+            int positionSubject = 0;
+            bool subjectFound = false;
+            while(!subjectFound && positionSubject < numberOfRecordsSubject) {
+                Subject subject = _subjectFile.read(positionSubject);
+                if(subject.getId() == examXSubject.getSecondResourceId() && examId == examXSubject.getFirstResourceId()) {
+                    subjectFound = true;
+                    subjectId = subject.getId();
+                }
+                positionSubject++;
+            }
+        }
+        positionRelationship++;
+    }
+    _examXStudentXSubjectFile.save(ExamXStudentXSubject(examId, student.getId(), subjectId));
+
 };
 void Student::registerToSubject(Student student) {
     int subjectId;
@@ -64,7 +121,7 @@ void Student::registerToSubject(Student student) {
     showSubjectsOfTheCareer(careerId);
     std::cout << "SELECCIONAR ID DE MATERIA A LA QUE QUIERE REGISTRARSE: ";
     std::cin >> subjectId;
-    if(_studentXSubject.save(StudentXSubject(student.getId(), subjectId))) {
+    if(_studentXSubjectFile.save(StudentXSubject(student.getId(), subjectId))) {
         Subject subject = _subjectFile.read(_subjectFile.searchRecord(subjectId));
         std::cout << "USTED FUE REGISTRADO A LA SIGUIENTE MATERIA CORRECTAMENTE" << std::endl;
         subject.show();
@@ -72,12 +129,12 @@ void Student::registerToSubject(Student student) {
 };
 int Student::verifyStudentCareerId(Student student) {
     int careerId;
-    int numberOfRecordsRelationship = _subjectXCareer.numberOfRecords();
+    int numberOfRecordsRelationship = _subjectXCareerFile.numberOfRecords();
     int positionRelationship = 0;
     bool relationshipFound = false;
     std::cout << "MATERIAS DE LA CARRERA" << std::endl;
     while(!relationshipFound && positionRelationship < numberOfRecordsRelationship) {
-        StudentXCareer studentXCareer = _studentXCareer.read(positionRelationship);
+        StudentXCareer studentXCareer = _studentXCareerFile.read(positionRelationship);
         if(studentXCareer.getFirstResourceId() == student.getId()) {
             int numberOfRecordsCareer = _careerFile.numberOfRecords();
             int positionCareer = 0;
@@ -96,12 +153,12 @@ int Student::verifyStudentCareerId(Student student) {
     return careerId;
 };
 void Student::showSubjectsOfTheCareer(int careerId) {
-    int numberOfRecordsRelationship = _subjectXCareer.numberOfRecords();
+    int numberOfRecordsRelationship = _subjectXCareerFile.numberOfRecords();
     int numberOfRecordsSubject = _subjectFile.numberOfRecords();
     Career career = _careerFile.read(_careerFile.searchRecord(careerId));
     
     for(int i = 0; i < numberOfRecordsRelationship; i++) {
-        SubjectXCareer subjectXCareer = _subjectXCareer.read(i);
+        SubjectXCareer subjectXCareer = _subjectXCareerFile.read(i);
         for(int j = 0; j < numberOfRecordsSubject; j++) {
             Subject subject = _subjectFile.read(j);
             if(career.getId() == subjectXCareer.getSecondResourceId() && subject.getState() && subject.getId() == subjectXCareer.getFirstResourceId()) {
@@ -117,15 +174,15 @@ void Student::removeSubject(Student student) {
     int subjectId;
     std::cout << "INGRESAR ID DE MATERIA A DAR DE BAJA: ";
     std::cin >> subjectId;
-    withdrawRelationship(_studentXSubject, StudentXSubject(), student, subjectId, "ALUMNO/A", "MATERIA");
+    withdrawRelationship(_studentXSubjectFile, StudentXSubject(), student, subjectId, "ALUMNO/A", "MATERIA");
 };
 void Student::showRegisteredSubjects(Student student) {
     std::cout << "* MATERIAS INSCRIPTAS" << std::endl;
     std::cout << std::endl;
-    int numberOfRecordsRelationship = _studentXSubject.numberOfRecords();
+    int numberOfRecordsRelationship = _studentXSubjectFile.numberOfRecords();
     int numberOfRecordsSubject = _subjectFile.numberOfRecords();
     for(int i = 0; i < numberOfRecordsRelationship; i++) {
-        StudentXSubject studentXSubject = _studentXSubject.read(i);
+        StudentXSubject studentXSubject = _studentXSubjectFile.read(i);
         if(studentXSubject.getState() && studentXSubject.getFirstResourceId() == student.getId()) {
             for(int j = 0; j < numberOfRecordsSubject; j++) {
                 Subject subject = _subjectFile.read(j);
@@ -275,7 +332,6 @@ void Student::showPersonalInformation(Student student) {
 void Student::showExam(Exam exam, Subject subject) {
     std::cout << "INFORMACION EXAMEN" << std::endl;
     std::cout << "ID: " << exam.getId() << std::endl;
-    std::cout << "CALIFICACION: " << exam.getGrade() << std::endl;
     std::cout << "FECHA: " << exam.getDate().toString() << std::endl;
     std::cout << "MATERIA: " << subject.getName() << std::endl;
 };

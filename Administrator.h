@@ -13,6 +13,9 @@
 #include "Career.h"
 #include "StudentXCareer.h"
 #include "TeacherXSubject.h"
+#include "SubjectXCareer.h"
+#include "ExamXStudentXSubject.h"
+#include "ExamXSubject.h"
 
 class Administrator : public FacultyStaff {
     private:
@@ -42,8 +45,9 @@ class Administrator : public FacultyStaff {
         void listNotices(); // ok
         void registerComission(); // ok
         void editComission();
-        void assignGrade();
-        void modifyGrade();
+        void assignGradeStudent();
+        void modifyGradeStudent();
+        void generateExam();
         void assignTeacherToSubject();
         void showSubjects(int, int, int);
         void finishAssignmentProcess(int, int, int, int);
@@ -55,12 +59,14 @@ class Administrator : public FacultyStaff {
         GenericFile <Notice> _noticeFile = GenericFile <Notice> ("notices.dat");
         GenericFile <Comission> _comissionFile = GenericFile <Comission> ("comissions.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <SubjectXCareer> _subjectXCareerFile = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
-        GenericFile <TeacherXSubject> _teacherXSubjectFile = GenericFile <TeacherXSubject> ("teachersXSubjects.dat");
+        // GenericFile <TeacherXSubject> _teacherXSubjectFile = GenericFile <TeacherXSubject> ("teachersXSubjects.dat");
         GenericFile <SubjectXComission> _subjectXComissionFile = GenericFile <SubjectXComission> ("subjectsXComissions.dat");
         GenericFile <StudentXSubject> _studentXSubjectFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
         GenericFile <StudentXCareer> _studentXCareerFile = GenericFile <StudentXCareer> ("studentsXCareers.dat");
+        GenericFile <ExamXStudentXSubject> _examXStudentXSubject = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
     public:
         Administrator();
         Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);

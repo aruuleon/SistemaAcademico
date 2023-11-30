@@ -3,10 +3,10 @@
 ExamXStudentXSubject::ExamXStudentXSubject() {
 
 };
-ExamXStudentXSubject::ExamXStudentXSubject(int firstResourceId, int secondResourceId, int thirdResourceId, bool attendance) {
+ExamXStudentXSubject::ExamXStudentXSubject(int firstResourceId, int secondResourceId, int thirdResourceId) {
     setFirstResourceId(firstResourceId);
     setSecondResourceId(secondResourceId);
-    setAttendance(attendance);
+    setAttendance(true);
 };
 int ExamXStudentXSubject::getFirstResourceId() const {
     return _firstResourceId;

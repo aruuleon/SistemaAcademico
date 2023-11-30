@@ -30,8 +30,3 @@ class SuperAdministrator : public FacultyStaff {
         void withdrawCareer(int);
         void showSubjectsByCareer();
 };
-// template <class T>
-// void reEnrollByOption(int optionReceived, GenericFile <T> file) {
-//     std::string name = (optionReceived == 1) ? "user" : "resourse"; 
-//     reEnrollRegisterByOption(file, name);
-// };

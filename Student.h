@@ -10,11 +10,12 @@
 #include "Student.h"
 #include "SubjectXCareer.h"
 #include "StudentXSubject.h"
+#include "ExamXSubject.h"
 
 class Student : public FacultyStaff {
     private:
         void sendRequest(Student, int);
-        void registerToExam();
+        void registerToExam(Student);
         void registerToSubject(Student);
         void removeSubject(Student);
         void showRegisteredSubjects(Student);
@@ -32,12 +33,13 @@ class Student : public FacultyStaff {
         int verifyStudentCareerId(Student);
         void showSubjectsOfTheCareer(int);
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
-        GenericFile <StudentXCareer> _studentXCareer = GenericFile <StudentXCareer> ("studentsXCareers.dat");
-        GenericFile <StudentXSubject> _studentXSubject = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
-        GenericFile <SubjectXCareer> _subjectXCareer = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
+        GenericFile <SubjectXCareer> _subjectXCareerFile = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
+        GenericFile <StudentXCareer> _studentXCareerFile = GenericFile <StudentXCareer> ("studentsXCareers.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
+        GenericFile <StudentXSubject> _studentXSubjectFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <ExamXSubject> _examXSubjectFile = GenericFile <ExamXSubject> ("examsXSubjects.dat");
         GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
     public:
         Student();

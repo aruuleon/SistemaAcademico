@@ -10,7 +10,7 @@ class ExamXStudentXSubject {
         bool _state;
     public:
         ExamXStudentXSubject();
-        ExamXStudentXSubject(int, int, int, bool);
+        ExamXStudentXSubject(int, int, int);
         int getFirstResourceId() const;
         int getSecondResourceId() const;
         int getThirdResourceId() const;
