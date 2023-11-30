@@ -8,16 +8,18 @@
 #include "ExamXStudentXSubject.h"
 #include "GenericFile.h"
 #include "Student.h"
+#include "SubjectXCareer.h"
+#include "StudentXSubject.h"
 
 class Student : public FacultyStaff {
     private:
         void sendRequest(Student, int);
         void registerToExam();
         void registerToSubject(Student);
-        void removeSubject();
-        void showCareerSubjects();
+        void removeSubject(Student);
+        void showRegisteredSubjects(Student);
         void showAcademicState();
-        void showExamNotes();
+        void showExamNotes(Student);
         void showExamsByStudent(Student);
         void requestCertificate(Student);
         void generateCertificate(ExamXStudentXSubject, Exam, Student);
@@ -26,11 +28,12 @@ class Student : public FacultyStaff {
         void showExam(Exam, Subject);
         void editInformation(Student);
         void sendRequestEdit(Student, int);
-        void editMail(Student);
-        void editPhone(Student);
-        void editPassword(Student);
+        void showPersonalInformation(Student);
+        int verifyStudentCareerId(Student);
+        void showSubjectsOfTheCareer(int);
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <StudentXCareer> _studentXCareer = GenericFile <StudentXCareer> ("studentsXCareers.dat");
+        GenericFile <StudentXSubject> _studentXSubject = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
         GenericFile <SubjectXCareer> _subjectXCareer = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
         GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");

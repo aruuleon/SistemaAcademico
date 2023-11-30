@@ -1,29 +1,29 @@
 #include <cstring>
-#include "StudentXSubject.h"
+#include "StudentXCareer.h"
 
-StudentXSubject::StudentXSubject() {
+StudentXCareer::StudentXCareer() {
 
 };
-StudentXSubject::StudentXSubject(int firstResourceId, int secondResourceId) {
+StudentXCareer::StudentXCareer(int firstResourceId, int secondResourceId) {
     setFirstResourceId(firstResourceId);
     setSecondResourceId(secondResourceId);
     setState(true);
 };
-int StudentXSubject::getFirstResourceId() const {
+int StudentXCareer::getFirstResourceId() const {
     return _firstResourceId;
 };
-int StudentXSubject::getSecondResourceId() const {
+int StudentXCareer::getSecondResourceId() const {
     return _secondResourceId;
 };
-bool StudentXSubject::getState() const {
+bool StudentXCareer::getState() const {
     return _state;
 };
-void StudentXSubject::setFirstResourceId(int firstResourceId) {
+void StudentXCareer::setFirstResourceId(int firstResourceId) {
     _firstResourceId = firstResourceId;
 };
-void StudentXSubject::setSecondResourceId(int secondResourceId) {
+void StudentXCareer::setSecondResourceId(int secondResourceId) {
     _secondResourceId = secondResourceId;
 };
-void StudentXSubject::setState(bool state) {
+void StudentXCareer::setState(bool state) {
     _state = state;
 };

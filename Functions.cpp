@@ -59,6 +59,7 @@ void registerCareer() {
     GenericFile <Career> careerFile ("careers.dat");
     id = verifyIdRegisterByOption(careerFile);
     bool careerResponse = careerFile.save(Career(name, studyType, id, duration));
+    std::cout << careerResponse << std::endl;
     system("pause");
 };
 void registerSubject() {

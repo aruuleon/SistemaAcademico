@@ -31,19 +31,35 @@ void listRegisterByOption(GenericFile<T> file) {
     }
     system("pause");
 };
-// template <class T, typename A>
-// void editRegisterByOption(T , A file) {
-//     int position  = _file.searchRecord(file.getId());
-//     //std::cout << "ID " << file.getId(); 
-//     //std::cout << position << std::endl;
-//     std::string email;
-//     std::cout << "REGISTRO ACTUAL:" << file.getEmail() << std::endl;
-//     std::cin.ignore();
-//     std::cout << "INGRESAR NUEVO EMAIL: " ;
-//     std::getline(std::cin, email);
-//     file.setEmail(email);
-//     _file.save(_file, position);
-// };
+template <typename FacultyStaffFile, typename FacultyStaff>
+void editRegisterByOption(FacultyStaffFile facultyStaffFile, FacultyStaff facultyStaff, std::string field) {
+    int positionFacultyStaff  = facultyStaffFile.searchRecord(facultyStaff.getId());
+    std::string newValue;
+    
+    std::cout << field << " ACTUAL: ";
+    if(field == "EMAIL") {
+        std::cout << facultyStaff.getEmail() << std::endl;   
+    } else if(field == "PHONE") {
+        std::cout << facultyStaff.getPhone() << std::endl;
+    } else {
+        std::cout << facultyStaff.getPassword() << std::endl;
+    }
+    std::cin.ignore();
+    std::cout << "INGRESAR NUEVO " << field << ": ";
+    std::getline(std::cin, newValue);
+    editValueByOption(facultyStaffFile, facultyStaff, positionFacultyStaff, field, newValue);
+};
+template <typename FacultyStaffFile, typename FacultyStaff>
+void editValueByOption(FacultyStaffFile facultyStaffFile, FacultyStaff facultyStaff, int positionFacultyStaff, std::string field, std::string newValue) {
+    if(field == "EMAIL") {
+        facultyStaff.setEmail(newValue);
+    } else if(field == "PHONE") {
+        facultyStaff.setPhone(newValue);
+    } else {
+        facultyStaff.setPassword(newValue);
+    }
+    facultyStaffFile.save(facultyStaff, positionFacultyStaff);
+};
 template <class T>
 void searchRegisterByOption(GenericFile<T> file) {
     int id;
@@ -167,7 +183,7 @@ void showFirstResourcesBySecondResources(FirstResourceFile firstResourceFile, Se
     secondResource = secondResourceFile.read(position);
     int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
     int numberOfRecordsFirstResource = firstResourceFile.numberOfRecords();
-    std::cout << "NOMBRE " << nameFirstResource << ": " << secondResource.getName() << std::endl;
+    std::cout << "NOMBRE " << nameSecondResource << ": " << secondResource.getName() << std::endl;
     std::cout << "LISTA DE " << nameFirstResource << " CORRESPONDIENTES: " << std::endl;
     std::cout << std::endl;
     for(int i = 0; i < numberOfRecordsRelationship; i ++) {
@@ -197,5 +213,23 @@ void withdrawResource(ResourceFile resourceFile, ResourseRelationshipFile resour
             }
         }
     }
+    system("pause");
+};
+template <typename ResourseRelationshipFile, typename ResourceRelationship, typename FirstResource>
+void withdrawRelationship(ResourseRelationshipFile resourseRelationshipFile, ResourceRelationship resourseRelationship, FirstResource firstResource, int secondResourceId, std::string nameFirstResource, std::string nameSecondResource) {
+    int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
+    int positionRelationship = 0;
+    bool relationshipFound = false;
+
+    while(!relationshipFound && positionRelationship < numberOfRecordsRelationship) {
+        resourseRelationship = resourseRelationshipFile.read(positionRelationship);
+        if(resourseRelationship.getFirstResourceId() == firstResource.getId() && resourseRelationship.getSecondResourceId() == secondResourceId) {
+            relationshipFound = true;
+            resourseRelationship.setState(false);
+            resourseRelationshipFile.save(resourseRelationship, positionRelationship);
+        }
+        positionRelationship++;
+    }
+    if(relationshipFound) std::cout << "EL " << nameFirstResource << " FUE DADO/A DE BAJA CORRECTAMENTE DE EL/LA " << nameSecondResource << std::endl;
     system("pause");
 };

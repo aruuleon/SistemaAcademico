@@ -67,10 +67,15 @@ void Administrator::registerStaff(int userType) {
     bool saveResponse;
     if(userType == 3){
         file = verifyIdRegisterByOption(_teacherFile);
-        saveResponse = _teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
+        _teacherFile.save(Teacher(name, surname, document, email, password, phone, file, userType));
     } else{
+        listRegisterByOption(_careerFile);
+        int careerId;
+        std::cout << "INGRESAR ID CARRERA A LA QUE SE VA A INSCRIBIR EL ESTUDIANTE: ";
+        std::cin >> careerId;
         file = verifyIdRegisterByOption(_studentFile);
-        saveResponse = _studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
+        _studentFile.save(Student(name, surname, document, email, password, phone, file, userType));
+        _studentXCareerFile.save(StudentXCareer(file, careerId));
     }
     bool userResponse = _userLoginFile.save(UserLogin(password, file, userType));
     system("pause");
@@ -312,36 +317,132 @@ void Administrator::registerComission(){
 void Administrator::editComission(){
 };
 void Administrator::assignGrade(){
-    Student student;
     Subject subject;
+    StudentXSubject studentXSubjets;
     int idStudent;
     int idExam;
     int grade;
     int idSubject;
     int day, month, year;
+    int selectedOption;
     int numberOfRecordsRelationship = _studentXSubjectFile.numberOfRecords();
-    
-    bool response;
+    bool response = false;
+    bool attendance = false;
+    GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat"); 
+    GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
 
     std::cout << "* ASIGNAR NOTA A ALUMNO *" << std::endl;
-    std::cout << "INGRESAR EL LEGAJO DEL ALUMNO A ASIGNAR NOTA: "; // O CALIFICACION
+    std::cout << "INGRESAR EL LEGAJO DEL ALUMNO A ASIGNAR NOTA: ";
     std::cin >> idStudent;
     for(int i = 0; i < numberOfRecordsRelationship; i++){
+        if(studentXSubjets.getFirstResourceId() == idStudent){
+            subject.show();
+        }
     }
     std::cout << "INGRESAR EL ID DE MATERIA A ASIGNAR LA NOTA: ";
     std::cin >> idSubject;
-
-    // _examFile.save(Exam (Fecha(day, month, year)))
+    std::cout << "INGRESE EL DIA DEL EXAMEN: ";
+    std::cin >> day;
+    std::cout << "INGRESE EL MES DEL EXAMEN: ";
+    std::cin >> month;
+    std::cout << "INGRESE EL ANIO DEL EXAMEN: ";
+    std::cin >> year;
+    idExam = verifyIdRegisterByOption(_examFile);
+    std::cout << "EL ALUMNO SE PRESENTO A EL EXAMEN? " << std::endl;
+    std::cout << "1- SI" << std::endl;
+    std::cout << "2- NO" << std::endl;
+    std::cin >> selectedOption;
+    if(selectedOption == 1){
+        std::cout << "INGRESE LA NOTA A ASIGNAR: ";
+        std::cin >> grade;
+        attendance = true;
+    } else{
+        grade = 0;
+    }
+    if(_examFile.save(Exam (idExam, grade,Fecha(day, month, year))) && _examXStudentXSubjectFile.save(ExamXStudentXSubject(idExam, idStudent, idSubject, attendance))){
+        std::cout << "SE GUARDO CORRECTAMENTE LA NOTA" << std::endl;
+    } else {
+            std::cout << "NO SE PUDO GUARDAR LA NOTA" << std::endl;
+        }
     system("pause");
 };
 void Administrator::modifyGrade(){
+    Exam exam;
+    Subject subject;
+    StudentXSubject studentXSubjets;
+    int idStudent;
+    int idExam;
+    int grade;
+    int idSubject;
+    int selectedOption;
+    int numberOfRecordsRelationship = _studentXSubjectFile.numberOfRecords();
+    bool response = false;
+    bool attendance = false;
+    GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat"); 
+    GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
 
-};
-void Administrator::assignTeacherToSubject() {
-    std::cout << "ASIGNANDO PROFESOR A MATERIA" << std::endl;
-    
-};
-void Administrator::assignTeacherToSubject() {
-    std::cout << "ASIGNANDO PROFESOR A MATERIA" << std::endl;
+    std::cout << "* MODIFICAR NOTA A ALUMNO *" << std::endl;
+    std::cout << "INGRESAR EL LEGAJO DEL ALUMNO A MODIFICAR NOTA: ";
+    std::cin >> idStudent;
+    for(int i = 0; i < numberOfRecordsRelationship; i++){
+        if(studentXSubjets.getFirstResourceId() == idStudent){
+            subject.show();
+        }
+    }
+    std::cout << "INGRESAR EL ID DE MATERIA A MODIFICAR LA NOTA: ";
+    std::cin >> idSubject;
+    std::cin >> selectedOption;
+    std::cout << "INGRESE LA NOTA A MODIFICAR: ";
+    std::cin >> grade;
+    attendance = true;
+    exam.setGrade(grade);
+    //_examFile.save(exam);
+    if(_examFile.save((exam))){
+        std::cout << "SE EDITO CORRECTAMENTE LA NOTA" << std::endl;
+    } else {
+            std::cout << "NO SE PUDO EDITAR LA NOTA" << std::endl;
+        }
     system("pause");
+};
+void Administrator::assignTeacherToSubject() {
+    int teacherId;
+    int subjectId;
+    int numberOfRecordsRelationship = _teacherXSubjectFile.numberOfRecords();
+    int numberOfRecordsComission = _comissionFile.numberOfRecords();
+    int numberOfRecordsSubject = _subjectFile.numberOfRecords();
+    
+    std::cout << "* ASIGNAR PROFESOR A MATERIA *" << std::endl;
+    showSubjects(numberOfRecordsRelationship, numberOfRecordsSubject, numberOfRecordsComission);
+    std::cout << "INGRESAR EL ID DE MATERIA A ASIGNAR: ";
+    std::cin >> subjectId;
+    std::cout << "INGRESAR EL LEGAJO DEL PROFESOR: ";
+    std::cin >> teacherId;
+    std::cout << std::endl;
+    finishAssignmentProcess(numberOfRecordsRelationship, numberOfRecordsSubject, subjectId, teacherId);
+    system("pause");
+};
+void Administrator::showSubjects(int numberOfRecordsRelationship, int numberOfRecordsSubject, int numberOfRecordsComission) {
+    for(int i = 0; i < numberOfRecordsSubject; i++) {
+        Subject subject = _subjectFile.read(i);
+        for(int j = 0; j < numberOfRecordsComission; j++) {
+            subject.show();
+        }
+    }
+};
+void Administrator::finishAssignmentProcess(int numberOfRecordsRelationship, int numberOfRecordsSubject, int subjectId, int teacherId) {
+        int positionRelationship = 0;
+        bool relationshipFound = false;
+        while(!relationshipFound && positionRelationship < numberOfRecordsRelationship) {
+            TeacherXSubject teacherXSubject = _teacherXSubjectFile.read(positionRelationship);
+            if(teacherXSubject.getSecondResourceId() == subjectId) {
+                relationshipFound = true;
+            }
+            positionRelationship++;
+        }
+        if(!relationshipFound) {
+            _teacherXSubjectFile.save(TeacherXSubject(teacherId, subjectId));
+            std::cout << "EL PROFESOR FUE ASIGNADO A LA MATERIA CORRECTAMENTE" << std::endl;
+        } else {
+            std::cout << "ESTA MATERIA YA TIENE UN PROFESOR ASIGNADO A LA MISMA" << std::endl;
+        }
 };

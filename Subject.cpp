@@ -46,5 +46,4 @@ void Subject::show(){
     std::cout << "NOMBRE         : " << getName() << std::endl;
     std::cout << "ID MATERIA     : " << getId() << std::endl; 
     std::cout << "DURACION       : " << getDuration() << std::endl; 
-    
 };

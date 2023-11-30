@@ -4,7 +4,7 @@
 class Exam{
     private:
         int _id;
-        int _grade; //(calificación)
+        int _grade;
         bool _state;
         Fecha _date;
     public:

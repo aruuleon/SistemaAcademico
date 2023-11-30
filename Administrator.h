@@ -10,6 +10,9 @@
 #include "SubjectXComission.h"
 #include "StudentXSubject.h"
 #include "Exam.h"
+#include "Career.h"
+#include "StudentXCareer.h"
+#include "TeacherXSubject.h"
 
 class Administrator : public FacultyStaff {
     private:
@@ -42,18 +45,22 @@ class Administrator : public FacultyStaff {
         void assignGrade();
         void modifyGrade();
         void assignTeacherToSubject();
+        void showSubjects(int, int, int);
+        void finishAssignmentProcess(int, int, int, int);
         // void generateCertificate();
-        
+
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <UserLogin> _userLoginFile = GenericFile <UserLogin> ("usersLogin.dat");
         GenericFile <Notice> _noticeFile = GenericFile <Notice> ("notices.dat");
         GenericFile <Comission> _comissionFile = GenericFile <Comission> ("comissions.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
+        GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
+        GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
+        GenericFile <TeacherXSubject> _teacherXSubjectFile = GenericFile <TeacherXSubject> ("teachersXSubjects.dat");
         GenericFile <SubjectXComission> _subjectXComissionFile = GenericFile <SubjectXComission> ("subjectsXComissions.dat");
         GenericFile <StudentXSubject> _studentXSubjectFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
-        GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat"); //?
-
+        GenericFile <StudentXCareer> _studentXCareerFile = GenericFile <StudentXCareer> ("studentsXCareers.dat");
     public:
         Administrator();
         Administrator(std::string, std::string, std::string, std::string, std::string, std::string, int, int);
