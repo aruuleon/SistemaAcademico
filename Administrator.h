@@ -42,10 +42,8 @@ class Administrator : public FacultyStaff {
         void assignGrade();
         void modifyGrade();
         void assignTeacherToSubject();
-<<<<<<< Updated upstream
-        void generateCertificate();
-=======
->>>>>>> Stashed changes
+        // void generateCertificate();
+        
         GenericFile <Teacher> _teacherFile = GenericFile <Teacher> ("teachers.dat");
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
         GenericFile <UserLogin> _userLoginFile = GenericFile <UserLogin> ("usersLogin.dat");
