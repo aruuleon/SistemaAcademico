@@ -159,9 +159,7 @@ void Administrator::showGenericMenu(int userType){
     } while(selectedOption != 0);
 };
 void Administrator::showMenuTeacher(){
-    std::cout << "6 - ASIGNAR MATERIA" << std::endl;
-    std::cout << "7 - ASIGNAR COMISION" << std::endl;
-     //EDITAR COMISION DE PROFESOR
+    std::cout << "6 - ASIGNAR A MATERIA" << std::endl;
 }
 void Administrator::showMenuStudent(){
     std::cout << "6 - ASIGNAR NOTA" << std::endl;
@@ -339,12 +337,8 @@ void Administrator::assignGrade(){
 void Administrator::modifyGrade(){
 
 };
-void Administrator::generateCertificate() {
-    int id;
-    
-    std::cout << "GENERANDO CERTIFICADO.." << std::endl;
-    std::cout << "INGRESAR ID DE ALUMNO: ";
-    std::cin >> id;
+void Administrator::assignTeacherToSubject() {
+    std::cout << "ASIGNANDO PROFESOR A MATERIA" << std::endl;
     
 };
 void Administrator::assignTeacherToSubject() {

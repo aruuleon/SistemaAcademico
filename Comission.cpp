@@ -26,7 +26,7 @@ std::string Comission::getFourthQuarter() const {
     return (_fourthQuarter == 1) ? "PRIMER CUATRIMESTRE" : "SEGUNDO CUATRIMESTRE";
 };
 std::string Comission::getName() const {
-    return "COMISION: " + std::to_string(getId()) + " - MODALIDAD: " + getModality() + " - TURNO: " + getTurn() + " - CUATRIMESTRE: " + getFourthQuarter();
+    return std::to_string(getId()) + " - " + getModality() + " - " + getTurn() + " - " + getFourthQuarter();
 };
 int Comission::getYear() const {
     return _year;

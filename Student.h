@@ -2,7 +2,9 @@
 
 #include "FacultyStaff.h"
 #include "Exam.h"
+#include "Career.h"
 #include "Subject.h"
+#include "StudentXCareer.h"
 #include "ExamXStudentXSubject.h"
 #include "GenericFile.h"
 #include "Student.h"
@@ -11,7 +13,7 @@ class Student : public FacultyStaff {
     private:
         void sendRequest(Student, int);
         void registerToExam();
-        void registerToSubject();
+        void registerToSubject(Student);
         void removeSubject();
         void showCareerSubjects();
         void showAcademicState();
@@ -28,7 +30,10 @@ class Student : public FacultyStaff {
         void editPhone(Student);
         void editPassword(Student);
         GenericFile <Student> _studentFile = GenericFile <Student> ("students.dat");
+        GenericFile <StudentXCareer> _studentXCareer = GenericFile <StudentXCareer> ("studentsXCareers.dat");
+        GenericFile <SubjectXCareer> _subjectXCareer = GenericFile <SubjectXCareer> ("subjectsXCareers.dat");
         GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat");
+        GenericFile <Career> _careerFile = GenericFile <Career> ("careers.dat");
         GenericFile <Subject> _subjectFile = GenericFile <Subject> ("subjects.dat");
         GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat");
     public:

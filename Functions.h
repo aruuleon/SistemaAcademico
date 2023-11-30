@@ -167,7 +167,7 @@ void showFirstResourcesBySecondResources(FirstResourceFile firstResourceFile, Se
     secondResource = secondResourceFile.read(position);
     int numberOfRecordsRelationship = resourseRelationshipFile.numberOfRecords();
     int numberOfRecordsFirstResource = firstResourceFile.numberOfRecords();
-    std::cout << "NOMBRE" << " -> " << secondResource.getName() << std::endl;
+    std::cout << "NOMBRE " << nameFirstResource << ": " << secondResource.getName() << std::endl;
     std::cout << "LISTA DE " << nameFirstResource << " CORRESPONDIENTES: " << std::endl;
     std::cout << std::endl;
     for(int i = 0; i < numberOfRecordsRelationship; i ++) {

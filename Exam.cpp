@@ -3,7 +3,7 @@
 #include <iostream>
 Exam::Exam(){
 };
-Exam::Exam(int grade, int id, Fecha date){
+Exam::Exam(int id, int grade, Fecha date){
     setId(id);
     setGrade(grade);
     setDate(date);

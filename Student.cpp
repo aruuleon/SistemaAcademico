@@ -34,7 +34,7 @@ void Student::sendRequest(Student student, int selectedOption) {
     switch(selectedOption) {
         case 1: registerToExam();
             break;
-        case 2: registerToSubject();
+        case 2: registerToSubject(student);
             break;
         case 3: removeSubject();
             break;
@@ -55,8 +55,41 @@ void Student::sendRequest(Student student, int selectedOption) {
 void Student::registerToExam() {
 
 };
-void Student::registerToSubject() {
+void Student::registerToSubject(Student student) {
+    int careerId;
+    int numberOfRecordsCareer = _careerFile.numberOfRecords();
+    int positionCareer = 0;
+    bool careerFound = false;
+    while(!careerFound && positionCareer < numberOfRecordsCareer) {
+        Career career = _careerFile.read(positionCareer);
+        int numberOfRecordsRelationship = _subjectXCareer.numberOfRecords();
+        int positionRelationship = 0;
+        bool relationshipFound = false;
+        while(!relationshipFound && positionRelationship < numberOfRecordsRelationship) {
+            StudentXCareer studentXCareer = _studentXCareer.read(positionRelationship);
+            if(career.getState() && career.getId() == studentXCareer.getSecondResourceId() 
+            && student.getId() == studentXCareer.getFirstResourceId()) {
+                relationshipFound = true;
+                careerId = studentXCareer.getSecondResourceId();
+            }
+            positionRelationship++;
+        }
+    }
 
+    int numberOfRecordsSubject = _subjectFile.numberOfRecords();
+    int numberOfRecordsRelationship = _subjectXCareer.numberOfRecords();
+    Career career = _careerFile.read(_careerFile.searchRecord(careerId));
+    
+    for(int i = 0; i < numberOfRecordsRelationship; i++) {
+        SubjectXCareer subjectXCareer = _subjectXCareer.read(i);
+        for(int j = 0; j < numberOfRecordsSubject; j++) {
+            Subject subject = _subjectFile.read(j);
+            if(career.getState() && career.getId() == subjectXCareer.getSecondResourceId() 
+            && subject.getState() && subject.getId() == subjectXCareer.getFirstResourceId()) {
+                subject.show();
+            }
+        }
+    }
 };
 void Student::removeSubject() {
 
@@ -141,7 +174,7 @@ void Student::generateCertificate(ExamXStudentXSubject examXStudentXSubject, Exa
         }
         positionSubject++;
     }
-}
+};
 void Student::showGeneratedCertificate(Exam exam, Student student, Subject subject) {
     System system = System("UNIVERSIDAD TECNOLOGICA NACIONAL", "Argentina", "Buenos Aires");
     Fecha date;
@@ -152,43 +185,12 @@ void Student::showGeneratedCertificate(Exam exam, Student student, Subject subje
     std::cout << std::endl;
     std::cout << "FIRMA: " << system.getName() << std::endl;
 };
-// void Student::showGeneratedCertificate(Exam exam, Student student, Subject subject) {
-//     System system = System("UNIVERSIDAD TECNOLOGICA NACIONAL", "Argentina", "Buenos Aires");
-//     Fecha date;
-
-//     // Nombre del archivo HTML
-//     const char* file_name = "certificate.html";
-
-//     // Contenido HTML
-//     const char* html_content = R"(
-//         <!DOCTYPE html>
-//         <html>
-//         <head>
-//             <title>Certificado</title>
-//         </head>
-//         <body>
-//             <h2>SE CERTIFICA QUE )";
-
-//     // Abrir el archivo HTML
-//     std::ofstream file(file_name);
-
-//     // Verificar si el archivo se abrió correctamente
-//     if (file.is_open()) {
-//         // Escribir el contenido HTML en el archivo
-//         file << html_content << student.getName() << " " << student.getSurname() << " rindió el examen correspondiente a la materia "
-//              << subject.getName() << " el día " << ".. / .. / .." << ".<br>";
-//         file << "Se extiende el presente a pedido del/la interesado/a para ser presentado ante quien corresponda<br>";
-//         file << "A la fecha del " << date.toString() << ", en " << system.getLocation() << ".<br><br>";
-//         file << "Firma: " << system.getName() << "</h2></body></html>";
-//         // Cerrar el archivo
-//         file.close();
-//         std::cout << "Archivo HTML generado correctamente: " << file_name << std::endl;
-//     } else {
-//         std::cerr << "Error al abrir el archivo para escribir." << std::endl;
-//     }
-// };
 void Student::showExam(Exam exam, Subject subject) {
-    
+    std::cout << "INFORMACION EXAMEN" << std::endl;
+    std::cout << "ID: " << exam.getId() << std::endl;
+    std::cout << "CALIFICACION: " << exam.getGrade() << std::endl;
+    std::cout << "FECHA: " << exam.getDate().toString() << std::endl;
+    std::cout << "MATERIA: " << subject.getName() << std::endl;
 };
 void Student::show(){
     std::cout << "LEGAJO         : " << getId() << std::endl; 

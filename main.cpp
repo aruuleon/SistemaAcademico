@@ -9,6 +9,16 @@ int main() {
     System system("UNIVERSIDAD TECNOLOGICA NACIONAL", "Argentina", "Buenos Aires");
     system.runProgram();
 
+    // GenericFile <Exam> _examFile = GenericFile <Exam> ("exams.dat"); //?
+    // Exam exam(1, 5 , Fecha(2,5,2023));
+    // GenericFile <ExamXStudentXSubject> _examXStudentXSubjectFile = GenericFile <ExamXStudentXSubject> ("examsXStudentsXSubjects.dat"); //?
+    // ExamXStudentXSubject examXStudentXSubject(1, 1 , 1, true);
+    // _examFile.save(exam);
+    // _examXStudentXSubjectFile.save(examXStudentXSubject);
+
+    // GenericFile <StudentXSubject> _studentXSubjectFile = GenericFile <StudentXSubject> ("studentsXSubjects.dat");
+    // _studentXSubjectFile.save(StudentXSubject(1, 1));
+
     // GenericFile <SuperAdministrator> superAdministratorFile ("superAdministrators.dat");
     // GenericFile <Administrator> administratorFile ("administrators.dat");
     // GenericFile <UserLogin> userLoginFile ("usersLogin.dat");
